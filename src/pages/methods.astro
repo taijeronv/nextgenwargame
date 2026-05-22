@@ -1,0 +1,290 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SEO from '../components/SEO.astro';
+import ForwardLink from '../components/ForwardLink.astro';
+
+const pageTitle = 'Methods';
+const pageDescription =
+  'Methods behind NextGen Wargame: governed AI workflows, exercise design, controller-facing products, and AI-assisted production for high-consequence training environments.';
+---
+
+<PageLayout>
+  <SEO
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    type="profile"
+  />
+
+  <section class="about-hero" aria-labelledby="about-title">
+    <p class="eyebrow">Methods · Capabilities · Operating Style</p>
+    <h1 id="about-title">NextGen Wargame uses governed AI methods to build training and gaming products that can survive execution.</h1>
+    <p class="lead">
+      The focus is practical: accelerate production without handing over judgment, source truth, or risk control. CADE is the strongest example so far, but the methods are meant to generalize across future AI gaming and training projects.
+    </p>
+  </section>
+
+  <section class="story-grid" aria-label="Professional story">
+    <article class="story-card story-card--primary">
+      <span>01</span>
+      <h2>AI is the production engine, not the design authority.</h2>
+      <p>
+        AI is fast. It is not reliable without a human in control of the inputs, the acceptance criteria, and the approval gate. I design the exercise logic, govern the source material, and decide what changes after live execution. AI drafts, checks, verifies, aligns, and revises inside those constraints.
+      </p>
+    </article>
+
+    <article class="story-card">
+      <span>02</span>
+      <h2>What I build</h2>
+      <p>
+        CADE controller packages, operational orders, annexes, adjudication aids, evaluation tools, and the AI workflows that generate and govern them. Every product traces back to an approved source layer before it reaches execution.
+      </p>
+    </article>
+
+    <article class="story-card">
+      <span>03</span>
+      <h2>What these methods are for</h2>
+      <p>
+        Teams that need realistic training or decision-support products under time pressure. Controllers and facilitators who need artifacts that work in the room without designer support. Leaders who need AI used responsibly, with review gates and traceable outputs.
+      </p>
+    </article>
+  </section>
+
+  <section class="about-section">
+    <div class="section-kicker">Method Definition</div>
+    <h2>Governed AI for controller-facing products</h2>
+    <p>
+      The core method is straightforward: frame the product, constrain the source layer, generate inside bounded tasks, review against acceptance criteria, and redesign from execution evidence instead of presentation polish.
+    </p>
+    <p>
+      The output is not just text. It is a usable package: prompts, controller aids, adjudication logic, delivery order, and runtime guardrails that reduce failure under pressure.
+    </p>
+  </section>
+
+  <section class="capability-band" aria-label="Core capabilities">
+    <div>
+      <p class="section-kicker">Demonstrated Capabilities</p>
+      <h2>What this looks like in practice</h2>
+    </div>
+    <ul class="capability-list">
+      <li><strong>Exercise design:</strong> Designed CADE from problem statement to live execution in one week. Three runs. Average 19 participants. No simulation infrastructure.</li>
+      <li><strong>Controller package production:</strong> Generated five-document controller packages from OPORD source truth using Claude, ChatGPT, and Gemini, trainer-reviewed before every execution.</li>
+      <li><strong>Operational product development:</strong> Produced OPORDs, annexes, op-boards, and supporting planning documents using AI-assisted drafting with human-governed approval at every gate.</li>
+      <li><strong>AI workflow governance:</strong> Separated AI production from design authority across every CADE artifact. Source-truth discipline enforced. No downstream product allowed to drift from the approved source layer.</li>
+      <li><strong>Evidence-driven iteration:</strong> Live execution exposed controller friction and time-box failures. The workflow and artifact architecture were redesigned before the next run.</li>
+    </ul>
+  </section>
+
+  <section class="about-section">
+    <div class="section-kicker">Operating Belief</div>
+    <h2>Speed only matters if the product stays credible.</h2>
+    <p>
+      The goal is to produce usable products in days instead of weeks while preserving source truth, doctrinal alignment, human review, and execution value.
+    </p>
+    <p>
+      CADE is the clearest example. Three executions. Nineteen participants per session on average. One week from problem statement to execution-ready controller package. AI made that timeline possible. The training logic, adjudication model, controller discipline, and final approval remained human-led throughout.
+    </p>
+  </section>
+
+  <section class="proof-strip" aria-label="Proof points">
+    <article>
+      <strong>1 week · 3 executions · ~19 participants</strong>
+      <p>CADE went from problem statement to live battalion staff exercise in one week and has run three times without simulation infrastructure.</p>
+    </article>
+    <article>
+      <strong>4 of 4 validation criteria met</strong>
+      <p>Staff operated inside the structure. Controllers executed with delivered artifacts. Consequences created decision pressure. Learning was captured before the next turn.</p>
+    </article>
+    <article>
+      <strong>Zero designer dependency at execution</strong>
+      <p>Independent controller teams ran CADE without the designer present. The Controller Package was the only artifact they needed.</p>
+    </article>
+  </section>
+
+  <section class="about-cta">
+    <div>
+      <h2>Explore the work</h2>
+      <p>
+        The CADE case study shows the capstone implementation. The decisions archive shows where the method was constrained, defended, and refined.
+      </p>
+    </div>
+    <div class="cta-links">
+      <ForwardLink href="/projects/cade" text="Read the CADE case study" />
+      <ForwardLink href="/decisions" text="Review operating decisions" variant="muted" />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .about-hero {
+    padding: 2rem 0 3rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2.25rem, 7vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+    margin-bottom: 1.5rem;
+  }
+
+  .lead {
+    color: var(--color-text-secondary);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .story-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .story-card--primary {
+    grid-row: span 2;
+    background: var(--gradient-card);
+  }
+
+  .story-card span {
+    color: var(--color-accent);
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .story-card h2,
+  .about-section h2,
+  .capability-band h2,
+  .about-cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    margin-bottom: 1rem;
+  }
+
+  .story-card p,
+  .about-section p,
+  .about-cta p,
+  .proof-strip p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .about-section {
+    border-top: 1px solid var(--color-border);
+    padding: 3rem 0;
+  }
+
+  .about-section p + p {
+    margin-top: 1rem;
+  }
+
+  .capability-band {
+    background:
+      linear-gradient(135deg, rgba(110, 231, 183, 0.12), rgba(251, 191, 36, 0.06)),
+      var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin: 0 0 3rem;
+  }
+
+  .capability-list {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+
+  .capability-list li {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .capability-list strong {
+    color: var(--color-text);
+  }
+
+  .proof-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 3rem 0;
+  }
+
+  .proof-strip article {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .proof-strip strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .about-cta {
+    align-items: center;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: max-content;
+  }
+
+  @media (max-width: 900px) {
+    .story-grid,
+    .proof-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .story-card--primary {
+      grid-row: auto;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .about-cta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .cta-links {
+      min-width: 0;
+    }
+  }
+</style>

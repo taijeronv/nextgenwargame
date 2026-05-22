@@ -1,0 +1,166 @@
+---
+/**
+ * Projects Index Page
+ * 
+ * Lists all projects as case studies with impact summaries. Projects are displayed
+ * in a prioritized order: custom order (if specified) takes precedence, otherwise
+ * sorted by year (most recent first). Featured projects are highlighted.
+ * 
+ * Features:
+ * - Queries all projects from content collection
+ * - Smart sorting: custom order → year (descending)
+ * - Displays project and featured count statistics
+ * - Uses ProjectCard component for consistent presentation
+ * - SEO optimization
+ * - Empty state handling
+ * 
+ * Route: /projects
+ * 
+ * @page
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEO from '../../components/SEO.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import PageStats from '../../components/PageStats.astro';
+import { getCollection } from 'astro:content';
+import { pagesConfig } from '../../pages.config';
+
+/**
+ * Queries all projects from the content collection
+ */
+const allProjects = await getCollection('projects');
+
+/**
+ * Sorts projects with intelligent prioritization
+ * 
+ * Sorting logic:
+ * 1. If both projects have an 'order' field, sort by order (ascending)
+ * 2. Projects with 'order' field are prioritized over those without
+ * 3. Projects without 'order' are sorted by year (descending - newest first)
+ * 
+ * This allows manual curation of featured projects while maintaining
+ * chronological order for others.
+ */
+const sortedProjects = allProjects.sort((a, b) => {
+  // If both have order field, sort by order
+  if (a.data.order !== undefined && b.data.order !== undefined) {
+    return a.data.order - b.data.order;
+  }
+  // If only one has order, prioritize it
+  if (a.data.order !== undefined) return -1;
+  if (b.data.order !== undefined) return 1;
+  // Otherwise sort by year (descending)
+  return b.data.year - a.data.year;
+});
+
+/**
+ * Total count of projects for statistics display
+ */
+const totalProjects = sortedProjects.length;
+
+/**
+ * Count of featured projects for statistics display
+ */
+const featuredCount = sortedProjects.filter(p => p.data.featured).length;
+const supportCount = totalProjects - featuredCount;
+---
+
+<BaseLayout>
+  <SEO 
+    slot="head"
+    title={pagesConfig.projects.title}
+    description={pagesConfig.projects.description}
+    type="website"
+  />
+
+  <main class="page-container">
+    <header class="page-header">
+      <h1 class="page-title">{pagesConfig.projects.heading}</h1>
+      <p class="page-intro">
+        {pagesConfig.projects.intro}
+      </p>
+      <PageStats text={`${totalProjects} projects · ${featuredCount} featured`} />
+    </header>
+
+    <section class="portfolio-frame" aria-label="Portfolio structure">
+      <article>
+        <span>Capstone</span>
+        <strong>CADE</strong>
+        <p>The flagship exercise framework and the clearest proof of the operating model.</p>
+      </article>
+      <article>
+        <span>Supporting systems</span>
+        <strong>{supportCount} workflow projects</strong>
+        <p>Generators, tooling, and artifact pipelines that make the broader NextGen Wargame approach repeatable.</p>
+      </article>
+      <article>
+        <span>What ties them together</span>
+        <strong>Source truth + runtime usability</strong>
+        <p>Every project is judged by whether it helps a controller, trainer, or staff work faster without losing coherence.</p>
+      </article>
+    </section>
+
+    {sortedProjects.length > 0 ? (
+      <div class="card-list">
+        {sortedProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            slug={project.id}
+            outcomeSummary={project.data.outcomeSummary}
+            role={project.data.role}
+            year={project.data.year}
+            techStack={project.data.techStack}
+            featured={project.data.featured}
+            status={project.data.status}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="empty-state">No projects available yet.</p>
+    )}
+  </main>
+</BaseLayout>
+
+<style>
+  .portfolio-frame {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0 0 2.5rem;
+  }
+
+  .portfolio-frame article {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .portfolio-frame span {
+    color: var(--color-accent);
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .portfolio-frame strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .portfolio-frame p {
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .portfolio-frame {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

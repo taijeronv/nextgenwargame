@@ -1,0 +1,525 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+import StructuredData from '../components/StructuredData.astro';
+import ForwardLink from '../components/ForwardLink.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import DecisionCard from '../components/DecisionCard.astro';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../config';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+const cadeProject = allProjects.find((project) => project.id === 'cade');
+const architectureModules = cadeProject?.data.architectureModules ?? [];
+const evidenceSignals = cadeProject?.data.evidence ?? [];
+const turnRhythm = cadeProject?.data.turnRhythm ?? [];
+const fitCriteria = cadeProject?.data.fitCriteria ?? [];
+
+const allDecisions = await getCollection('decisions');
+const recentDecisions = allDecisions
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 6);
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={siteConfig.title}
+    description={siteConfig.description}
+    type="website"
+    noSuffix
+  />
+  <StructuredData type="WebSite" />
+  <StructuredData type="Person" />
+
+  <main class="home-page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <p class="eyebrow">AI gaming showcase</p>
+          <h1 class="hero-title">
+            NextGen Wargame showcases AI-assisted gaming systems, with CADE as the capstone project.
+          </h1>
+          <p class="hero-sub">
+            Governed AI workflows, controller-facing artifacts, and consequence-based design for projects that need to work under real decision pressure.
+          </p>
+          <p class="hero-meta">
+            {siteConfig.author.name} · {siteConfig.author.title}
+          </p>
+          <div class="hero-cta">
+            <a href="/projects/cade" class="btn-primary">Read the CADE case study</a>
+            <a href="/decisions" class="btn-secondary">See AI operating decisions</a>
+          </div>
+        </div>
+
+        <div class="hero-right" aria-label="CADE proof points">
+          <div class="proof-panel">
+            <span class="proof-label">Framework</span>
+            <strong>Combined Arms Decision Exercise</strong>
+            <p>A consequence-based staff training framework built around fixed decision rhythm, controller discipline, and learning capture.</p>
+          </div>
+          <div class="proof-panel">
+            <span class="proof-label">AI role</span>
+            <strong>Production engine, not design authority</strong>
+            <p>AI accelerated research, drafting, and artifact iteration while human governance controlled purpose, standards, and approval.</p>
+          </div>
+          <div class="proof-panel">
+            <span class="proof-label">Product move</span>
+            <strong>Unified Controller Package</strong>
+            <p>The runtime artifact consolidates execution logic, role aids, decision prompts, and review tools for independent facilitation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>Featured projects</h2>
+        <ForwardLink href="/projects" text="View all" variant="muted" />
+      </div>
+      <p class="section-intro">
+        CADE leads the portfolio, but the supporting tools matter too. The surrounding generators and production workflows are what make the broader NextGen Wargame approach repeatable.
+      </p>
+      <div class="card-list">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            slug={project.id}
+            outcomeSummary={project.data.outcomeSummary}
+            role={project.data.role}
+            year={project.data.year}
+            techStack={project.data.techStack}
+            featured={project.data.featured}
+            status={project.data.status}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>AI Operating Decisions</h2>
+        <ForwardLink href="/decisions" text="View all" variant="muted" />
+      </div>
+      <p class="section-intro">
+        The decision records show how AI was governed: where it accelerated production, where it was constrained, and where human judgment stayed authoritative.
+      </p>
+      <div class="card-list card-list--compact">
+        {recentDecisions.map((decision) => (
+          <DecisionCard
+            title={decision.data.title}
+            slug={decision.id}
+            context={decision.data.context}
+            date={decision.data.date}
+            tags={decision.data.tags}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>CADE product architecture</h2>
+        <ForwardLink href="/projects/cade" text="Full case study" variant="muted" />
+      </div>
+      <p class="section-intro">
+        CADE is a system. Each module maps to a practical AI operator skill: source control, workflow design, adjudication structure, runtime usability, and evidence capture.
+      </p>
+      <div class="architecture-strip">
+        {architectureModules.map((module, index) => (
+          <article class="architecture-tile">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{module.name}</h3>
+            <p>{module.operatorSkill}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>How a turn works</h2>
+        <ForwardLink href="/projects/cade" text="Read mechanics" variant="muted" />
+      </div>
+      <p class="section-intro">
+        CADE uses a fixed decision rhythm. The value is repeatable pressure, visible tradeoffs, and consequences that carry forward.
+      </p>
+      <div class="rhythm-rail">
+        {turnRhythm.map((item, index) => (
+          <article class="rhythm-step">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{item.phase}</strong>
+            <p>{item.purpose}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>Evidence over polish</h2>
+      </div>
+      <p class="section-intro">
+        The site keeps sensitive details generalized for now, but the framework is still presented around observable execution signals rather than vague claims.
+      </p>
+      <div class="evidence-grid">
+        {evidenceSignals.map((item) => (
+          <article class="evidence-tile">
+            <strong>{item.label}</strong>
+            <p>{item.result}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block fit-section">
+      <div>
+        <h2>Where CADE fits</h2>
+        <p>
+          CADE is intentionally scoped. It is strongest when the goal is decision behavior under pressure, not when the event requires technical simulation fidelity or formal doctrinal certification.
+        </p>
+      </div>
+      <ul>
+        {fitCriteria.map((criterion) => (
+          <li>{criterion}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="thinking">
+      <h2>What this site demonstrates</h2>
+      <p>
+        AI gaming systems · governed AI output · source-truth discipline · human-usable artifacts · execution validation · iteration from evidence instead of polish
+      </p>
+    </section>
+
+    <section id="contact" class="cta">
+      <h2>Talk about NextGen Wargame</h2>
+      <p>
+        Reach out to discuss CADE, AI-assisted training design, or AI gaming projects built for real operational constraints.
+      </p>
+      <a href={`mailto:${siteConfig.author.email}`} class="btn-primary">{siteConfig.author.email}</a>
+    </section>
+  </main>
+
+  <style>
+    .home-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .hero {
+      padding: 4rem 0 5rem;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .eyebrow,
+    .proof-label {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.25rem, 6vw, 4.8rem);
+      line-height: 1.02;
+      font-weight: 750;
+      letter-spacing: -0.055em;
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      max-width: 680px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-meta {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.75rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--color-text);
+      color: var(--color-bg);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    .hero-right {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .proof-panel {
+      padding: 1.25rem;
+      background:
+        linear-gradient(135deg, rgba(59, 130, 246, 0.08), transparent),
+        var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+    }
+
+    .architecture-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+    }
+
+    .architecture-tile {
+      min-height: 210px;
+      padding: 1.25rem;
+      border-right: 1px solid var(--color-border);
+      background:
+        linear-gradient(180deg, rgba(59, 130, 246, 0.08), transparent 62%),
+        var(--color-bg-secondary);
+    }
+
+    .architecture-tile:last-child {
+      border-right: 0;
+    }
+
+    .architecture-tile span {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .architecture-tile h3 {
+      color: var(--color-text);
+      font-size: 1rem;
+      line-height: 1.35;
+      margin-bottom: 0.8rem;
+    }
+
+    .architecture-tile p,
+    .evidence-tile p {
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .rhythm-rail {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .rhythm-step {
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg-secondary);
+    }
+
+    .rhythm-step span {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.85rem;
+    }
+
+    .rhythm-step strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 0.55rem;
+    }
+
+    .rhythm-step p {
+      color: var(--color-text-secondary);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .fit-section {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: var(--color-bg-secondary);
+    }
+
+    .fit-section h2 {
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .fit-section p {
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+    }
+
+    .fit-section ul {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+      padding: 0;
+    }
+
+    .fit-section li {
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      padding-left: 1.35rem;
+      position: relative;
+    }
+
+    .fit-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+    }
+
+    .evidence-tile {
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg-secondary);
+    }
+
+    .evidence-tile strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 0.65rem;
+      line-height: 1.4;
+    }
+
+    .proof-panel strong {
+      display: block;
+      color: var(--color-text);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .proof-panel p,
+    .section-intro {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .section-block {
+      margin-bottom: 4.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2,
+    .thinking h2,
+    .cta h2 {
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .section-intro {
+      max-width: 760px;
+      margin-bottom: 1.5rem;
+    }
+
+    .thinking,
+    .cta {
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: var(--color-bg-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .thinking p,
+    .cta p {
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin: 1rem 0 1.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .architecture-strip,
+      .evidence-grid,
+      .rhythm-rail,
+      .fit-section {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-tile {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .architecture-tile:last-child {
+        border-bottom: 0;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</BaseLayout>

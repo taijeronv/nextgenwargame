@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title="Page Not Found"
+    description="The page you're looking for doesn't exist."
+  />
+
+  <main class="not-found">
+    <p class="not-found-code">404</p>
+    <h1 class="not-found-title">Page not found</h1>
+    <p class="not-found-body">That page doesn't exist or has moved.</p>
+    <div class="not-found-links">
+      <a href="/" class="link-primary">Home</a>
+      <a href="/projects" class="link-secondary">Case Studies</a>
+      <a href="/decisions" class="link-secondary">Decisions</a>
+    </div>
+  </main>
+
+  <style>
+    .not-found {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      text-align: center;
+    }
+
+    .not-found-code {
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .not-found-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .not-found-body {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .not-found-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .link-primary {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .link-primary:hover {
+      text-decoration: underline;
+    }
+
+    .link-secondary {
+      font-size: 0.9375rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .link-secondary:hover {
+      color: var(--color-text);
+    }
+  </style>
+</BaseLayout>

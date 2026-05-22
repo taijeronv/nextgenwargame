@@ -1,26 +1,18 @@
 [build]
-  command = "hugo --gc --minify -b $URL"
-  publish = "public"
+  command = "npm run build"
+  publish = "dist"
 
 [build.environment]
-  HUGO_VERSION = "0.60.1"
-  HUGO_ENABLEGITINFO = "true"
-
-[context.production.environment]
-  HUGO_ENV = "production"
+  NODE_VERSION = "22.12.0"
 
 [context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+  command = "npm run build"
 
 [context.branch-deploy]
-  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+  command = "npm run build"
 
 [[headers]]
-  for = "*.webmanifest"
+  for = "/*"
   [headers.values]
-    Content-Type = "application/manifest+json; charset=UTF-8"
-
-[[headers]]
-  for = "index.xml"
-  [headers.values]
-    Content-Type = "application/rss+xml"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"

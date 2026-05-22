@@ -1,42 +1,65 @@
-# [Academic Kickstart](https://sourcethemes.com/academic/)
+# NextGen Wargame
 
-**Academic** makes it easy to create a beautiful website for free using Markdown, Jupyter, or RStudio. Customize anything on your site with widgets, themes, and language packs. [Check out the latest demo](https://academic-demo.netlify.com/) of what you'll get in less than 10 minutes, or [view the showcase](https://sourcethemes.com/academic/#expo).
+## Purpose
+`nextgenwargame` is an Astro site for AI-assisted gaming and training design work. The public-facing position is:
 
-**Academic Kickstart** provides a minimal template to kickstart your new website.
+- `CADE` is the capstone project.
+- Supporting projects show the workflow stack around it.
+- Decision records explain the governance model behind the outputs.
+- Methods explain how AI is being used as a production engine without handing over design authority.
 
-- [**Get Started**](#install)
-- [View the documentation](https://sourcethemes.com/academic/docs/)
-- [Ask a question](http://discuss.gohugo.io/)
-- [Request a feature or report a bug](https://github.com/gcushen/hugo-academic/issues)
-- Updating? View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
-- Support development of Academic:
-  - [Donate a coffee](https://paypal.me/cushen)
-  - [Become a backer on Patreon](https://www.patreon.com/cushen)
-  - [Decorate your laptop or journal with an Academic sticker](https://www.redbubble.com/people/neutreno/works/34387919-academic)
-  - [Wear the T-shirt](https://academic.threadless.com/)
+## Site Structure
 
-[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png)](https://github.com/gcushen/hugo-academic/)
+Key folders:
 
-## Install
+```text
+/
+├── docs/content-curation/
+├── public/
+├── src/
+│   ├── components/
+│   ├── content/
+│   │   ├── decisions/
+│   │   ├── projects/
+│   │   └── research/
+│   ├── layouts/
+│   └── pages/
+│       ├── decisions/
+│       ├── projects/
+│       ├── methods.astro
+│       └── index.astro
+├── package.json
+└── netlify.toml
+```
 
-You can choose from one of the following four methods to install:
+Important routes:
 
-* [**one-click install using your web browser (recommended)**](https://sourcethemes.com/academic/docs/install/#install-with-web-browser)
-* [install on your computer using **Git** with the Command Prompt/Terminal app](https://sourcethemes.com/academic/docs/install/#install-with-git)
-* [install on your computer by downloading the **ZIP files**](https://sourcethemes.com/academic/docs/install/#install-with-zip)
-* [install on your computer with **RStudio**](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
+- `/` — homepage framed as the NextGen Wargame showcase.
+- `/projects/cade` — CADE capstone case study.
+- `/projects` — project portfolio and supporting workflow stack.
+- `/decisions` — AI governance and product decision archive.
+- `/methods` — operating method behind the site’s governed AI workflows.
+- `/ai-skills` — legacy route redirected to `/methods`.
 
-Then [personalize your new site](https://sourcethemes.com/academic/docs/get-started/).
+## Content Model
 
-## Ecosystem
+- `src/content/projects/` stores project and case-study entries.
+- `src/content/decisions/` stores decision records tied to projects and workflow choices.
+- `src/content/research/` stores in-progress research/supporting topics.
+- `docs/content-curation/` stores planning and curation material that supports the CADE showcase narrative.
 
-* **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
-* **[Academic Scripts](https://github.com/sourcethemes/academic-scripts):** Scripts to help migrate content to new versions of Academic
+## Commands
 
-## License
+Run from the repo root:
 
-Copyright 2017-present [George Cushen](https://georgecushen.com).
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start local dev server |
+| `npm run check` | Run Astro content and TypeScript checks |
+| `npm run build` | Build the production site into `dist/` |
+| `npm run preview` | Preview the production build locally |
 
-Released under the [MIT](https://github.com/sourcethemes/academic-kickstart/blob/master/LICENSE.md) license.
+## Migration Note
 
-[![Analytics](https://ga-beacon.appspot.com/UA-78646709-2/academic-kickstart/readme?pixel)](https://github.com/igrigorik/ga-beacon)
+This repo was migrated from an older Hugo-based `nextgenwargame` site into the current Astro implementation. The prior local site snapshot was preserved under `backups/` before replacement.

@@ -1,0 +1,179 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SEO from '../components/SEO.astro';
+import ForwardLink from '../components/ForwardLink.astro';
+
+const pageTitle = 'About NextGen Wargame';
+const pageDescription =
+  'Why NextGen Wargame exists, what it showcases, and how TJ Taijeron uses game design and governed AI to build training systems.';
+---
+
+<PageLayout>
+  <SEO
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    type="profile"
+  />
+
+  <section class="about-hero" aria-labelledby="about-title">
+    <p class="eyebrow">Mission</p>
+    <h1 id="about-title">NextGen Wargame is where TJ Taijeron documents AI-assisted gaming and training systems built for real-world decision pressure.</h1>
+    <p class="lead">
+      The site is not a resume dump. It is a working showcase of projects, decisions, and methods: how game logic, controller usability, source-truth discipline, and governed AI come together in usable training products.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>Why this site exists</h2>
+    <p>
+      The goal is to make the work legible. CADE is the capstone, but it sits inside a broader effort to design lighter-weight, faster-to-produce training systems that still preserve consequences, structure, and human judgment.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>The operating idea</h2>
+    <p>
+      Good AI use in this domain is not about autonomous design. It is about turning AI into a production engine inside hard constraints: approved source material, explicit acceptance criteria, controller-facing deliverables, and evidence from execution.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>Why games matter</h2>
+    <p>
+      The game-design question is always the same: what decision is the player making, with what information, and with what consequence. That framing translates directly into staff training, controller design, and adjudication structure.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <h2>What the repo contains</h2>
+    <p>
+      Projects show the artifact layer. Decisions show the governance layer. Methods show the repeatable patterns behind production. Together they explain not just what was built, but how it was made credible.
+    </p>
+  </section>
+
+  <section class="bio-section games-section">
+    <h2>The background behind it</h2>
+    <p>
+      TJ's background in military training, simulations, and exercise delivery is the reason the site is organized around execution reality rather than abstract AI claims. The emphasis stays on usable products, controlled workflows, and learning under pressure.
+    </p>
+  </section>
+
+  <section class="about-cta">
+    <div>
+      <h2>Start with the capstone</h2>
+      <p>
+        CADE is the clearest expression of the approach. The methods page explains how the surrounding workflow operates.
+      </p>
+    </div>
+    <div class="cta-links">
+      <ForwardLink href="/methods" text="View methods and capabilities" />
+      <ForwardLink href="/projects/cade" text="Read the CADE case study" variant="muted" />
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .about-hero {
+    padding: 2rem 0 3rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  .lead {
+    color: var(--color-text-secondary);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.7;
+    max-width: 68ch;
+  }
+
+  .bio-section {
+    border-top: 1px solid var(--color-border);
+    padding: 2.5rem 0;
+  }
+
+  .bio-section h2 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .bio-section p {
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+
+  .bio-section p + p {
+    margin-top: 1rem;
+  }
+
+  .games-section {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .games-section h2 {
+    color: var(--color-text);
+  }
+
+  .about-cta {
+    align-items: center;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  .about-cta h2 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-cta p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: max-content;
+  }
+
+  @media (max-width: 760px) {
+    .about-cta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .cta-links {
+      min-width: 0;
+    }
+  }
+</style>
