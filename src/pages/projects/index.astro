@@ -59,11 +59,6 @@ const sortedProjects = allProjects.sort((a, b) => {
  */
 const totalProjects = sortedProjects.length;
 
-/**
- * Count of featured projects for statistics display
- */
-const featuredCount = sortedProjects.filter(p => p.data.featured).length;
-const supportCount = totalProjects - featuredCount;
 ---
 
 <BaseLayout>
@@ -80,24 +75,24 @@ const supportCount = totalProjects - featuredCount;
       <p class="page-intro">
         {pagesConfig.projects.intro}
       </p>
-      <PageStats text={`${totalProjects} projects · ${featuredCount} featured`} />
+      <PageStats text={`${totalProjects} projects · capstone, pipeline, tooling`} />
     </header>
 
     <section class="portfolio-frame" aria-label="Portfolio structure">
       <article>
         <span>Capstone</span>
         <strong>CADE</strong>
-        <p>The flagship exercise framework and the clearest proof of the operating model.</p>
+        <p>The flagship exercise product: governed AI workflows turned into a repeatable training system.</p>
       </article>
       <article>
-        <span>Supporting systems</span>
-        <strong>{supportCount} workflow projects</strong>
-        <p>Generators, tooling, and artifact pipelines that make the broader NextGen Wargame approach repeatable.</p>
+        <span>Core pipeline</span>
+        <strong>Controller Package Generator</strong>
+        <p>The OPORD-to-runtime-package workflow that keeps turns, prompts, and adjudication traceable.</p>
       </article>
       <article>
-        <span>What ties them together</span>
-        <strong>Source truth + runtime usability</strong>
-        <p>Every project is judged by whether it helps a controller, trainer, or staff work faster without losing coherence.</p>
+        <span>Support tooling</span>
+        <strong>CADE Production Support Tools</strong>
+        <p>Gap-filling workflows for op-boards, annexes, briefings, and reviewable presentation outputs.</p>
       </article>
     </section>
 

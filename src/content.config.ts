@@ -13,6 +13,17 @@ const projects = defineCollection({
     outcomeSummary: z.string(),
     overview: z.string(),
     problem: z.string(),
+    designMove: z.string().optional(),
+    systemBuilt: z.string().optional(),
+    supportingTools: z.array(z.object({
+      name: z.string(),
+      purpose: z.string(),
+    })).optional(),
+    proof: z.array(z.object({
+      label: z.string(),
+      result: z.string(),
+    })).optional(),
+    transferableSkill: z.string().optional(),
     constraints: z.array(z.string()),
     approach: z.string(),
     aiOperatorSkills: z.array(z.string()).optional(),

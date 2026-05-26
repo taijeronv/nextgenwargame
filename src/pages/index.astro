@@ -10,13 +10,25 @@ import { siteConfig } from '../config';
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
-  .filter((project) => project.data.featured)
+  .filter((project) => project.data.featured || project.data.relatedProjects?.includes('cade'))
   .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 const cadeProject = allProjects.find((project) => project.id === 'cade');
-const architectureModules = cadeProject?.data.architectureModules ?? [];
-const evidenceSignals = cadeProject?.data.evidence ?? [];
-const turnRhythm = cadeProject?.data.turnRhythm ?? [];
-const fitCriteria = cadeProject?.data.fitCriteria ?? [];
+const proofSignals = cadeProject?.data.proof ?? cadeProject?.data.evidence ?? [];
+const buildSteps = [
+  'Frame the problem',
+  'Govern the source',
+  'Build the tool/workflow',
+  'Validate in execution',
+  'Iterate from evidence',
+];
+const proofFormat = [
+  'Problem',
+  'Design Move',
+  'System Built',
+  'Supporting Tools',
+  'Proof',
+  'Transferable Skill',
+];
 
 const allDecisions = await getCollection('decisions');
 const recentDecisions = allDecisions
@@ -39,49 +51,64 @@ const recentDecisions = allDecisions
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-left">
-          <p class="eyebrow">AI gaming showcase</p>
+          <p class="eyebrow">Governed AI product work</p>
           <h1 class="hero-title">
-            NextGen Wargame showcases AI-assisted gaming systems, with CADE as the capstone project.
+            I turn AI-assisted design work into usable training products.
           </h1>
           <p class="hero-sub">
-            Governed AI workflows, controller-facing artifacts, and consequence-based design for projects that need to work under real decision pressure.
+            I frame messy training problems, govern AI as a production system, build the supporting tools, validate the result in execution, and iterate from evidence.
           </p>
           <p class="hero-meta">
             {siteConfig.author.name} · {siteConfig.author.title}
           </p>
           <div class="hero-cta">
-            <a href="/projects/cade" class="btn-primary">Read the CADE case study</a>
-            <a href="/decisions" class="btn-secondary">See AI operating decisions</a>
+            <a href="/projects" class="btn-primary">See the project proofs</a>
+            <a href="/methods" class="btn-secondary">See the method</a>
           </div>
         </div>
 
         <div class="hero-right" aria-label="CADE proof points">
           <div class="proof-panel">
-            <span class="proof-label">Framework</span>
-            <strong>Combined Arms Decision Exercise</strong>
-            <p>A consequence-based staff training framework built around fixed decision rhythm, controller discipline, and learning capture.</p>
+            <span class="proof-label">Flagship proof</span>
+            <strong>CADE</strong>
+            <p>A compressed staff-training problem became a repeatable controller-facing exercise product.</p>
           </div>
           <div class="proof-panel">
-            <span class="proof-label">AI role</span>
-            <strong>Production engine, not design authority</strong>
-            <p>AI accelerated research, drafting, and artifact iteration while human governance controlled purpose, standards, and approval.</p>
+            <span class="proof-label">Execution evidence</span>
+            <strong>Three live runs · about 19 participants per session</strong>
+            <p>The first executable version was produced in one week and then improved from execution evidence.</p>
           </div>
           <div class="proof-panel">
-            <span class="proof-label">Product move</span>
+            <span class="proof-label">Product outcome</span>
             <strong>Unified Controller Package</strong>
-            <p>The runtime artifact consolidates execution logic, role aids, decision prompts, and review tools for independent facilitation.</p>
+            <p>The system evolved toward a reusable runtime package instead of fragmented one-off artifacts.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <section class="section-block process-section">
+      <div class="section-header">
+        <h2>How I Build</h2>
+        <ForwardLink href="/methods" text="Read methods" variant="muted" />
+      </div>
+      <div class="process-grid">
+        {buildSteps.map((step, index) => (
+          <article class="process-step">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step}</strong>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <section class="section-block">
       <div class="section-header">
-        <h2>Featured projects</h2>
+        <h2>Project proofs</h2>
         <ForwardLink href="/projects" text="View all" variant="muted" />
       </div>
       <p class="section-intro">
-        CADE leads the portfolio, but the supporting tools matter too. The surrounding generators and production workflows are what make the broader NextGen Wargame approach repeatable.
+        CADE is the capstone. The controller-package pipeline and production support tools show the system behind it: source governance, repeatable workflows, review gates, and runtime usability.
       </p>
       <div class="card-list">
         {featuredProjects.map((project) => (
@@ -101,10 +128,46 @@ const recentDecisions = allDecisions
 
     <section class="section-block">
       <div class="section-header">
+        <h2>Project Proof Format</h2>
+        <ForwardLink href="/projects/cade" text="See it applied" variant="muted" />
+      </div>
+      <p class="section-intro">
+        Every project should prove the same six things quickly, then push domain-specific detail lower on the page.
+      </p>
+      <div class="proof-format-grid">
+        {proofFormat.map((item, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{item}</strong>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <h2>CADE as flagship proof</h2>
+        <ForwardLink href="/projects/cade" text="Read CADE" variant="muted" />
+      </div>
+      <p class="section-intro">
+        CADE shows the full claim in one project: a compressed requirement became a usable exercise product through governed AI workflows, supporting tools, live validation, and evidence-driven iteration.
+      </p>
+      <div class="evidence-grid">
+        {proofSignals.slice(0, 4).map((item) => (
+          <article class="evidence-tile">
+            <strong>{item.label}</strong>
+            <p>{item.result}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
         <h2>AI Operating Decisions</h2>
         <ForwardLink href="/decisions" text="View all" variant="muted" />
       </div>
-      <p class="section-intro">
+      <p>
         The decision records show how AI was governed: where it accelerated production, where it was constrained, and where human judgment stayed authoritative.
       </p>
       <div class="card-list card-list--compact">
@@ -120,86 +183,10 @@ const recentDecisions = allDecisions
       </div>
     </section>
 
-    <section class="section-block">
-      <div class="section-header">
-        <h2>CADE product architecture</h2>
-        <ForwardLink href="/projects/cade" text="Full case study" variant="muted" />
-      </div>
-      <p class="section-intro">
-        CADE is a system. Each module maps to a practical AI operator skill: source control, workflow design, adjudication structure, runtime usability, and evidence capture.
-      </p>
-      <div class="architecture-strip">
-        {architectureModules.map((module, index) => (
-          <article class="architecture-tile">
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{module.name}</h3>
-            <p>{module.operatorSkill}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block">
-      <div class="section-header">
-        <h2>How a turn works</h2>
-        <ForwardLink href="/projects/cade" text="Read mechanics" variant="muted" />
-      </div>
-      <p class="section-intro">
-        CADE uses a fixed decision rhythm. The value is repeatable pressure, visible tradeoffs, and consequences that carry forward.
-      </p>
-      <div class="rhythm-rail">
-        {turnRhythm.map((item, index) => (
-          <article class="rhythm-step">
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{item.phase}</strong>
-            <p>{item.purpose}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block">
-      <div class="section-header">
-        <h2>Evidence over polish</h2>
-      </div>
-      <p class="section-intro">
-        The site keeps sensitive details generalized for now, but the framework is still presented around observable execution signals rather than vague claims.
-      </p>
-      <div class="evidence-grid">
-        {evidenceSignals.map((item) => (
-          <article class="evidence-tile">
-            <strong>{item.label}</strong>
-            <p>{item.result}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block fit-section">
-      <div>
-        <h2>Where CADE fits</h2>
-        <p>
-          CADE is intentionally scoped. It is strongest when the goal is decision behavior under pressure, not when the event requires technical simulation fidelity or formal doctrinal certification.
-        </p>
-      </div>
-      <ul>
-        {fitCriteria.map((criterion) => (
-          <li>{criterion}</li>
-        ))}
-      </ul>
-    </section>
-
-    <section class="thinking">
-      <h2>What this site demonstrates</h2>
-      <p>
-        AI gaming systems · governed AI output · source-truth discipline · human-usable artifacts · execution validation · iteration from evidence instead of polish
-      </p>
-    </section>
-
     <section id="contact" class="cta">
-      <h2>Talk about NextGen Wargame</h2>
+      <h2>Talk about governed AI training products</h2>
       <p>
-        Reach out to discuss CADE, AI-assisted training design, or AI gaming projects built for real operational constraints.
+        Reach out to discuss CADE, AI-assisted training design, or production systems built for real operational constraints.
       </p>
       <a href={`mailto:${siteConfig.author.email}`} class="btn-primary">{siteConfig.author.email}</a>
     </section>
@@ -296,6 +283,53 @@ const recentDecisions = allDecisions
         var(--color-bg-secondary);
       border: 1px solid var(--color-border);
       border-radius: 12px;
+    }
+
+    .process-section {
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.12), transparent 30rem),
+        var(--color-bg-secondary);
+    }
+
+    .process-grid,
+    .proof-format-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .process-step,
+    .proof-format-grid article {
+      min-height: 120px;
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: rgba(10, 15, 25, 0.42);
+    }
+
+    .process-step span,
+    .proof-format-grid span {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .process-step strong,
+    .proof-format-grid strong {
+      display: block;
+      color: var(--color-text);
+      line-height: 1.35;
+      font-size: 1rem;
+    }
+
+    .proof-format-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 
     .architecture-strip {
@@ -502,6 +536,8 @@ const recentDecisions = allDecisions
       .architecture-strip,
       .evidence-grid,
       .rhythm-rail,
+      .process-grid,
+      .proof-format-grid,
       .fit-section {
         grid-template-columns: 1fr;
       }
