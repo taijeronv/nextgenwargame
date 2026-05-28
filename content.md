@@ -23,7 +23,8 @@ The main claim is not that AI independently designed a training product. The cla
 - `/projects` lists CADE and supporting workflow projects using a repeatable Project Proof format.
 - `/decisions` archives AI governance and product architecture decisions.
 - `/methods` explains the repeatable operating model behind the work.
-- `/about` explains why the site exists and how the work fits TJ Taijeron's training, simulation, and exercise-delivery background.
+- `/about` explains why the site exists and how the work fits TJ's training, simulation, and exercise-delivery background.
+- `/story` holds TJ's short personal introduction, background, and path into the work.
 
 ## Content Model
 

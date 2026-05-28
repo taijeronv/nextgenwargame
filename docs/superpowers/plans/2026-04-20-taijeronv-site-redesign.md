@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a single-page Astro landing page showcasing TJ Taijeron's AI-Integrator work, replacing the outdated Hugo/Academic site, deployed to Netlify.
+**Goal:** Build a single-page Astro landing page showcasing TJ's AI-Integrator work, replacing the outdated Hugo/Academic site, deployed to Netlify.
 
 **Architecture:** Astro static site with Tailwind CSS. All content lives in typed data files (`src/content/projects/` and `src/data/skills.ts`) — editable without touching component code. Five section components assembled in a single `index.astro` page.
 
@@ -338,7 +338,7 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TJ Taijeron</title>
+    <title>TJ</title>
   </head>
   <body class="bg-gray-950">
     <Hero />
@@ -404,7 +404,7 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TJ Taijeron</title>
+    <title>TJ</title>
   </head>
   <body class="bg-gray-950">
     <Hero />
@@ -477,7 +477,7 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TJ Taijeron</title>
+    <title>TJ</title>
   </head>
   <body class="bg-gray-950">
     <Hero />
@@ -555,7 +555,7 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TJ Taijeron</title>
+    <title>TJ</title>
   </head>
   <body class="bg-gray-950">
     <Hero />
@@ -687,7 +687,7 @@ Edit `src/components/About.astro` — update the component to include the photo:
     <div class="flex flex-col sm:flex-row items-start gap-8 mb-8">
       <img
         src="/avatar.jpg"
-        alt="Vincent TJ Taijeron"
+        alt="Vincent TJ"
         class="w-28 h-28 rounded-full object-cover shrink-0 border-2 border-gray-700"
       />
       <div>

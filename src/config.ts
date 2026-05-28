@@ -21,6 +21,7 @@ export const siteConfig = {
   },
   nav: [
     { label: 'About', href: '/about' },
+    { label: 'Story', href: '/story' },
     { label: 'Methods', href: '/methods' },
     { label: 'CADE', href: '/projects/cade' },
     { label: 'Decisions', href: '/decisions' },

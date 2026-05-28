@@ -39,7 +39,7 @@ Overwrite `/Users/redleg/_repos/ai-workspaces/taijeronv-info/src/components/Abou
     <div class="flex flex-col sm:flex-row items-start gap-8 mb-8">
       <img
         src="/avatar.jpg"
-        alt="Vincent TJ Taijeron"
+        alt="Vincent TJ"
         class="w-28 h-28 rounded-full object-cover shrink-0 border-2 border-gray-700"
       />
       <div>
