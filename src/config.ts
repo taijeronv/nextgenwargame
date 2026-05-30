@@ -3,7 +3,7 @@ export const siteConfig = {
   language: 'en',
   title: 'NextGen Wargame',
   description:
-    'A showcase of AI gaming and AI-assisted training design projects, with CADE as the capstone case study.',
+    'TJ Taijeron designs governed AI workflows for military training and exercise production. CADE is the capstone proof.',
   author: {
     name: 'Vincent "TJ" Taijeron',
     title: 'AI Operator / AI Integrator',
@@ -21,7 +21,7 @@ export const siteConfig = {
   },
   nav: [
     { label: 'About', href: '/about' },
-    { label: 'Story', href: '/story' },
+    { label: 'Purpose', href: '/purpose' },
     { label: 'Methods', href: '/methods' },
     { label: 'CADE', href: '/projects/cade' },
     { label: 'Decisions', href: '/decisions' },

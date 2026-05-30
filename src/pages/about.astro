@@ -3,9 +3,9 @@ import PageLayout from '../layouts/PageLayout.astro';
 import SEO from '../components/SEO.astro';
 import ForwardLink from '../components/ForwardLink.astro';
 
-const pageTitle = 'About NextGen Wargame';
+const pageTitle = 'About';
 const pageDescription =
-  'Why NextGen Wargame exists and how TJ turns governed AI workflows into usable training products.';
+  'TJ’s path from Guam to military simulations, Ukraine monitoring operations, and self-taught AI work for training design.';
 ---
 
 <PageLayout>
@@ -16,73 +16,76 @@ const pageDescription =
     type="profile"
   />
 
-  <section class="about-hero" aria-labelledby="about-title">
+  <section class="story-hero" aria-labelledby="about-title">
     <p class="eyebrow">About</p>
-    <h1 id="about-title">NextGen Wargame documents how TJ turns messy training problems into usable products.</h1>
+    <h1 id="about-title">I grew up on the island of Guam. I ended up in Mariupol. Everyone just calls me TJ.</h1>
     <p class="lead">
-      The site exists to make the work legible: problem framing, source governance, AI-assisted production, controller-facing tools, execution validation, and iteration from evidence.
+      This is the short version of how military service, simulations, Ukraine, and self-taught AI work became NextGen Wargame.
     </p>
   </section>
 
-  <section class="bio-section">
-    <h2>Why this site exists</h2>
+  <section class="story-body" aria-labelledby="story-body-title">
+    <div class="eyebrow">Background</div>
+    <h2 id="story-body-title">How I got here</h2>
     <p>
-      AI output is easy to generate and hard to trust. This site shows the operating layer around the output: how a design problem is framed, how source truth is controlled, how tools and workflows are built, and how the result is validated before the claim is made.
+      After 20 years in the U.S. Army, I retired and joined Northrop Grumman as a simulations specialist at the Command and General Staff College. From there I moved to West Point as a Department of the Army civilian, serving nearly seven years as deputy for the simulations center.
+    </p>
+    <p>
+      I trained Afghan uniformed police in Khowst, then relocated to Odesa, Ukraine to develop NATO curriculum at the Ground Forces Academy.
+    </p>
+    <p>
+      When Russia annexed Crimea, I stayed. I joined the OSCE Special Monitoring Mission Ukraine and spent seven years in-country, first leading patrols out of the Mariupol Hub, then serving as a Monitor and Operations Officer with the Odessa Monitoring Team.
+    </p>
+    <p>
+      Today I’m at the Joint Multinational Simulations Center, Mission Training Command-Graf, Germany, planning brigade and below exercises for U.S. Army units and supporting the Joint Multinational Training Group-Ukraine.
+    </p>
+    <p>
+      Everything I know about AI, I taught myself. No courses, no certifications, just real problems that needed solving. This site is a product of that: built in collaboration with several AI models to tackle concrete challenges in military training and exercise planning.
+    </p>
+    <p>
+      Self-taught doesn’t mean surface-level. It means I learned by doing, and the work proves it.
     </p>
   </section>
 
-  <section class="bio-section">
-    <h2>The identity</h2>
-    <p>
-      TJ works as a design/product/operator hybrid: define the problem, build the workflow, govern the model, protect the review gate, and make the artifact usable by the people who have to run it.
-    </p>
+  <section class="story-prompts" aria-label="Story milestones">
+    <article>
+      <span>01</span>
+      <h2>Service and simulations</h2>
+      <p>Twenty years in the U.S. Army, then simulation work at CGSC and West Point.</p>
+    </article>
+
+    <article>
+      <span>02</span>
+      <h2>Ukraine and field operations</h2>
+      <p>Training, curriculum, patrol leadership, monitoring, and operations work in Khowst, Odesa, and Mariupol.</p>
+    </article>
+
+    <article>
+      <span>03</span>
+      <h2>AI learned by doing</h2>
+      <p>Self-taught AI work aimed at concrete military training and exercise-planning problems.</p>
+    </article>
   </section>
 
-  <section class="bio-section">
-    <h2>Why games matter</h2>
-    <p>
-      The game-design question is always the same: what decision is the player making, with what information, and with what consequence. That framing translates directly into staff training, controller design, and adjudication structure.
-    </p>
-  </section>
-
-  <section class="bio-section">
-    <h2>What the repo contains</h2>
-    <p>
-      Projects show the proof layer. Decisions show the governance layer. Methods show the repeatable process. Together they explain not just what was built, but how it was made credible and reusable.
-    </p>
-  </section>
-
-  <section class="bio-section games-section">
-    <h2>The background behind it</h2>
-    <p>
-      TJ's background in military training, simulations, and exercise delivery is why the site is organized around execution reality rather than abstract AI claims. The emphasis stays on usable products, controlled workflows, and learning under pressure.
-    </p>
-    <p>
-      For the personal path behind that background, read the story.
-    </p>
-    <ForwardLink href="/story" text="Read TJ's story" />
-  </section>
-
-  <section class="about-cta">
+  <section class="story-cta">
     <div>
-      <h2>Start with the proof</h2>
+      <h2>See what the story leads to</h2>
       <p>
-        CADE is the capstone project. The story gives the personal context, and the methods page explains the repeatable process behind it.
+        The Purpose page explains why the site exists. Methods and projects show how this background turns into usable training products.
       </p>
     </div>
     <div class="cta-links">
-      <ForwardLink href="/story" text="Read the story" />
-      <ForwardLink href="/methods" text="View methods and capabilities" />
-      <ForwardLink href="/projects/cade" text="Read the CADE case study" variant="muted" />
+      <ForwardLink href="/purpose" text="Read the site purpose" />
+      <ForwardLink href="/methods" text="See the method" variant="muted" />
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .about-hero {
-    padding: 2rem 0 3rem;
+  .story-hero {
     border-bottom: 1px solid var(--color-border);
     margin-bottom: 2.5rem;
+    padding: 2rem 0 3rem;
   }
 
   .eyebrow {
@@ -90,58 +93,81 @@ const pageDescription =
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
     margin-bottom: 1rem;
+    text-transform: uppercase;
   }
 
-  .about-hero h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+  .story-hero h1 {
+    font-size: clamp(2.25rem, 7vw, 4.75rem);
+    letter-spacing: -0.055em;
+    line-height: 1.02;
     margin-bottom: 1.5rem;
   }
 
   .lead {
     color: var(--color-text-secondary);
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
-    line-height: 1.7;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.65;
     max-width: 68ch;
   }
 
-  .bio-section {
-    border-top: 1px solid var(--color-border);
-    padding: 2.5rem 0;
+  .story-body {
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 42%),
+      var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  .bio-section h2 {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    letter-spacing: -0.02em;
+  .story-body h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: -0.03em;
     margin-bottom: 1rem;
   }
 
-  .bio-section p {
+  .story-body p,
+  .story-prompts p,
+  .story-cta p {
     color: var(--color-text-secondary);
     line-height: 1.75;
     max-width: 68ch;
   }
 
-  .bio-section p + p {
+  .story-body p + p {
     margin-top: 1rem;
   }
 
-  .games-section {
+  .story-prompts {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 3rem;
+  }
+
+  .story-prompts article {
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
-    border-radius: 14px;
-    padding: 2rem;
-    margin-top: 0.5rem;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
   }
 
-  .games-section h2 {
-    color: var(--color-text);
+  .story-prompts span {
+    color: var(--color-accent);
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
   }
 
-  .about-cta {
+  .story-prompts h2 {
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-cta {
     align-items: center;
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
@@ -149,19 +175,13 @@ const pageDescription =
     display: flex;
     gap: 2rem;
     justify-content: space-between;
-    margin-top: 3rem;
     padding: 2rem;
   }
 
-  .about-cta h2 {
+  .story-cta h2 {
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
-  }
-
-  .about-cta p {
-    color: var(--color-text-secondary);
-    line-height: 1.7;
   }
 
   .cta-links {
@@ -171,8 +191,14 @@ const pageDescription =
     min-width: max-content;
   }
 
+  @media (max-width: 840px) {
+    .story-prompts {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 760px) {
-    .about-cta {
+    .story-cta {
       align-items: flex-start;
       flex-direction: column;
     }
