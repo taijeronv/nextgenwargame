@@ -14,7 +14,7 @@ export const siteConfig = {
   },
   social: {
     github: '',
-    linkedin: '',
+    linkedin: 'https://linkedin.com/in/taijeronv',
     twitter: '',
     mastodon: '',
     bluesky: '',
