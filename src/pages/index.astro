@@ -169,24 +169,27 @@ const recentDecisions = allDecisions
 
     <section class="section-block proof-format-section">
       <div class="section-header">
-        <h2>What I Want A Recruiter To See</h2>
+        <h2>What This Work Shows</h2>
         <ForwardLink href="/projects/cade" text="See it applied" variant="muted" />
       </div>
       <p class="section-intro">
-        This is not a site about buzzwords. It is a site about whether I can take an unclear, high-pressure problem and make a working product out of it.
+        The useful signal is simple: I can take a vague, high-pressure problem, make it understandable, and turn it into something other people can use.
       </p>
       <div class="proof-format-grid">
         <article>
           <span>01</span>
-          <strong>I can simplify a hard problem without making it stupid.</strong>
+          <strong>Clear thinking when the problem is messy.</strong>
+          <p>I reduce noise without flattening the important details.</p>
         </article>
         <article>
           <span>02</span>
-          <strong>I can use AI as a fast workbench, not as a substitute for judgment.</strong>
+          <strong>AI used with judgment, not as a magic trick.</strong>
+          <p>I use models to move faster while keeping the decisions human-owned.</p>
         </article>
         <article>
           <span>03</span>
-          <strong>I can build something people can run without me standing beside it.</strong>
+          <strong>Ownership that survives handoff.</strong>
+          <p>The product has to work when someone else is the one using it.</p>
         </article>
       </div>
     </section>
@@ -206,6 +209,23 @@ const recentDecisions = allDecisions
             <p>{item.result}</p>
           </article>
         ))}
+      </div>
+    </section>
+
+    <section class="section-block workbench-section">
+      <div>
+        <p class="eyebrow">Model Workbench</p>
+        <h2>Notes from the field building with AI.</h2>
+        <p>
+          Short notes on what I am learning by using models in real work: where they help, where they mislead, and how I keep the final judgment human.
+        </p>
+      </div>
+      <div class="workbench-card">
+        <strong>Not full essays. Not theory.</strong>
+        <p>
+          Each note is meant to be small enough to read quickly and concrete enough to show how I actually work with AI, CADE, and product development.
+        </p>
+        <ForwardLink href="/model-workbench" text="Open Model Workbench" />
       </div>
     </section>
 
@@ -231,9 +251,9 @@ const recentDecisions = allDecisions
     </section>
 
     <section id="contact" class="cta">
-      <h2>Talk About Practical AI Product Work</h2>
+      <h2>If This Kind Of Work Is Useful</h2>
       <p>
-        Reach out if you want someone who can explain a hard problem plainly, build with AI carefully, and ship something that works outside a demo.
+        I am interested in teams that need plain explanations, careful AI use, and working products that hold up outside a demo.
       </p>
       <a href={`mailto:${siteConfig.author.email}`} class="btn-primary">{siteConfig.author.email}</a>
     </section>
@@ -450,6 +470,13 @@ const recentDecisions = allDecisions
       font-size: 1rem;
     }
 
+    .proof-format-grid p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 0.8rem;
+    }
+
     .proof-format-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -507,6 +534,50 @@ const recentDecisions = allDecisions
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
+    }
+
+    .workbench-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.65fr);
+      gap: 2rem;
+      align-items: stretch;
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(110, 231, 183, 0.12), transparent 34rem),
+        var(--color-bg-secondary);
+    }
+
+    .workbench-section h2 {
+      color: var(--color-text);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      margin-bottom: 1rem;
+    }
+
+    .workbench-section p,
+    .workbench-card p {
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+    }
+
+    .workbench-card {
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: rgba(10, 15, 25, 0.5);
+    }
+
+    .workbench-card strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .workbench-card p {
+      margin-bottom: 1rem;
     }
 
     .rhythm-rail {
@@ -664,6 +735,7 @@ const recentDecisions = allDecisions
       .rhythm-rail,
       .cade-definition,
       .turn-grid,
+      .workbench-section,
       .process-grid,
       .proof-format-grid,
       .fit-section {

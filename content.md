@@ -23,6 +23,7 @@ The main claim is not that AI independently designed a training product. The cla
 - `/projects` lists CADE and supporting workflow projects using a repeatable Project Proof format.
 - `/decisions` archives AI governance and product architecture decisions.
 - `/methods` explains the repeatable operating model behind the work.
+- `/model-workbench` holds short field notes on AI, CADE, model behavior, and practical build lessons.
 - `/about` holds TJ's short personal introduction, background, and path into the work.
 - `/purpose` explains why the site exists and how the work fits TJ's training, simulation, and exercise-delivery background.
 - `/story` redirects to `/about` for backward compatibility.
@@ -73,6 +74,10 @@ Decision records explain why the site and CADE workflow prioritize source truth,
 ### Methods
 
 The methods page should keep explaining the operating pattern: frame the product, constrain the source layer, generate bounded outputs, review against acceptance criteria, and revise from execution evidence.
+
+### Model Workbench
+
+Model Workbench is the short-notes lane: "Notes from the field building with AI." Entries should be concise, practical soundbites about AI, CADE, AI-assisted development, model behavior, and how TJ works with models in real projects. Treat it as field notes, not a full blog.
 
 ## Positioning Rules
 

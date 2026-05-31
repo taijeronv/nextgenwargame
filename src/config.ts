@@ -23,6 +23,7 @@ export const siteConfig = {
     { label: 'About', href: '/about' },
     { label: 'Purpose', href: '/purpose' },
     { label: 'Methods', href: '/methods' },
+    { label: 'Workbench', href: '/model-workbench' },
     { label: 'CADE', href: '/projects/cade' },
     { label: 'Decisions', href: '/decisions' },
     { label: 'Projects', href: '/projects' },

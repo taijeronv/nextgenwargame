@@ -39,6 +39,7 @@ Important routes:
 - `/projects` — project portfolio and supporting workflow stack.
 - `/decisions` — AI governance and product decision archive.
 - `/methods` — operating method behind the site’s governed AI workflows.
+- `/model-workbench` — short field notes on building with AI.
 - `/ai-skills` — legacy route redirected to `/methods`.
 
 ## Content Model
