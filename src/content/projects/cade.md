@@ -3,10 +3,10 @@ title: "CADE — Combined Arms Decision Exercise"
 role: "AI Operator / Design Authority"
 year: 2026
 duration: "Capstone development cycle"
-teamSize: 2
-outcomeSummary: "Turned a compressed battalion staff-training problem into a usable, repeatable exercise product. A two-person team produced the first executable version in one week; CADE has now run three times with about 19 participants per session."
-overview: "CADE is a battalion-level decision exercise product built for compressed training windows. I served as design authority: I framed the problem, governed the source layer, set acceptance criteria, shaped the controller workflow, approved AI-assisted outputs, and used live execution evidence to revise the system. The product moved from first executable version to repeated delivery and then toward a unified Controller Package for future runs."
-problem: "Battalion staffs need realistic combined arms decision practice, but the usual options require setup time, simulation operators, or preparation runway that compressed events do not have. The design problem was to create a credible staff-training product that could be built quickly, facilitated under pressure, and repeated without depending on heavy simulation infrastructure."
+teamSize: 1
+outcomeSummary: "CADE shows how a team thinks under pressure. I developed the first executable version in one week; it has now run three times with about 19 participants per session."
+overview: "CADE is a controlled turn cycle for training staff decisions. Each turn gives the staff enough context to act, forces a choice, captures the reasoning, shows the result, and turns that result into a review point. I designed and built CADE, used AI to move faster, and kept the design and validation under human control."
+problem: "Leaders often see activity in a training event: meetings, briefings, products, and discussion. What is harder to see is the thinking behind the recommendation. CADE was built to make that thinking visible quickly, without needing heavy simulation equipment or a long setup period."
 designMove: "I treated CADE as a governed production system, not a one-off exercise script. OPORD-quality source truth constrained every generated artifact; human design authority set the success criteria and review gates; execution evidence, not document polish, decided what changed next."
 systemBuilt: "I built a repeatable controller-facing exercise system: source-governed scenario material, a fixed turn engine, adjudication bands tied to observable staff behavior, learning capture, and a five-document Controller Package that gives controllers the prompts, timing, role aids, and review structure needed to run the event."
 supportingTools:
@@ -24,7 +24,7 @@ supportingTools:
     purpose: "Creates reviewed op-boards, annexes, and briefing outputs when incomplete unit inputs would otherwise stall production."
 proof:
   - label: "First executable version"
-    result: "A two-person team produced the initial executable CADE in one week."
+    result: "I developed the initial executable CADE in one week."
   - label: "Repeated live use"
     result: "CADE has run three times with an average of about 19 participants per session."
   - label: "First-run validation"

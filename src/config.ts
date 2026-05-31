@@ -3,12 +3,12 @@ export const siteConfig = {
   language: 'en',
   title: 'NextGen Wargame',
   description:
-    'TJ Taijeron designs governed AI workflows for military training and exercise production. CADE is the capstone proof.',
+    'TJ Taijeron built CADE, a practical decision exercise that shows how teams think under pressure and how AI can help build useful training products.',
   author: {
     name: 'Vincent "TJ" Taijeron',
     title: 'AI Operator / AI Integrator',
     bio:
-      'I design governed AI workflows for military training, planning, and exercise production.',
+      'I use AI carefully to build practical training and planning products that people can actually run.',
     email: 'vincent.taijeron@gmail.com',
     location: '',
   },

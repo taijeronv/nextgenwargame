@@ -382,7 +382,7 @@ Avoid:
 ### Phase 1: Content Blueprint
 
 - Finalize section order from this plan.
-- Decide public wording for sensitive details: Ukrainian officer training, exact execution dates, two-person team, one-week build, validation thresholds.
+- Decide public wording for sensitive details: Ukrainian officer training, exact execution dates, sole-developer attribution, one-week build, validation thresholds.
 - Resolve six-phase vs five-phase language.
 - Identify which artifacts can be shown publicly.
 
@@ -435,7 +435,7 @@ Deliverable:
 ## Open Decisions
 
 - Should public copy say "Ukrainian officer training" or use a generalized description?
-- Should the hero include "two-person team" and "one week"?
+- Should the hero include sole-developer attribution and "one week"?
 - Should the site publish exact performance thresholds such as 80% adjudication consistency and 60-second reference retrieval?
 - Should the page frame CADE as v3.0, v3.1, or simply "current CADE framework"?
 - Which sanitized artifacts can be displayed?

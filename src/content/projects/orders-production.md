@@ -3,7 +3,7 @@ title: "CADE Controller Package Generator"
 role: "AI Planning Workflow Designer"
 year: 2026
 duration: "Core production pipeline"
-outcomeSummary: "Built the core production pipeline that turns an OPORD into the five-document Controller Package used to run CADE, with source traceability and trainer review preserved across every turn."
+outcomeSummary: "Built the workflow that turns the source plan into the documents controllers use to run CADE, while keeping every turn tied to the same facts and trainer review."
 overview: "The Controller Package Generator is the production pipeline behind CADE. It takes an approved OPORD and produces the runtime documents controllers need: a master turn list and phase documents with situation updates, decision prompts, adjudication triggers, and consequence carry-forward. The workflow keeps drafting fast without allowing each document to drift from the source order or from the other phases."
 problem: "An OPORD-grounded exercise needs a repeatable way to turn source documents into controller-ready runtime materials. Manual drafting was slow, but speed was not the main risk. The harder problem was coherence: every turn had to trace to the same source, carry consequences forward, and remain usable by trainers and controllers under execution pressure."
 designMove: "I made the OPORD the governing source layer and generated the package in sequence, not as disconnected documents. That let AI accelerate drafting while human review checked source fidelity, phase continuity, and trainer fit before anything reached execution."

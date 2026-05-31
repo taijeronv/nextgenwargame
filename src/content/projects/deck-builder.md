@@ -3,7 +3,7 @@ title: "CADE Production Support Tools"
 role: "AI Workflow Designer"
 year: 2026
 duration: "Supporting toolset"
-outcomeSummary: "Built support workflows that remove CADE production blockers when units arrive without complete graphics, annexes, or briefing materials."
+outcomeSummary: "Built helper workflows for the messy parts of CADE production: missing maps, missing support material, and briefing updates that would otherwise slow the work down."
 overview: "CADE depends on a complete, coherent source package. In practice, production can stall when operational graphics, annexes, or briefing materials are missing or difficult to revise. This support toolset closes those gaps with reviewed workflows for op-boards, annexes, and briefing/deck output so the production chain keeps moving without weakening source-truth discipline."
 problem: "A governed exercise pipeline fails if required inputs are missing or if presentation updates consume the production cycle. Support tooling was needed to fill bounded artifact gaps, keep outputs reviewable, and prevent formatting work from blocking higher-value design review."
 designMove: "I separated each blocker into a bounded workflow with its own input, output, and human acceptance gate. The tools support the source package; they do not bypass it or redefine scenario logic."

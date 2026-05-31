@@ -60,7 +60,7 @@ Existing long-form fields remain available for deeper detail and migration safet
 
 ### CADE
 
-CADE is a battalion staff decision exercise built around fixed turn rhythm, source-governed scenario material, controller discipline, deterministic adjudication bands, and learning capture. It has run three times with an average of about 19 participants per session. The current public case study emphasizes that a two-person team produced the first executable version in one week using Claude, ChatGPT, and Gemini as governed production engines.
+CADE is a battalion staff decision exercise built around fixed turn rhythm, source-governed scenario material, controller discipline, deterministic adjudication bands, and learning capture. It has run three times with an average of about 19 participants per session. The current public case study emphasizes that TJ developed the first executable version in one week using Claude, ChatGPT, and Gemini as governed production engines.
 
 ### Supporting Projects
 

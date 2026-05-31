@@ -15,19 +15,29 @@ const featuredProjects = allProjects
 const cadeProject = allProjects.find((project) => project.id === 'cade');
 const proofSignals = cadeProject?.data.proof ?? cadeProject?.data.evidence ?? [];
 const buildSteps = [
-  'Frame the problem',
-  'Govern the source',
-  'Build the tool/workflow',
-  'Validate in execution',
-  'Iterate from evidence',
+  'Name the real problem',
+  'Keep the facts straight',
+  'Build the working tool',
+  'Try it with real people',
+  'Fix what the trial exposes',
 ];
-const proofFormat = [
-  'Problem',
-  'Design Move',
-  'System Built',
-  'Supporting Tools',
-  'Proof',
-  'Transferable Skill',
+const cadeTurn = [
+  {
+    label: 'Situation',
+    text: 'Give the staff just enough of the story to act.',
+  },
+  {
+    label: 'Decision',
+    text: 'Force a choice. No hiding in endless discussion.',
+  },
+  {
+    label: 'Reason',
+    text: 'Capture why they chose it and what risk they accepted.',
+  },
+  {
+    label: 'Result',
+    text: 'Show the consequence and use it for coaching.',
+  },
 ];
 
 const allDecisions = await getCollection('decisions');
@@ -51,47 +61,78 @@ const recentDecisions = allDecisions
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-left">
-          <p class="eyebrow">Governed AI product work</p>
+          <p class="eyebrow">CADE · Combined Arms Decision Exercise</p>
           <h1 class="hero-title">
-            I turn AI-assisted design work into usable training products.
+            CADE is a pressure test for staff decisions.
           </h1>
           <p class="hero-sub">
-            I frame messy training problems, govern AI as a production system, build the supporting tools, validate the result in execution, and iterate from evidence.
+            It gives a team a realistic problem, a short clock, and no perfect answer. They must choose, explain the tradeoff, see the result, and learn from what their reasoning missed.
+          </p>
+          <p class="hero-sub hero-sub--plain">
+            I designed and built CADE so leaders can see decision quality quickly: what the planning team noticed, what it ignored, what risk it accepted, and whether the recommendation made sense under pressure.
           </p>
           <p class="hero-meta">
             {siteConfig.author.name} · {siteConfig.author.title}
           </p>
           <div class="hero-cta">
-            <a href="/projects" class="btn-primary">See the project proofs</a>
-            <a href="/methods" class="btn-secondary">See the method</a>
+            <a href="/projects/cade" class="btn-primary">Read the CADE case study</a>
+            <a href="/methods" class="btn-secondary">See how I built it</a>
           </div>
         </div>
 
         <div class="hero-right" aria-label="CADE proof points">
           <div class="proof-panel">
-            <span class="proof-label">Flagship proof</span>
-            <strong>CADE</strong>
-            <p>A compressed staff-training problem became a repeatable controller-facing exercise product.</p>
+            <span class="proof-label">What it is</span>
+            <strong>A repeatable decision exercise</strong>
+            <p>Each turn asks for four things: a decision, the reason behind it, the result, and one lesson for review.</p>
           </div>
           <div class="proof-panel">
-            <span class="proof-label">Execution evidence</span>
-            <strong>Three live runs · about 19 participants per session</strong>
-            <p>The first executable version was produced in one week and then improved from execution evidence.</p>
+            <span class="proof-label">What it is not</span>
+            <strong>Not a simulator. Not an AI black box.</strong>
+            <p>CADE does not try to model every battlefield variable. It makes human judgment visible, and humans control the design and validation.</p>
           </div>
           <div class="proof-panel">
-            <span class="proof-label">Product outcome</span>
-            <strong>Unified Controller Package</strong>
-            <p>The system evolved toward a reusable runtime package instead of fragmented one-off artifacts.</p>
+            <span class="proof-label">What I proved</span>
+            <strong>Three live runs · about 19 people per session</strong>
+            <p>I built the first executable version in one week, then improved it from what happened in the room.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block cade-definition">
+      <div>
+        <p class="eyebrow">In plain English</p>
+        <h2>What Is CADE?</h2>
+        <p>
+          CADE is a way to find out how a staff thinks before the stakes are real. In plain terms, the staff is the planning team, and the controller is the facilitator running the exercise. The controller gives the team a changing situation. The team has to make a choice, explain its reasoning, accept the cost, and carry the consequence into the next turn.
+        </p>
+        <p>
+          The important part is not whether they guessed the “right” answer. The important part is whether their thinking was clear enough to inspect, coach, and improve.
+        </p>
+      </div>
+      <div class="turn-card">
+        <span class="proof-label">One CADE turn</span>
+        <div class="turn-grid">
+          {cadeTurn.map((step, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <strong>{step.label}</strong>
+              <p>{step.text}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
 
     <section class="section-block process-section">
       <div class="section-header">
-        <h2>How I Build</h2>
+        <h2>How I Work</h2>
         <ForwardLink href="/methods" text="Read methods" variant="muted" />
       </div>
+      <p class="section-intro">
+        My role is to turn a fuzzy problem into a tool people can actually use. AI helps me move faster, but it does not decide what the product should be.
+      </p>
       <div class="process-grid">
         {buildSteps.map((step, index) => (
           <article class="process-step">
@@ -104,11 +145,11 @@ const recentDecisions = allDecisions
 
     <section class="section-block">
       <div class="section-header">
-        <h2>Project proofs</h2>
+        <h2>More Than One Page Of Claims</h2>
         <ForwardLink href="/projects" text="View all" variant="muted" />
       </div>
       <p class="section-intro">
-        CADE is the capstone. The controller-package pipeline and production support tools show the system behind it: source governance, repeatable workflows, review gates, and runtime usability.
+        CADE is the main case. The supporting projects show the machinery behind it: how source material stayed consistent, how controller documents were built, and how incomplete inputs were turned into usable training products.
       </p>
       <div class="card-list">
         {featuredProjects.map((project) => (
@@ -126,31 +167,37 @@ const recentDecisions = allDecisions
       </div>
     </section>
 
-    <section class="section-block">
+    <section class="section-block proof-format-section">
       <div class="section-header">
-        <h2>Project Proof Format</h2>
+        <h2>What I Want A Recruiter To See</h2>
         <ForwardLink href="/projects/cade" text="See it applied" variant="muted" />
       </div>
       <p class="section-intro">
-        Every project should prove the same six things quickly, then push domain-specific detail lower on the page.
+        This is not a site about buzzwords. It is a site about whether I can take an unclear, high-pressure problem and make a working product out of it.
       </p>
       <div class="proof-format-grid">
-        {proofFormat.map((item, index) => (
-          <article>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{item}</strong>
-          </article>
-        ))}
+        <article>
+          <span>01</span>
+          <strong>I can simplify a hard problem without making it stupid.</strong>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>I can use AI as a fast workbench, not as a substitute for judgment.</strong>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>I can build something people can run without me standing beside it.</strong>
+        </article>
       </div>
     </section>
 
     <section class="section-block">
       <div class="section-header">
-        <h2>CADE as flagship proof</h2>
+        <h2>CADE As The Proof</h2>
         <ForwardLink href="/projects/cade" text="Read CADE" variant="muted" />
       </div>
       <p class="section-intro">
-        CADE shows the full claim in one project: a compressed requirement became a usable exercise product through governed AI workflows, supporting tools, live validation, and evidence-driven iteration.
+        The claim is simple: I can design the logic, use AI to accelerate the work, test the result with real users, and improve the product from evidence instead of opinion.
       </p>
       <div class="evidence-grid">
         {proofSignals.slice(0, 4).map((item) => (
@@ -164,11 +211,11 @@ const recentDecisions = allDecisions
 
     <section class="section-block">
       <div class="section-header">
-        <h2>AI Operating Decisions</h2>
+        <h2>How I Kept AI In Its Lane</h2>
         <ForwardLink href="/decisions" text="View all" variant="muted" />
       </div>
       <p>
-        The decision records show how AI was governed: where it accelerated production, where it was constrained, and where human judgment stayed authoritative.
+        AI helped draft, compare, revise, and produce materials quickly. I kept control of the problem, the source facts, the training logic, the review standard, and the final product.
       </p>
       <div class="card-list card-list--compact">
         {recentDecisions.map((decision) => (
@@ -184,9 +231,9 @@ const recentDecisions = allDecisions
     </section>
 
     <section id="contact" class="cta">
-      <h2>Talk about governed AI training products</h2>
+      <h2>Talk About Practical AI Product Work</h2>
       <p>
-        Reach out to discuss CADE, AI-assisted training design, or production systems built for real operational constraints.
+        Reach out if you want someone who can explain a hard problem plainly, build with AI carefully, and ship something that works outside a demo.
       </p>
       <a href={`mailto:${siteConfig.author.email}`} class="btn-primary">{siteConfig.author.email}</a>
     </section>
@@ -240,6 +287,11 @@ const recentDecisions = allDecisions
       margin-bottom: 1rem;
     }
 
+    .hero-sub--plain {
+      color: var(--color-text);
+      font-size: 1.08rem;
+    }
+
     .hero-meta {
       color: var(--color-text-muted);
       font-size: 0.9rem;
@@ -283,6 +335,76 @@ const recentDecisions = allDecisions
         var(--color-bg-secondary);
       border: 1px solid var(--color-border);
       border-radius: 12px;
+    }
+
+    .cade-definition {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(251, 191, 36, 0.14), transparent 22rem),
+        linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent 38rem),
+        var(--color-bg-secondary);
+    }
+
+    .cade-definition h2 {
+      color: var(--color-text);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      margin-bottom: 1rem;
+    }
+
+    .cade-definition p {
+      color: var(--color-text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .turn-card {
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: rgba(10, 15, 25, 0.5);
+    }
+
+    .turn-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .turn-grid article {
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .turn-grid span {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .turn-grid strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 0.45rem;
+    }
+
+    .turn-grid p {
+      color: var(--color-text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin: 0;
     }
 
     .process-section {
@@ -329,7 +451,11 @@ const recentDecisions = allDecisions
     }
 
     .proof-format-grid {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .proof-format-section .proof-format-grid article {
+      min-height: 150px;
     }
 
     .architecture-strip {
@@ -536,6 +662,8 @@ const recentDecisions = allDecisions
       .architecture-strip,
       .evidence-grid,
       .rhythm-rail,
+      .cade-definition,
+      .turn-grid,
       .process-grid,
       .proof-format-grid,
       .fit-section {

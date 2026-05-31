@@ -13,7 +13,7 @@ This is the working extraction document for source material that may support the
 
 ### High-Value Website Positioning
 
-- CADE is a battalion staff capstone exercise built by a two-person team in one week using AI research tools and a structured decision format.
+- CADE is a battalion staff capstone exercise developed by TJ in one week using AI research tools and a structured decision format.
 - CADE proves high-fidelity capstone training does not require high-overhead simulation platforms.
 - The core value proposition is professional staff training outcomes at lower setup cost through AI-assisted scenario development and a structured decision format.
 - CADE is best framed as an AI-enabled training design system, not just a one-off exercise product.
@@ -24,7 +24,7 @@ This is the working extraction document for source material that may support the
 - "CADE is a battalion staff capstone exercise built with AI research tools, doctrine-grounded design, and a structured decision format."
 - "Human design authority. AI production speed. A replicable training program."
 - "CADE turns compressed training windows into decision-quality staff training without high-overhead simulation infrastructure."
-- "A two-person team built a battalion staff capstone exercise in one week using AI research tools and a structured decision format."
+- "TJ developed a battalion staff capstone exercise in one week using AI research tools and a structured decision format."
 
 ### Problem Framing
 
@@ -306,7 +306,7 @@ Website relevance:
 
 ### Proof Points
 
-- Two-person team.
+- Sole-developer build by TJ.
 - One-week build timeline for the battalion staff capstone exercise.
 - AI-assisted scenario development generated operationally credible source material faster than traditional methods.
 - Six-phase TDE delivered decision-quality staff training without simulation infrastructure, operators, or extended setup.
@@ -340,7 +340,7 @@ Website relevance:
 
 ### Content Needing Follow-Up
 
-- Confirm whether "two-person team" and "one week" should be used prominently on the public site.
+- Confirm whether sole-developer attribution and "one week" should be used prominently on the public site.
 - Confirm whether "Ukrainian officer training" can be stated publicly or should be generalized.
 - Confirm what "TDE" should stand for on the website if used.
 - Gather evidence or artifacts to support "two independent task forces executed CADE Alpine."

@@ -370,7 +370,7 @@ Backlog:
 - Decide MDX vs Markdown for CADE case study.
 - Resolve public content decisions:
   - "Ukrainian officer training" vs generalized wording.
-  - "two-person team" and "one week" in hero or not.
+  - sole-developer attribution and "one week" in hero or not.
   - exact validation dates or generalized execution evidence.
   - exact thresholds such as 80% adjudication consistency and 60-second retrieval.
 - Decide whether artifact previews are allowed.
