@@ -6,21 +6,6 @@ import ForwardLink from '../components/ForwardLink.astro';
 const pageTitle = 'Model Workbench';
 const pageDescription =
   'Notes from the field building with AI: short practical notes on models, CADE, AI-assisted development, and human judgment.';
-
-const noteTypes = [
-  {
-    title: 'AI in the work',
-    text: 'What models are good at, what they are bad at, and where I have to slow the process down.',
-  },
-  {
-    title: 'CADE lessons',
-    text: 'Small observations from building and running a decision exercise under real constraints.',
-  },
-  {
-    title: 'Build notes',
-    text: 'Practical notes on prompts, workflows, review gates, handoff, and keeping output useful.',
-  },
-];
 ---
 
 <PageLayout>
@@ -37,26 +22,6 @@ const noteTypes = [
     <p class="lead">
       This is the place for short notes about how I actually use models: not as a magic answer machine, but as a workbench for thinking, drafting, testing, and building.
     </p>
-  </section>
-
-  <section class="workbench-intro">
-    <h2>What belongs here</h2>
-    <p>
-      A Model Workbench note should be short, concrete, and useful. The target length is about 1,000 to 2,000 characters: long enough to explain one lesson, short enough to read between meetings.
-    </p>
-    <p>
-      The tone should stay close to the work. If a note sounds like a keynote, it is probably too polished. If it explains what changed in the way I build, review, or think with AI, it belongs here.
-    </p>
-  </section>
-
-  <section class="note-grid" aria-label="Model Workbench note types">
-    {noteTypes.map((item, index) => (
-      <article>
-        <span>{String(index + 1).padStart(2, '0')}</span>
-        <h2>{item.title}</h2>
-        <p>{item.text}</p>
-      </article>
-    ))}
   </section>
 
   <section class="workbench-entries" aria-label="Workbench notes">
@@ -78,14 +43,6 @@ const noteTypes = [
         <p>The workbench is valuable not because of the list of tools. It's valuable because you know which tool belongs where, when to switch, and when to stop listening.</p>
       </div>
     </article>
-  </section>
-
-  <section class="example-note">
-    <p class="eyebrow">Example soundbite</p>
-    <h2>The model is fast. That is not the same as being done.</h2>
-    <p>
-      A model can produce a clean-looking draft before the real problem is understood. That is useful only if I have already defined what the draft must do, what source it must obey, and what would make it unsafe or useless. Speed helps when the frame is right. When the frame is wrong, speed just makes the wrong thing arrive sooner.
-    </p>
   </section>
 
   <section class="workbench-cta">
@@ -127,62 +84,6 @@ const noteTypes = [
     font-size: clamp(1.1rem, 2vw, 1.35rem);
     line-height: 1.65;
     max-width: 68ch;
-  }
-
-  .workbench-intro {
-    margin-bottom: 3rem;
-  }
-
-  .workbench-intro h2,
-  .example-note h2,
-  .workbench-cta h2 {
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-    margin-bottom: 1rem;
-  }
-
-  .workbench-intro p,
-  .note-grid p,
-  .example-note p,
-  .workbench-cta p {
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-  }
-
-  .workbench-intro p + p {
-    margin-top: 1rem;
-  }
-
-  .note-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    margin-bottom: 3rem;
-  }
-
-  .note-grid article,
-  .example-note,
-  .workbench-cta {
-    border: 1px solid var(--color-border);
-    border-radius: 1.25rem;
-    background: var(--color-bg-elevated);
-    padding: 1.5rem;
-  }
-
-  .note-grid span {
-    display: block;
-    color: var(--color-accent);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.25rem;
-  }
-
-  .note-grid h2 {
-    font-size: 1.2rem;
-    line-height: 1.25;
-    margin-bottom: 0.8rem;
   }
 
   .workbench-entries {
@@ -231,25 +132,30 @@ const noteTypes = [
     margin-bottom: 0;
   }
 
-  .example-note {
-    background:
-      linear-gradient(135deg, rgba(110, 231, 183, 0.12), transparent),
-      var(--color-bg-secondary);
-    margin-bottom: 3rem;
-  }
-
   .workbench-cta {
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    background: var(--color-bg-elevated);
+    padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     gap: 1.5rem;
     align-items: center;
   }
 
-  @media (max-width: 760px) {
-    .note-grid {
-      grid-template-columns: 1fr;
-    }
+  .workbench-cta h2 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
 
+  .workbench-cta p {
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 760px) {
     .workbench-cta {
       align-items: flex-start;
       flex-direction: column;
