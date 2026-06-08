@@ -25,6 +25,7 @@ export const siteConfig = {
     { label: 'Methods', href: '/methods' },
     { label: 'Workbench', href: '/model-workbench' },
     { label: 'CADE', href: '/projects/cade' },
+    { label: 'Field Notes', href: '/field-notes' },
     { label: 'Decisions', href: '/decisions' },
     { label: 'Projects', href: '/projects' },
     { label: 'Contact', href: '/#contact' },
