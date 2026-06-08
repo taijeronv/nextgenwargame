@@ -37,19 +37,22 @@ const pageDescription =
     <section class="notes-list" aria-label="CADE field notes">
       {sortedNotes.map((note) => (
         <article class="note-card">
-          <time datetime={note.data.date.toISOString()}>
-            {note.data.date.toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-              timeZone: 'UTC',
-            })}
-          </time>
-          <h2>
-            <a href={`/field-notes/${note.id}`}>{note.data.title}</a>
-          </h2>
-          <p>{note.data.description}</p>
-          <ForwardLink href={`/field-notes/${note.id}`} text="Read note" />
+          <div class="note-index">{String(note.data.order).padStart(2, '0')}</div>
+          <div>
+            <time datetime={note.data.date.toISOString()}>
+              {note.data.date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                timeZone: 'UTC',
+              })}
+            </time>
+            <h2>
+              <a href={`/field-notes/${note.id}`}>{note.data.title}</a>
+            </h2>
+            <p>{note.data.description}</p>
+            <ForwardLink href={`/field-notes/${note.id}`} text="Read note" />
+          </div>
         </article>
       ))}
     </section>
@@ -94,30 +97,42 @@ const pageDescription =
 
   .notes-list {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
   }
 
   .note-card {
-    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 2.35rem minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1rem;
     border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: 10px;
     background: var(--color-bg-secondary);
+  }
+
+  .note-index {
+    color: var(--color-accent);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
   }
 
   .note-card time {
     display: block;
     color: var(--color-text-secondary);
-    font-size: 0.78rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.55rem;
   }
 
   .note-card h2 {
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    line-height: 1.12;
-    margin-bottom: 0.75rem;
+    font-size: 1.08rem;
+    line-height: 1.18;
+    letter-spacing: 0;
+    margin-bottom: 0.55rem;
   }
 
   .note-card h2 a {
@@ -131,7 +146,18 @@ const pageDescription =
 
   .note-card p {
     color: var(--color-text-secondary);
-    line-height: 1.7;
-    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 0.85rem;
+  }
+
+  @media (max-width: 760px) {
+    .notes-list {
+      grid-template-columns: 1fr;
+    }
+
+    .note-card {
+      grid-template-columns: 2.15rem minmax(0, 1fr);
+    }
   }
 </style>
