@@ -98,4 +98,36 @@ const research = defineCollection({
   }),
 });
 
-export const collections = { projects, decisions, research };
+const fieldNotes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/field-notes' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    series: z.string(),
+    order: z.number(),
+    tags: z.array(z.string()).optional(),
+    relatedProject: z.string().optional(),
+  }),
+});
+
+const workbenchNotes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/workbench-notes' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date().optional(),
+    collection: z.string(),
+    order: z.number(),
+    tags: z.array(z.string()).optional(),
+    relatedProject: z.string().optional(),
+  }),
+});
+
+export const collections = {
+  projects,
+  decisions,
+  research,
+  fieldNotes,
+  workbenchNotes,
+};

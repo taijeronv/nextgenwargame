@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEO from '../../components/SEO.astro';
+import ForwardLink from '../../components/ForwardLink.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('fieldNotes');
+const sortedNotes = notes.sort((a, b) => {
+  if (a.data.order !== b.data.order) {
+    return a.data.order - b.data.order;
+  }
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+const pageTitle = 'CADE Field Notes';
+const pageDescription =
+  'A running field journal on how CADE was developed, tested, revised, and turned into a practical AI-assisted training product.';
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    type="website"
+  />
+
+  <main class="field-notes">
+    <header class="field-notes-header">
+      <p class="eyebrow">CADE Field Notes</p>
+      <h1>The working story behind the case study.</h1>
+      <p>
+        These notes track how CADE developed in practice: the background, design choices, mistakes, iterations, and lessons behind the polished project proof.
+      </p>
+    </header>
+
+    <section class="notes-list" aria-label="CADE field notes">
+      {sortedNotes.map((note) => (
+        <article class="note-card">
+          <time datetime={note.data.date.toISOString()}>
+            {note.data.date.toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+              timeZone: 'UTC',
+            })}
+          </time>
+          <h2>
+            <a href={`/field-notes/${note.id}`}>{note.data.title}</a>
+          </h2>
+          <p>{note.data.description}</p>
+          <ForwardLink href={`/field-notes/${note.id}`} text="Read note" />
+        </article>
+      ))}
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .field-notes {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .field-notes-header {
+    max-width: 760px;
+    padding-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .field-notes-header h1 {
+    font-size: clamp(2.4rem, 7vw, 4.75rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin-bottom: 1.25rem;
+  }
+
+  .field-notes-header p {
+    color: var(--color-text-secondary);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .notes-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .note-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-secondary);
+  }
+
+  .note-card time {
+    display: block;
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .note-card h2 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    line-height: 1.12;
+    margin-bottom: 0.75rem;
+  }
+
+  .note-card h2 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .note-card h2 a:hover {
+    color: var(--color-accent);
+  }
+
+  .note-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+</style>

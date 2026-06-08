@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEO from '../../components/SEO.astro';
+import BackLink from '../../components/BackLink.astro';
+import ForwardLink from '../../components/ForwardLink.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('fieldNotes');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const note = await getEntry('fieldNotes', slug!);
+
+if (!note) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(note);
+const allNotes = await getCollection('fieldNotes');
+const seriesNotes = allNotes.sort((a, b) => {
+  if (a.data.order !== b.data.order) {
+    return a.data.order - b.data.order;
+  }
+  return a.data.date.getTime() - b.data.date.getTime();
+});
+const formattedDate = note.data.date.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={note.data.title}
+    description={note.data.description}
+    type="article"
+  />
+
+  <main class="field-note">
+    <aside class="series-nav" aria-label="In this series">
+      <p class="series-nav__label">In This Series</p>
+      <ol>
+        {seriesNotes.map((seriesNote) => (
+          <li>
+            <a
+              href={`/field-notes/${seriesNote.id}`}
+              aria-current={seriesNote.id === note.id ? 'page' : undefined}
+            >
+              <span>{String(seriesNote.data.order).padStart(2, '0')}</span>
+              <strong>{seriesNote.data.title}</strong>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </aside>
+
+    <article>
+      <header class="note-header">
+        <p class="eyebrow">{note.data.series}</p>
+        <h1>{note.data.title}</h1>
+        <div class="note-meta">
+          <time datetime={note.data.date.toISOString()}>{formattedDate}</time>
+          {note.data.tags && note.data.tags.length > 0 && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{note.data.tags.join(' · ')}</span>
+            </>
+          )}
+        </div>
+        <p>{note.data.description}</p>
+      </header>
+
+      <div class="note-content">
+        <Content />
+      </div>
+
+      <footer class="note-footer">
+        <ForwardLink href="/projects/cade" text="Read the CADE case study" />
+        <BackLink href="/field-notes" text="All field notes" />
+      </footer>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .field-note {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.36fr) minmax(0, 760px);
+    gap: 2.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    align-items: start;
+  }
+
+  .series-nav {
+    position: sticky;
+    top: 1.5rem;
+    padding: 1rem 0 0;
+  }
+
+  .series-nav__label {
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  .series-nav ol {
+    display: grid;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .series-nav a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.65rem;
+    padding: 0.72rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .series-nav a:hover,
+  .series-nav a[aria-current='page'] {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+
+  .series-nav span {
+    color: var(--color-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .series-nav strong {
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  .note-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .note-header h1 {
+    font-size: clamp(2.35rem, 8vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .note-header > p:last-child {
+    color: var(--color-text-secondary);
+    font-size: 1.12rem;
+    line-height: 1.7;
+  }
+
+  .note-content {
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .note-content :global(p) {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.1rem;
+  }
+
+  .note-content :global(p:nth-child(4)),
+  .note-content :global(p:nth-child(10)) {
+    color: var(--color-text);
+    font-size: 1.22rem;
+    font-weight: 700;
+  }
+
+  .note-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 900px) {
+    .field-note {
+      display: block;
+      max-width: 760px;
+    }
+
+    .series-nav {
+      position: static;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-bg-secondary);
+    }
+
+    .series-nav ol {
+      gap: 0.25rem;
+    }
+
+    .series-nav a {
+      background: var(--color-bg);
+      border-color: var(--color-border);
+    }
+  }
+</style>
