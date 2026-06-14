@@ -65,6 +65,15 @@ const projects = defineCollection({
     order: z.number().optional(),
     relatedProjects: z.array(z.string()).optional(),
     relatedDecisions: z.array(z.string()).optional(),
+    pipelineSkills: z.array(z.object({
+      name: z.string(),
+      stage: z.string(),
+      crossProject: z.boolean().optional(),
+      whatItDoes: z.string(),
+      insightLabel: z.string(),
+      insightText: z.string(),
+      modes: z.array(z.string()),
+    })).optional(),
   }),
 });
 
