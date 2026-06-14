@@ -1,102 +1,74 @@
 ---
-title: "CADE Controller Package Generator"
-role: "AI Planning Workflow Designer"
+title: "Orders Production"
+role: "AI Systems Designer"
 year: 2026
-duration: "Core production pipeline"
-outcomeSummary: "Built the workflow that turns the source plan into the documents controllers use to run CADE, while keeping every turn tied to the same facts and trainer review."
-overview: "The Controller Package Generator is the production pipeline behind CADE. It takes an approved OPORD and produces the runtime documents controllers need: a master turn list and phase documents with situation updates, decision prompts, adjudication triggers, and consequence carry-forward. The workflow keeps drafting fast without allowing each document to drift from the source order or from the other phases."
-problem: "An OPORD-grounded exercise needs a repeatable way to turn source documents into controller-ready runtime materials. Manual drafting was slow, but speed was not the main risk. The harder problem was coherence: every turn had to trace to the same source, carry consequences forward, and remain usable by trainers and controllers under execution pressure."
-designMove: "I made the OPORD the governing source layer and generated the package in sequence, not as disconnected documents. That let AI accelerate drafting while human review checked source fidelity, phase continuity, and trainer fit before anything reached execution."
-systemBuilt: "I built an OPORD-to-controller-package workflow that produces a master turn list plus phase-level turn cards. Each output includes situation context, decision prompts, option frames, adjudication triggers, and review-ready structure for trainer approval."
-supportingTools:
-  - name: "Master turn list generator"
-    purpose: "Converts the OPORD into a sequenced exercise map organized by phase and turn."
-  - name: "Phase document workflow"
-    purpose: "Builds four to five turns per phase while preserving consequence state from earlier decisions."
-  - name: "Source-traceability review"
-    purpose: "Checks generated prompts, triggers, and situation updates against the OPORD before controller use."
-  - name: "Trainer revision loop"
-    purpose: "Routes trainer feedback back into the model-assisted drafting workflow without rebuilding the package from scratch."
-proof:
-  - label: "Reusable package format"
-    result: "The workflow produces five controller documents: one master turn list and up to four phase documents."
-  - label: "Supported live execution"
-    result: "The same production pattern supported all three CADE executions."
-  - label: "Source coherence preserved"
-    result: "Turns, prompts, and adjudication triggers stayed anchored to one OPORD-quality source instead of drifting independently."
-  - label: "Architecture improved from evidence"
-    result: "Execution feedback pushed CADE away from fragmented runbook logic and toward a unified Controller Package."
-transferableSkill: "This project shows I can design an AI-assisted production pipeline that preserves source truth, coherence, review gates, and runtime usability across a multi-document product."
-constraints:
-  - "Every turn must trace back to the OPORD — no independent invention of scenario logic."
-  - "Consequence state must carry forward across phases, not reset between turns."
-  - "Controller documents must be usable under time pressure without designer support."
-  - "All outputs require trainer review before execution."
-approach: "I anchored the workflow to the OPORD as the sole source layer. AI generates draft turn content inside that constraint. I review each document for operational coherence and source fidelity before it goes to the trainer team. Trainer feedback comes back to me; I revise using the model and return updated documents. The workflow has produced Controller Package materials for all three CADE executions."
-aiOperatorSkills:
-  - "Used the OPORD as a hard constraint on AI generation — output that contradicted the source was rejected and regenerated."
-  - "Structured the generation workflow to produce phase documents in sequence so consequence state carried forward correctly."
-  - "Maintained human review as the gate between AI output and execution-ready documents."
-  - "Revised based on trainer feedback using the model, keeping the iteration cycle fast without bypassing review."
-keyDecisions:
-  - decision: "Generate the Controller Package from the OPORD, not from freestanding scenario notes"
-    reasoning: "Freestanding scenario notes drift. An OPORD-quality source layer forces internal consistency and gives reviewers a fixed reference for checking each turn against source intent. Downstream products that contradict the OPORD can be identified and corrected before execution."
-    alternatives:
-      - "Draft turn content from a loose scenario summary"
-      - "Let each phase document evolve independently"
-  - decision: "Keep trainers in the review loop before any document reaches execution"
-    reasoning: "AI generation produces operationally plausible content, but only trainers can confirm that the exercise logic is sound for this unit in this context. Review is not a formality — trainer changes fed directly into subsequent runs."
-    alternatives:
-      - "Deliver documents directly to controllers and collect feedback after execution"
-      - "Run a single design review at the end of production rather than per-document"
+duration: "Active pipeline"
+status: "ongoing"
+order: 2
+featured: false
+outcomeSummary: "A three-stage AI pipeline that produces exercise-ready OPORDs for brigade and below — governed by doctrine, adversarially reviewed, and gated before unit release. The goal is not a perfect order. It is a 90% first draft that saves units significant prep time."
+overview: "Orders Production is a three-stage AI pipeline — opord-writer → red-team → order-release — that produces exercise-ready OPORDs for brigade and below. Each stage runs inside constraints AI cannot self-impose: an OPORD writing guide, adversarial skeptic personas, and a formal quality gate. The result is a first draft that has been validated before it reaches the unit."
+problem: "AI generates plausible OPORD text. Without doctrine-aware constraints it fails structure, loses task coherence across paragraphs, and has no mechanism to catch failures before the order reaches a unit. Most AI-assisted OPORD efforts stop at the prompt. This one did not."
+designMove: "Treat orders production as a governed workflow, not a conversation. Each stage — authoring, adversarial review, release gate — runs inside constraints the model cannot self-impose: an OPORD writing guide, quality standards, skeptic persona definitions, lint rules. AI drafts inside those constraints; human review is the gate."
+approach: "Each stage of the pipeline has a fixed job and runs in sequence. opord-writer drafts inside a doctrine-aware writing guide. red-team applies adversarial pressure from CDR, S3, and S2 perspectives, tagging every finding by severity and paragraph. order-release runs seven automated passes — lint, skeptic sweeps, QC gate, annex alignment — and produces a consolidated fix plan before the order goes to the unit."
+systemBuilt: "Three sequenced skills (opord-writer, red-team, order-release) supported by Python scripts (lint, DOCX export, normalize), a shared doctrine reference library (FM 5-0, FM 6-0, NATO-COPD, AJP-5), and a Streamlit GUI with dedicated pages per skill."
+transferableSkill: "This shows AI-assisted staff work approached as a systems design problem — not just what to ask the model, but what constraints govern its output, what checks catch failures, and what pipeline moves draft material to execution-ready products. The techniques apply equally to real-world OPORDs."
+pipelineSkills:
+  - name: "opord-writer"
+    stage: "01 · Authoring"
+    crossProject: false
+    whatItDoes: "Drafts, refactors, expands, and red-teams OPORDs from BN to JTF/Corps. Five modes covering the full authoring cycle. Output: planner-source Markdown exported to DOCX via script."
+    insightLabel: "Guardrail: OPORD writing guide"
+    insightText: "A dedicated writing guide — not a system prompt — governs structure, task-to-purpose standards, coordination measure rules, and echelon-specific quality checks. The model writes inside this constraint. It cannot substitute generic military language for doctrine-specific structure."
+    modes: ["Draft", "Refactor", "Expand", "Align Annex", "Skeptic Sweep"]
+  - name: "red-team"
+    stage: "02 · Adversarial Review"
+    crossProject: true
+    whatItDoes: "Runs structured adversarial assessment using domain-specific skeptic personas — CDR, S3, S2 for orders. Every finding is severity-tagged and paragraph-referenced before the order goes further."
+    insightLabel: "Why it is a separate skill"
+    insightText: "The skeptic framework is not OPORD-specific. The same approach applies anywhere AI produces a product that needs adversarial pressure — plans, briefs, exercise materials, scenario documents. Separating it from opord-writer makes it reusable across projects."
+    modes: ["CDR Perspective", "S3 Perspective", "S2 Perspective", "Severity Tagging"]
+  - name: "order-release"
+    stage: "03 · Release Gate"
+    crossProject: false
+    whatItDoes: "A sequential, largely automated pre-release workflow. Seven passes in fixed order: lint, planner skeptics, staff skeptics, specialized skeptics, skeptic synthesis, QC Gate against echelon quality standard, annex alignment. Produces a consolidated report and prioritized fix plan. Assessment only — no edits to the source order."
+    insightLabel: "Key design decision"
+    insightText: "The unit receives an order that has already cleared lint, adversarial review, and an MDMP-sufficiency check against the echelon quality standard. Their time goes into refining the 10%, not rebuilding the 90%."
+    modes: ["Lint", "Planner Skeptics", "Staff Skeptics", "QC Gate", "Fix Plan"]
 techStack:
   - "Claude"
-  - "ChatGPT"
+  - "Python (lint, DOCX export, normalize scripts)"
+  - "Streamlit"
   - "Markdown"
-  - "OPORD-grounded planning workflows"
+  - "FM 5-0 / FM 6-0 / NATO-COPD / AJP-5"
+constraints:
+  - "Orders must be FM 5-0 / FM 6-0 compliant at the declared echelon."
+  - "AI generation is constrained by doctrine files — output that contradicts the writing guide is rejected and regenerated."
+  - "order-release is assessment only — no automated edits to the source order."
+  - "Current scope: exercise OPORDs at brigade and below. Techniques apply to real-world orders."
+keyDecisions:
+  - decision: "Build a pipeline, not a prompt"
+    reasoning: "Prompts produce plausible text. A governed pipeline — with writing guide guardrails, adversarial review, and a formal quality gate — produces a product the unit can actually use. The constraints are what make the output credible."
+    alternatives:
+      - "Prompt engineering with increasingly detailed system prompts"
+      - "Single-pass generation with manual human review"
+  - decision: "Separate red-team as a cross-project skill"
+    reasoning: "Skeptic-based adversarial review is not specific to orders. Keeping it separate makes it reusable across any AI-produced artifact — plans, briefs, exercise materials. The orders pipeline calls the red-team skill; the red-team skill does not depend on orders."
+    alternatives:
+      - "Embed skeptic sweep directly in opord-writer"
+      - "Run adversarial review only within order-release"
+  - decision: "Target 90% first-draft quality, not 100%"
+    reasoning: "A 100% ready order is not an achievable or honest target for AI generation at the current state of the art. A 90% first draft that has been validated and gated saves the unit the most time — they spend prep time on decisions, not structure."
+    alternatives:
+      - "Present the output as complete and require unit to identify gaps"
+      - "Require full human rewrite of AI output before delivery"
 impact:
-  metrics:
-    - label: "Documents per package"
-      value: "5 (master turn list + up to 4 phase documents)"
-    - label: "Turns per phase"
-      value: "4–5"
-    - label: "Executions supported"
-      value: "3"
-    - label: "Review gate"
-      value: "Trainer-reviewed before every execution"
-  qualitative: "The Controller Package Generator made CADE reproducible as a production system. The same pipeline can regenerate, revise, and improve the runtime package without restarting from a blank page."
+  qualitative: "Units receive a first-draft OPORD that has passed lint, adversarial review from multiple staff perspectives, and a formal quality gate — before it reaches them. Prep time shifts from building structure to refining decisions."
 learnings:
-  - "The OPORD is not just reference material — it is the constraint that makes AI-generated exercise content coherent across a multi-document package."
-  - "Trainer review is a production input, not a sign-off step. Changes from the first execution improved the workflow for the second."
-  - "A five-document package generated in sequence preserves consequence logic better than generating all documents simultaneously."
-evidence:
-  - label: "One source governs multiple runtime documents"
-    result: "The workflow kept the master turn list and phase documents aligned to one OPORD-quality source instead of allowing each phase to drift independently."
-  - label: "Trainer feedback loops stayed fast"
-    result: "Documents could be revised against trainer input without rebuilding the package structure from scratch, which made repeated executions practical."
-  - label: "Controller-facing runtime artifact emerged"
-    result: "The generator helped move CADE away from fragmented runbook logic and toward a usable Controller Package architecture."
-fitCriteria:
-  - "An exercise already has an OPORD or source order that can govern downstream generation."
-  - "Controllers need a runtime package that preserves state, sequencing, and consequence logic."
-  - "The main challenge is multi-document coherence under time pressure."
-riskControls:
-  - risk: "Phase documents contradict each other."
-    control: "Generation stays sequenced and source-governed so consequence state carries forward correctly."
-  - risk: "AI invents plausible but unsupported scenario content."
-    control: "Output that cannot be traced back to the OPORD is rejected and regenerated before review."
-  - risk: "Controller products become unusable in execution."
-    control: "Trainer review remains a mandatory gate before any package reaches live facilitation."
-boundaries:
-  - "The workflow does not replace trainer review."
-  - "The workflow is only as strong as the source order that governs it."
-  - "The workflow supports controller execution; it does not automate adjudication authority."
-featured: false
-status: "ongoing"
-order: 3
+  - "Doctrine files are constraints, not references. The writing guide works because the model is required to write inside it, not consult it."
+  - "A separate quality gate before release is not redundant with in-process review — it catches different failure modes and provides a formal record of what was checked."
+  - "Red-team personas must be domain-specific to be useful. Generic adversarial prompts produce generic findings. CDR, S3, and S2 each see the order through a different operational lens."
 relatedProjects:
   - "cade"
-relatedDecisions:
-  - "opord-source-truth"
-  - "controller-package-over-runbook"
+  - "controller-package-generator"
 ---
