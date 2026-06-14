@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SEO from '../../../components/SEO.astro';
+import ProjectTabs from '../../../components/ProjectTabs.astro';
+import BackLink from '../../../components/BackLink.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = await getEntry('projects', slug!);
+
+if (!project) {
+  return Astro.redirect('/404');
+}
+
+const { title, outcomeSummary, keyDecisions } = project.data;
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title={`${title} — Decisions`}
+    description={`Design decisions behind ${title}: ${outcomeSummary}`}
+    type="article"
+  />
+
+  <main class="decisions-page">
+    <header class="decisions-header">
+      <h1>{title}</h1>
+      <p class="decisions-subtitle">{outcomeSummary}</p>
+    </header>
+
+    <ProjectTabs projectSlug={slug!} />
+
+    <section class="decisions-list" aria-labelledby="decisions-heading">
+      <h2 id="decisions-heading" class="sr-only">Key Design Decisions</h2>
+      {keyDecisions.map((decision) => (
+        <article class="decision-item">
+          <h3 class="decision-title">{decision.decision}</h3>
+          <div class="decision-reasoning">
+            <strong>Reasoning</strong>
+            <p>{decision.reasoning}</p>
+          </div>
+          {decision.alternatives && decision.alternatives.length > 0 && (
+            <div class="decision-alternatives">
+              <strong>Alternatives considered</strong>
+              <ul>
+                {decision.alternatives.map((alt) => (
+                  <li>{alt}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      ))}
+    </section>
+
+    <BackLink href={`/projects/${slug}/`} text="Back to overview" />
+  </main>
+
+  <style>
+    .decisions-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .decisions-header {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .decisions-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .decisions-subtitle {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .decisions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .decision-item {
+      padding: 1.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg-secondary);
+    }
+
+    .decision-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .decision-reasoning,
+    .decision-alternatives {
+      margin-top: 0.75rem;
+    }
+
+    .decision-reasoning strong,
+    .decision-alternatives strong {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .decision-reasoning p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+    }
+
+    .decision-alternatives ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .decision-alternatives li {
+      font-size: 1rem;
+      line-height: 1.65;
+      padding: 0.35rem 0 0.35rem 1.25rem;
+      position: relative;
+      color: var(--color-text-secondary);
+    }
+
+    .decision-alternatives li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+  </style>
+</BaseLayout>
