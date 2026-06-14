@@ -40,7 +40,7 @@
  */
 
 import { ClientRouter } from 'astro:transitions';
-import Navigation from '../components/Navigation.astro';
+import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import { siteConfig } from '../config';
 import '../styles/global.css';
@@ -87,29 +87,28 @@ import '../styles/utilities.css';
     
     <style>
       body {
-        display: flex;
-        flex-direction: column;
         min-height: 100vh;
       }
-      
+
+      .page-body {
+        margin-left: 220px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
       main {
         flex: 1;
-      }
-      
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 100;
       }
     </style>
   </head>
   <body>
-    <header class="site-header" transition:persist>
-      <Navigation />
-    </header>
-    <main>
-      <slot />
-    </main>
-    <Footer />
+    <Sidebar />
+    <div class="page-body">
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
