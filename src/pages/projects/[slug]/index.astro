@@ -100,8 +100,18 @@ const {
   boundaries,
   relatedProjects,
   relatedDecisions,
+  pipelineSkills,
   status,
 } = project.data;
+
+function skillColor(name: string): string {
+  const colors: Record<string, string> = {
+    'opord-writer': '#3b82f6',
+    'red-team': '#ef4444',
+    'order-release': '#22c55e',
+  };
+  return colors[name] ?? 'var(--color-accent)';
+}
 
 // Status display configuration
 const statusConfig = {
@@ -298,6 +308,61 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
         </article>
       </div>
     </section>
+
+    {pipelineSkills && pipelineSkills.length > 0 && (
+      <>
+        <section class="goal-callout" aria-label="Pipeline goal">
+          <div class="goal-stat">90%</div>
+          <div class="goal-detail">
+            <strong>first-draft target</strong>
+            <div class="goal-chips">
+              <span>Exercise OPORDs</span>
+              <span>Brigade and below</span>
+              <span>FM 5-0 / FM 6-0 aligned</span>
+              <span>Techniques apply to real-world orders</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="pipeline-skills" aria-labelledby="pipeline-skills-heading">
+          <div class="pipeline-skills-intro">
+            <span>Pipeline Skills</span>
+            <h2 id="pipeline-skills-heading">Three stages. One governed workflow.</h2>
+            <p>Each skill has a specific job in the sequence. None is a prompt wrapper — each enforces constraints AI generation cannot self-impose without them.</p>
+          </div>
+
+          {pipelineSkills.map((skill, index) => (
+            <>
+              <div class="skill-card" style={`border-left-color: ${skillColor(skill.name)}`}>
+                <div class="skill-card__left">
+                  <span class="skill-stage">{skill.stage}</span>
+                  <h3 class="skill-name">{skill.name}</h3>
+                  {skill.crossProject && (
+                    <span class="cross-project-badge">cross-project skill</span>
+                  )}
+                  <p class="skill-what">{skill.whatItDoes}</p>
+                  <div class="skill-modes">
+                    {skill.modes.map((mode) => (
+                      <span class="mode-chip">{mode}</span>
+                    ))}
+                  </div>
+                </div>
+                <div class="skill-card__right">
+                  <span class="insight-label">{skill.insightLabel}</span>
+                  <p class="insight-text">{skill.insightText}</p>
+                </div>
+                <div class="skill-card__action">
+                  <button class="brief-btn" aria-disabled="true" disabled>Brief ↓</button>
+                </div>
+              </div>
+              {index < pipelineSkills.length - 1 && (
+                <div class="skill-arrow" aria-hidden="true">↓</div>
+              )}
+            </>
+          ))}
+        </section>
+      </>
+    )}
 
     <section class="case-study-section">
       <h2>Deeper Detail</h2>
@@ -967,6 +1032,220 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
       .decision-item {
         padding: 1.25rem;
       }
+
+      .goal-callout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .skill-card {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card__right {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-left: 0;
+        padding-top: 1rem;
+      }
+
+      .skill-card__action {
+        padding-top: 0;
+      }
+    }
+
+    /* Goal callout */
+    .goal-callout {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), transparent),
+        var(--color-bg-secondary);
+    }
+
+    .goal-stat {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #22c55e;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .goal-detail strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .goal-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .goal-chips span {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      color: var(--color-text-secondary);
+      background: var(--color-bg);
+    }
+
+    /* Pipeline Skills section */
+    .pipeline-skills {
+      margin-bottom: 3.5rem;
+    }
+
+    .pipeline-skills-intro {
+      max-width: 640px;
+      margin-bottom: 1.75rem;
+    }
+
+    .pipeline-skills-intro > span {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .pipeline-skills-intro h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.65rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .pipeline-skills-intro p {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    .skill-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1.5rem;
+      padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+      border: 1px solid var(--color-border);
+      border-left-width: 4px;
+      border-radius: 14px;
+      background: var(--color-bg-secondary);
+      align-items: start;
+    }
+
+    .skill-stage {
+      display: inline-block;
+      color: var(--color-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .skill-name {
+      font-family: monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .cross-project-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      margin-bottom: 0.6rem;
+    }
+
+    .skill-what {
+      font-size: 0.975rem;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.85rem;
+    }
+
+    .skill-modes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .mode-chip {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      color: var(--color-text-secondary);
+      background: var(--color-bg);
+    }
+
+    .skill-card__right {
+      border-left: 1px solid var(--color-border);
+      padding-left: 1.5rem;
+    }
+
+    .insight-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+    }
+
+    .skill-card__action {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 0.25rem;
+    }
+
+    .brief-btn {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-bg);
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.45;
+      white-space: nowrap;
+    }
+
+    .skill-arrow {
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--color-text-muted);
+      padding: 0.25rem 0;
+      opacity: 0.5;
     }
   </style>
 </BaseLayout>
