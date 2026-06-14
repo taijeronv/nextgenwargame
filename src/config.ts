@@ -20,15 +20,9 @@ export const siteConfig = {
     bluesky: '',
   },
   nav: [
-    { label: 'About', href: '/about' },
-    { label: 'Purpose', href: '/purpose' },
-    { label: 'Methods', href: '/methods' },
-    { label: 'Workbench', href: '/model-workbench' },
-    { label: 'CADE', href: '/projects/cade' },
-    { label: 'Field Notes', href: '/field-notes' },
-    { label: 'Decisions', href: '/decisions' },
     { label: 'Projects', href: '/projects' },
-    { label: 'Contact', href: '/#contact' },
+    { label: 'Field Notes', href: '/field-notes' },
+    { label: 'About', href: '/about' },
   ],
 } as const;
 
