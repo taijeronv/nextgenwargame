@@ -29,15 +29,16 @@
  * @page
  */
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SEO from '../../components/SEO.astro';
-import StructuredData from '../../components/StructuredData.astro';
-import ScrollToTop from '../../components/ScrollToTop.astro';
-import BackLink from '../../components/BackLink.astro';
-import RelatedContent from '../../components/RelatedContent.astro';
-import ImpactMetrics from '../../components/ImpactMetrics.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SEO from '../../../components/SEO.astro';
+import StructuredData from '../../../components/StructuredData.astro';
+import ScrollToTop from '../../../components/ScrollToTop.astro';
+import BackLink from '../../../components/BackLink.astro';
+import RelatedContent from '../../../components/RelatedContent.astro';
+import ImpactMetrics from '../../../components/ImpactMetrics.astro';
 import { getCollection, getEntry, render } from 'astro:content';
-import { calculateReadingTime, formatReadingTime } from '../../utils/readingTime';
+import ProjectTabs from '../../../components/ProjectTabs.astro';
+import { calculateReadingTime, formatReadingTime } from '../../../utils/readingTime';
 
 /**
  * Generates static paths for all project entries
@@ -206,6 +207,8 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
       <p class="outcome-summary">{outcomeSummary}</p>
     </header>
 
+    <ProjectTabs projectSlug={slug!} />
+
     <section class="portfolio-context" aria-label="Portfolio context">
       <div class="portfolio-context__intro">
         <span>Where this fits</span>
@@ -225,7 +228,7 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
             <span>Follow the working story behind CADE: background, design choices, mistakes, and lessons.</span>
           </a>
         )}
-        <a href="/methods" class="context-link">
+        <a href="/about" class="context-link">
           <strong>See the method</strong>
           <span>Review the governed AI workflow principles behind the project system.</span>
         </a>

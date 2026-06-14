@@ -2,48 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import StructuredData from '../components/StructuredData.astro';
-import ForwardLink from '../components/ForwardLink.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import DecisionCard from '../components/DecisionCard.astro';
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../config';
 
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects
-  .filter((project) => project.data.featured || project.data.relatedProjects?.includes('cade'))
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
-const cadeProject = allProjects.find((project) => project.id === 'cade');
-const proofSignals = cadeProject?.data.proof ?? cadeProject?.data.evidence ?? [];
-const buildSteps = [
-  'Name the real problem',
-  'Keep the facts straight',
-  'Build the working tool',
-  'Try it with real people',
-  'Fix what the trial exposes',
-];
-const cadeTurn = [
-  {
-    label: 'Situation',
-    text: 'Give the staff just enough of the story to act.',
-  },
-  {
-    label: 'Decision',
-    text: 'Force a choice. No hiding in endless discussion.',
-  },
-  {
-    label: 'Reason',
-    text: 'Capture why they chose it and what risk they accepted.',
-  },
-  {
-    label: 'Result',
-    text: 'Show the consequence and use it for coaching.',
-  },
-];
+const cadeProject = allProjects.find((p) => p.id === 'cade');
 
-const allDecisions = await getCollection('decisions');
-const recentDecisions = allDecisions
+const fieldNotes = await getCollection('fieldNotes');
+const recentNotes = fieldNotes
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 6);
+  .slice(0, 4);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 ---
 
 <BaseLayout>
@@ -57,705 +28,408 @@ const recentDecisions = allDecisions
   <StructuredData type="WebSite" />
   <StructuredData type="Person" />
 
-  <main class="home-page">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <p class="eyebrow">CADE is the short name</p>
-          <h1 class="hero-title">
-            Combined Arms Decision Exercise: a pressure test for staff decisions.
-          </h1>
-          <p class="hero-sub">
-            CADE gives a team a realistic problem, a short clock, and no perfect answer. They must choose, explain the tradeoff, see the result, and learn from what their reasoning missed.
-          </p>
-          <p class="hero-sub hero-sub--plain">
-            I designed and built CADE so leaders can see decision quality quickly: what the planning team noticed, what it ignored, what risk it accepted, and whether the recommendation made sense under pressure.
-          </p>
-          <p class="hero-meta">
-            {siteConfig.author.name} · {siteConfig.author.title}
-          </p>
-          <div class="hero-cta">
-            <a href="/projects/cade" class="btn-primary">Read the case study</a>
-            <a href="/methods" class="btn-secondary">See how I built it</a>
+  <div class="home-content">
+    <!-- Left column -->
+    <div class="main-left">
+
+      <!-- Hero -->
+      <section class="hero">
+        <p class="hero-eyebrow">AI PRACTITIONER · MILITARY SYSTEMS</p>
+        <h1 class="hero-headline">
+          I build real systems.<br />
+          <em>Not experiments.</em>
+        </h1>
+        <p class="hero-sub">
+          AI-powered tools for military training and simulation — governed workflows,
+          repeatable outputs, real deployments.
+        </p>
+        <div class="hero-ctas">
+          <a href="/projects" class="btn-primary">See Projects →</a>
+          <a href="/field-notes" class="btn-ghost">Read Field Notes</a>
+        </div>
+      </section>
+
+      <!-- Capability callouts -->
+      <section class="capabilities">
+        <div class="capability-grid">
+          <div class="capability-item">
+            <p class="capability-title">Governed AI Workflows</p>
+            <p class="capability-desc">Structured prompting with auditable, repeatable outputs — not black-box generation.</p>
+          </div>
+          <div class="capability-item">
+            <p class="capability-title">Military Exercise Design</p>
+            <p class="capability-desc">OPORD-driven systems built for controller usability under field conditions.</p>
+          </div>
+          <div class="capability-item">
+            <p class="capability-title">Production AI Pipelines</p>
+            <p class="capability-desc">From prompt to deployable package — traceable, versioned, and operator-ready.</p>
           </div>
         </div>
+      </section>
 
-        <div class="hero-right" aria-label="CADE proof points">
-          <div class="proof-panel">
-            <span class="proof-label">What it is</span>
-            <strong>Combined Arms Decision Exercise (CADE)</strong>
-            <p>Each turn asks for four things: a decision, the reason behind it, the result, and one lesson for review.</p>
+      <!-- Featured project: CADE -->
+      {cadeProject && (
+        <section class="featured-section">
+          <p class="section-label">Featured Project</p>
+          <div class="featured-card">
+            <div class="featured-card-header">
+              <span class="featured-title">{cadeProject.data.title}</span>
+              <span class="featured-badge">Capstone</span>
+            </div>
+            <p class="featured-meta">{cadeProject.data.year} · {cadeProject.data.role}</p>
+            <p class="featured-desc">{cadeProject.data.outcomeSummary}</p>
+            <div class="featured-links">
+              <a href={`/projects/${cadeProject.id}/`} class="featured-link-primary">View case study →</a>
+              <a href={`/projects/${cadeProject.id}/decisions`} class="featured-link-secondary">Decisions</a>
+            </div>
           </div>
-          <div class="proof-panel">
-            <span class="proof-label">What it is not</span>
-            <strong>Not a simulator. Not an AI black box.</strong>
-            <p>CADE does not try to model every battlefield variable. It makes human judgment visible, and humans control the design and validation.</p>
+        </section>
+      )}
+
+      <!-- More projects placeholder -->
+      <section class="more-projects">
+        <p class="section-label">More Projects</p>
+        <div class="placeholder-cards">
+          <div class="placeholder-card">
+            <p class="placeholder-label">Project 2</p>
+            <p class="placeholder-status">Coming soon</p>
           </div>
-          <div class="proof-panel">
-            <span class="proof-label">What I proved</span>
-            <strong>Three live runs · about 19 people per session</strong>
-            <p>I built the first executable version in one week, then improved it from what happened in the room.</p>
+          <div class="placeholder-card">
+            <p class="placeholder-label">Project 3</p>
+            <p class="placeholder-status">Coming soon</p>
+          </div>
+          <div class="placeholder-card">
+            <p class="placeholder-label">Project 4</p>
+            <p class="placeholder-status">Coming soon</p>
           </div>
         </div>
-      </div>
-    </section>
+        <a href="/projects" class="all-projects-link">See all projects →</a>
+      </section>
 
-    <section class="section-block cade-definition">
-      <div>
-        <p class="eyebrow">In plain English</p>
-        <h2>What Is CADE?</h2>
-        <p>
-          CADE is a way to find out how a staff thinks before the stakes are real. In plain terms, the staff is the planning team, and the controller is the facilitator running the exercise. The controller gives the team a changing situation. The team has to make a choice, explain its reasoning, accept the cost, and carry the consequence into the next turn.
-        </p>
-        <p>
-          The important part is not whether they guessed the “right” answer. The important part is whether their thinking was clear enough to inspect, coach, and improve.
-        </p>
-      </div>
-      <div class="turn-card">
-        <span class="proof-label">One CADE turn</span>
-        <div class="turn-grid">
-          {cadeTurn.map((step, index) => (
-            <article>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{step.label}</strong>
-              <p>{step.text}</p>
-            </article>
-          ))}
+    </div><!-- /.main-left -->
+
+    <!-- Right column: Field Notes -->
+    <aside class="main-right">
+      <div class="field-notes-panel">
+        <div class="field-notes-header">
+          <p class="section-label">Field Notes</p>
+          <a href="/field-notes" class="all-notes-link">All notes →</a>
         </div>
-      </div>
-    </section>
-
-    <section class="section-block process-section">
-      <div class="section-header">
-        <h2>How I Work</h2>
-        <ForwardLink href="/methods" text="Read methods" variant="muted" />
-      </div>
-      <p class="section-intro">
-        My role is to turn a fuzzy problem into a tool people can actually use. AI helps me move faster, but it does not decide what the product should be.
-      </p>
-      <div class="process-grid">
-        {buildSteps.map((step, index) => (
-          <article class="process-step">
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{step}</strong>
-          </article>
+        {recentNotes.map((note) => (
+          <a href={`/field-notes/${note.id}`} class="note-item">
+            <span class="note-title">{note.data.title}</span>
+            <span class="note-date">{formatDate(note.data.date)}</span>
+          </a>
         ))}
       </div>
-    </section>
+    </aside>
 
-    <section class="section-block">
-      <div class="section-header">
-        <h2>More Than One Page Of Claims</h2>
-        <ForwardLink href="/projects" text="View all" variant="muted" />
-      </div>
-      <p class="section-intro">
-        CADE is the main case. The supporting projects show the machinery behind it: how source material stayed consistent, how controller documents were built, and how incomplete inputs were turned into usable training products.
-      </p>
-      <div class="card-list">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            slug={project.id}
-            outcomeSummary={project.data.outcomeSummary}
-            role={project.data.role}
-            year={project.data.year}
-            techStack={project.data.techStack}
-            featured={project.data.featured}
-            status={project.data.status}
-          />
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block proof-format-section">
-      <div class="section-header">
-        <h2>What This Work Shows</h2>
-        <ForwardLink href="/projects/cade" text="See it applied" variant="muted" />
-      </div>
-      <p class="section-intro">
-        The useful signal is simple: I can take a vague, high-pressure problem, make it understandable, and turn it into something other people can use.
-      </p>
-      <div class="proof-format-grid">
-        <article>
-          <span>01</span>
-          <strong>Clear thinking when the problem is messy.</strong>
-          <p>I reduce noise without flattening the important details.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <strong>AI used with judgment, not as a magic trick.</strong>
-          <p>I use models to move faster while keeping the decisions human-owned.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <strong>Ownership that survives handoff.</strong>
-          <p>The product has to work when someone else is the one using it.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section-block">
-      <div class="section-header">
-        <h2>CADE As The Proof</h2>
-        <ForwardLink href="/projects/cade" text="Read CADE" variant="muted" />
-      </div>
-      <p class="section-intro">
-        The claim is simple: I can design the logic, use AI to accelerate the work, test the result with real users, and improve the product from evidence instead of opinion.
-      </p>
-      <div class="evidence-grid">
-        {proofSignals.slice(0, 4).map((item) => (
-          <article class="evidence-tile">
-            <strong>{item.label}</strong>
-            <p>{item.result}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block workbench-section">
-      <div>
-        <p class="eyebrow">Model Workbench</p>
-        <h2>Notes from the field building with AI.</h2>
-        <p>
-          Short notes on what I am learning by using models in real work: where they help, where they mislead, and how I keep the final judgment human.
-        </p>
-      </div>
-      <div class="workbench-card">
-        <strong>Not full essays. Not theory.</strong>
-        <p>
-          Each note is meant to be small enough to read quickly and concrete enough to show how I actually work with AI, CADE, and product development.
-        </p>
-        <ForwardLink href="/model-workbench" text="Open Model Workbench" />
-      </div>
-    </section>
-
-    <section class="section-block">
-      <div class="section-header">
-        <h2>How I Kept AI In Its Lane</h2>
-        <ForwardLink href="/decisions" text="View all" variant="muted" />
-      </div>
-      <p>
-        AI helped draft, compare, revise, and produce materials quickly. I kept control of the problem, the source facts, the training logic, the review standard, and the final product.
-      </p>
-      <div class="card-list card-list--compact">
-        {recentDecisions.map((decision) => (
-          <DecisionCard
-            title={decision.data.title}
-            slug={decision.id}
-            context={decision.data.context}
-            date={decision.data.date}
-            tags={decision.data.tags}
-          />
-        ))}
-      </div>
-    </section>
-
-    <section id="contact" class="cta">
-      <h2>If This Kind Of Work Is Useful</h2>
-      <p>
-        I am interested in teams that need plain explanations, careful AI use, and working products that hold up outside a demo.
-      </p>
-      <a href={`mailto:${siteConfig.author.email}`} class="btn-primary">{siteConfig.author.email}</a>
-    </section>
-  </main>
+  </div><!-- /.home-content -->
 
   <style>
-    .home-page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem 4rem;
-    }
-
-    .hero {
-      padding: 4rem 0 5rem;
-      border-bottom: 1px solid var(--color-border);
-      margin-bottom: 4rem;
-    }
-
-    .hero-grid {
+    .home-content {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
-      gap: 4rem;
+      grid-template-columns: 1fr 280px;
+      gap: 3rem;
       align-items: start;
+      padding: 4rem 3rem 4rem 4rem;
+      max-width: 1280px;
     }
 
-    .eyebrow,
-    .proof-label {
-      display: inline-block;
-      color: var(--color-accent);
-      font-size: 0.75rem;
+    .main-left {
+      min-width: 0;
+    }
+
+    .main-right {
+      position: sticky;
+      top: 3rem;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 1rem;
+      color: var(--color-accent);
+      margin-bottom: 1.25rem;
     }
 
-    .hero-title {
-      font-size: clamp(2.25rem, 6vw, 4.8rem);
-      line-height: 1.02;
-      font-weight: 750;
-      letter-spacing: -0.055em;
-      margin-bottom: 1.5rem;
+    .hero-headline {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
       color: var(--color-text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--color-accent);
     }
 
     .hero-sub {
-      font-size: 1.25rem;
+      font-size: 1.0625rem;
       line-height: 1.7;
       color: var(--color-text-secondary);
-      max-width: 680px;
-      margin-bottom: 1rem;
-    }
-
-    .hero-sub--plain {
-      color: var(--color-text);
-      font-size: 1.08rem;
-    }
-
-    .hero-meta {
-      color: var(--color-text-muted);
-      font-size: 0.9rem;
+      max-width: 480px;
       margin-bottom: 2rem;
     }
 
-    .hero-cta {
+    .hero-ctas {
       display: flex;
+      gap: 0.75rem;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.75rem 1.1rem;
-      border-radius: 6px;
-      font-weight: 650;
-      text-decoration: none;
     }
 
     .btn-primary {
-      background: var(--color-text);
-      color: var(--color-bg);
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s;
     }
 
-    .btn-secondary {
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
       border: 1px solid var(--color-border);
-      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .hero-right {
+    .btn-ghost:hover {
+      color: var(--color-text);
+      border-color: var(--color-text-muted);
+    }
+
+    /* Shared label */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Capability callouts */
+    .capabilities {
+      margin-bottom: 4rem;
+    }
+
+    .capability-grid {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
 
-    .proof-panel {
-      padding: 1.25rem;
-      background:
-        linear-gradient(135deg, rgba(59, 130, 246, 0.08), transparent),
-        var(--color-bg-secondary);
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-    }
-
-    .cade-definition {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-      gap: 2rem;
-      padding: 2rem;
-      border: 1px solid var(--color-border);
-      border-radius: 18px;
-      background:
-        radial-gradient(circle at 12% 12%, rgba(251, 191, 36, 0.14), transparent 22rem),
-        linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent 38rem),
-        var(--color-bg-secondary);
-    }
-
-    .cade-definition h2 {
-      color: var(--color-text);
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      line-height: 1;
-      letter-spacing: -0.045em;
-      margin-bottom: 1rem;
-    }
-
-    .cade-definition p {
-      color: var(--color-text-secondary);
-      font-size: 1.05rem;
-      line-height: 1.75;
-      margin-bottom: 1rem;
-    }
-
-    .turn-card {
+    .capability-item {
       padding: 1.25rem;
       border: 1px solid var(--color-border);
-      border-radius: 14px;
-      background: rgba(10, 15, 25, 0.5);
-    }
-
-    .turn-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.8rem;
-    }
-
-    .turn-grid article {
-      padding: 1rem;
-      border: 1px solid var(--color-border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.025);
+      background: var(--color-bg-secondary);
     }
 
-    .turn-grid span {
-      display: inline-block;
-      color: var(--color-accent);
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
-    }
-
-    .turn-grid strong {
-      display: block;
-      color: var(--color-text);
-      margin-bottom: 0.45rem;
-    }
-
-    .turn-grid p {
-      color: var(--color-text-secondary);
-      font-size: 0.88rem;
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    .process-section {
-      padding: 2rem;
-      border: 1px solid var(--color-border);
-      border-radius: 18px;
-      background:
-        radial-gradient(circle at top left, rgba(251, 191, 36, 0.12), transparent 30rem),
-        var(--color-bg-secondary);
-    }
-
-    .process-grid,
-    .proof-format-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.85rem;
-    }
-
-    .process-step,
-    .proof-format-grid article {
-      min-height: 120px;
-      padding: 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      background: rgba(10, 15, 25, 0.42);
-    }
-
-    .process-step span,
-    .proof-format-grid span {
-      display: inline-block;
-      color: var(--color-accent);
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-
-    .process-step strong,
-    .proof-format-grid strong {
-      display: block;
-      color: var(--color-text);
-      line-height: 1.35;
-      font-size: 1rem;
-    }
-
-    .proof-format-grid p {
-      color: var(--color-text-secondary);
+    .capability-title {
       font-size: 0.9rem;
-      line-height: 1.6;
-      margin-top: 0.8rem;
-    }
-
-    .proof-format-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .proof-format-section .proof-format-grid article {
-      min-height: 150px;
-    }
-
-    .architecture-strip {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      overflow: hidden;
-      background: var(--color-bg-secondary);
-    }
-
-    .architecture-tile {
-      min-height: 210px;
-      padding: 1.25rem;
-      border-right: 1px solid var(--color-border);
-      background:
-        linear-gradient(180deg, rgba(59, 130, 246, 0.08), transparent 62%),
-        var(--color-bg-secondary);
-    }
-
-    .architecture-tile:last-child {
-      border-right: 0;
-    }
-
-    .architecture-tile span {
-      display: inline-block;
-      color: var(--color-accent);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-
-    .architecture-tile h3 {
+      font-weight: 700;
       color: var(--color-text);
-      font-size: 1rem;
-      line-height: 1.35;
-      margin-bottom: 0.8rem;
-    }
-
-    .architecture-tile p,
-    .evidence-tile p {
-      color: var(--color-text-secondary);
-      font-size: 0.92rem;
-      line-height: 1.65;
-    }
-
-    .evidence-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .workbench-section {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.65fr);
-      gap: 2rem;
-      align-items: stretch;
-      padding: 2rem;
-      border: 1px solid var(--color-border);
-      border-radius: 18px;
-      background:
-        linear-gradient(135deg, rgba(110, 231, 183, 0.12), transparent 34rem),
-        var(--color-bg-secondary);
-    }
-
-    .workbench-section h2 {
-      color: var(--color-text);
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1;
-      letter-spacing: -0.045em;
-      margin-bottom: 1rem;
-    }
-
-    .workbench-section p,
-    .workbench-card p {
-      color: var(--color-text-secondary);
-      line-height: 1.75;
-    }
-
-    .workbench-card {
-      padding: 1.25rem;
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      background: rgba(10, 15, 25, 0.5);
-    }
-
-    .workbench-card strong {
-      display: block;
-      color: var(--color-text);
-      margin-bottom: 0.75rem;
-    }
-
-    .workbench-card p {
-      margin-bottom: 1rem;
-    }
-
-    .rhythm-rail {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 0.75rem;
-    }
-
-    .rhythm-step {
-      padding: 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      background: var(--color-bg-secondary);
-    }
-
-    .rhythm-step span {
-      display: inline-block;
-      color: var(--color-accent);
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.85rem;
-    }
-
-    .rhythm-step strong {
-      display: block;
-      color: var(--color-text);
-      margin-bottom: 0.55rem;
-    }
-
-    .rhythm-step p {
-      color: var(--color-text-secondary);
-      font-size: 0.86rem;
-      line-height: 1.55;
-    }
-
-    .fit-section {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 2rem;
-      padding: 2rem;
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      background: var(--color-bg-secondary);
-    }
-
-    .fit-section h2 {
-      font-size: 1.75rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .fit-section p {
-      color: var(--color-text-secondary);
-      line-height: 1.75;
-    }
-
-    .fit-section ul {
-      list-style: none;
-      display: grid;
-      gap: 0.75rem;
-      padding: 0;
-    }
-
-    .fit-section li {
-      color: var(--color-text-secondary);
-      line-height: 1.6;
-      padding-left: 1.35rem;
-      position: relative;
-    }
-
-    .fit-section li::before {
-      content: "→";
-      position: absolute;
-      left: 0;
-      color: var(--color-accent);
-    }
-
-    .evidence-tile {
-      padding: 1.25rem;
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      background: var(--color-bg-secondary);
-    }
-
-    .evidence-tile strong {
-      display: block;
-      color: var(--color-text);
-      margin-bottom: 0.65rem;
-      line-height: 1.4;
-    }
-
-    .proof-panel strong {
-      display: block;
-      color: var(--color-text);
-      font-size: 1.05rem;
       margin-bottom: 0.5rem;
     }
 
-    .proof-panel p,
-    .section-intro {
+    .capability-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
       color: var(--color-text-secondary);
-      line-height: 1.7;
     }
 
-    .section-block {
-      margin-bottom: 4.5rem;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-header h2,
-    .thinking h2,
-    .cta h2 {
-      font-size: 1.75rem;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-
-    .section-intro {
-      max-width: 760px;
-      margin-bottom: 1.5rem;
-    }
-
-    .thinking,
-    .cta {
-      padding: 2rem;
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      background: var(--color-bg-secondary);
+    /* Featured card */
+    .featured-section {
       margin-bottom: 3rem;
     }
 
-    .thinking p,
-    .cta p {
-      color: var(--color-text-secondary);
-      line-height: 1.8;
-      margin: 1rem 0 1.5rem;
+    .featured-card {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 8%, transparent), color-mix(in srgb, #fbbf24 4%, transparent));
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      transition: border-color 0.2s;
     }
 
-    @media (max-width: 860px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
+    .featured-card:hover { border-color: var(--color-accent); }
 
-      .architecture-strip,
-      .evidence-grid,
-      .rhythm-rail,
-      .cade-definition,
-      .turn-grid,
-      .workbench-section,
-      .process-grid,
-      .proof-format-grid,
-      .fit-section {
-        grid-template-columns: 1fr;
-      }
+    .featured-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
 
-      .architecture-tile {
-        min-height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--color-border);
-      }
+    .featured-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
 
-      .architecture-tile:last-child {
-        border-bottom: 0;
-      }
+    .featured-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+      color: var(--color-accent);
+    }
 
-      .section-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+    .featured-meta {
+      font-size: 0.825rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .featured-desc {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .featured-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .featured-link-primary {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .featured-link-primary:hover { text-decoration: underline; }
+
+    .featured-link-secondary {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .featured-link-secondary:hover { color: var(--color-text-secondary); }
+
+    /* More projects */
+    .more-projects {
+      margin-bottom: 3rem;
+    }
+
+    .placeholder-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .placeholder-card {
+      padding: 1.25rem;
+      border: 1px dashed var(--color-border);
+      border-radius: 12px;
+      opacity: 0.5;
+    }
+
+    .placeholder-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .placeholder-status {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+
+    .all-projects-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .all-projects-link:hover { text-decoration: underline; }
+
+    /* Field Notes panel */
+    .field-notes-panel {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg-secondary);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .field-notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .field-notes-header .section-label {
+      margin-bottom: 0;
+    }
+
+    .all-notes-link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .all-notes-link:hover { text-decoration: underline; }
+
+    .note-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+    }
+
+    .note-item:last-child { border-bottom: none; }
+
+    .note-item:hover .note-title { color: var(--color-text); }
+
+    .note-title {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--color-text-secondary);
+      transition: color 0.15s;
+    }
+
+    .note-date {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
     }
   </style>
 </BaseLayout>
