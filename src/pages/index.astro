@@ -57,6 +57,7 @@ const formatDate = (date: Date) =>
         <div class="hero-ctas">
           <a href="/projects" class="btn-primary">See Projects →</a>
           <a href="/field-notes" class="btn-ghost">Read Field Notes</a>
+          <a href="/about" class="btn-ghost">About →</a>
         </div>
       </section>
 
@@ -97,6 +98,12 @@ const formatDate = (date: Date) =>
         ))}
         <a href="/projects" class="all-projects-link">See all projects →</a>
       </section>
+
+      <!-- Contact -->
+      <p class="contact-line">
+        Want to talk through a project or role?
+        <a href={`mailto:${siteConfig.author.email}`} class="contact-link">Get in touch →</a>
+      </p>
 
     </div><!-- /.main-left -->
 
@@ -350,6 +357,21 @@ const formatDate = (date: Date) =>
     }
 
     .all-projects-link:hover { text-decoration: underline; }
+
+    .contact-line {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-link {
+      color: var(--color-accent);
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 0.35rem;
+    }
+
+    .contact-link:hover { text-decoration: underline; }
 
     /* Field Notes panel */
     .field-notes-panel {

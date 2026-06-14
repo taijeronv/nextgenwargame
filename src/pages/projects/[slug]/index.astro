@@ -121,7 +121,12 @@ const statusConfig = {
 };
 const statusInfo = statusConfig[status || 'completed'];
 const isCapstone = project.id === 'cade' || project.data.featured;
-const portfolioLabel = isCapstone ? 'Capstone project' : 'Supporting system';
+const portfolioLabel = (() => {
+  const ord = project.data.order;
+  if (ord === 1) return 'Capstone project';
+  if (ord === 2) return 'Core pipeline';
+  return 'Supporting system';
+})();
 const portfolioSummary = isCapstone
   ? 'CADE is the flagship NextGen Wargame case study. It demonstrates the full operating model: source truth, turn rhythm, adjudication structure, controller usability, and execution evidence.'
   : 'This project is part of the wider NextGen Wargame system. It strengthens the production chain around CADE by improving source-package completeness, controller usability, or multi-document workflow reliability.';
