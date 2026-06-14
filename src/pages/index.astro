@@ -7,6 +7,14 @@ import { siteConfig } from '../config';
 
 const allProjects = await getCollection('projects');
 const cadeProject = allProjects.find((p) => p.id === 'cade');
+const moreProjects = allProjects
+  .filter((p) => p.id !== 'cade')
+  .sort((a, b) => {
+    if (a.data.order !== undefined && b.data.order !== undefined) return a.data.order - b.data.order;
+    if (a.data.order !== undefined) return -1;
+    if (b.data.order !== undefined) return 1;
+    return b.data.year - a.data.year;
+  });
 
 const fieldNotes = await getCollection('fieldNotes');
 const recentNotes = fieldNotes
@@ -86,22 +94,16 @@ const formatDate = (date: Date) =>
         </section>
       )}
 
-      <!-- More projects placeholder -->
+      <!-- More projects -->
       <section class="more-projects">
         <p class="section-label">More Projects</p>
         <div class="placeholder-cards">
-          <div class="placeholder-card">
-            <p class="placeholder-label">Project 2</p>
-            <p class="placeholder-status">Coming soon</p>
-          </div>
-          <div class="placeholder-card">
-            <p class="placeholder-label">Project 3</p>
-            <p class="placeholder-status">Coming soon</p>
-          </div>
-          <div class="placeholder-card">
-            <p class="placeholder-label">Project 4</p>
-            <p class="placeholder-status">Coming soon</p>
-          </div>
+          {moreProjects.map((project) => (
+            <a href={`/projects/${project.id}/`} class="placeholder-card placeholder-card--link">
+              <p class="placeholder-label">{project.data.title}</p>
+              <p class="placeholder-status">{project.data.role}</p>
+            </a>
+          ))}
         </div>
         <a href="/projects" class="all-projects-link">See all projects →</a>
       </section>
@@ -353,15 +355,25 @@ const formatDate = (date: Date) =>
 
     .placeholder-card {
       padding: 1.25rem;
-      border: 1px dashed var(--color-border);
+      border: 1px solid var(--color-border);
       border-radius: 12px;
-      opacity: 0.5;
+      text-decoration: none;
+      display: block;
+    }
+
+    .placeholder-card--link {
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .placeholder-card--link:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-1px);
     }
 
     .placeholder-label {
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--color-text-muted);
+      color: var(--color-text);
       margin-bottom: 0.25rem;
     }
 
