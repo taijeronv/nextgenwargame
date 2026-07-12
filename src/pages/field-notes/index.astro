@@ -1,163 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SEO from '../../components/SEO.astro';
-import ForwardLink from '../../components/ForwardLink.astro';
 import { getCollection } from 'astro:content';
 
-const notes = await getCollection('fieldNotes');
-const sortedNotes = notes.sort((a, b) => {
-  if (a.data.order !== b.data.order) {
-    return a.data.order - b.data.order;
-  }
-  return b.data.date.getTime() - a.data.date.getTime();
-});
-
-const pageTitle = 'CADE Field Notes';
-const pageDescription =
-  'A running field journal on how CADE was developed, tested, revised, and turned into a practical AI-assisted training product.';
+const notes = (await getCollection('fieldNotes')).sort((a, b) => a.data.order !== b.data.order ? a.data.order - b.data.order : b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout>
-  <SEO
-    slot="head"
-    title={pageTitle}
-    description={pageDescription}
-    type="website"
-  />
-
-  <main class="field-notes">
-    <header class="field-notes-header">
-      <p class="eyebrow">CADE Field Notes</p>
-      <h1>The working story behind the case study.</h1>
-      <p>
-        These notes track how CADE developed in practice: the background, design choices, mistakes, iterations, and lessons behind the polished project proof.
-      </p>
+  <SEO slot="head" title="CADE Field Notes" description="The working record behind CADE: origin, design choices, execution evidence, revisions, and lessons." type="website" />
+  <main class="notes-page shell">
+    <header class="notes-hero">
+      <p class="eyebrow">CADE Field Notes</p><h1>The working story behind the system.</h1>
+      <div class="hero-lower"><p>What happened before the polished case study: background, design choices, mistakes, execution evidence, and revisions.</p><dl><div><dt>{notes.length}</dt><dd>Published notes</dd></div><div><dt>CADE</dt><dd>Series focus</dd></div></dl></div>
     </header>
-
-    <section class="notes-list" aria-label="CADE field notes">
-      {sortedNotes.map((note) => (
-        <article class="note-card">
-          <div class="note-index">{String(note.data.order).padStart(2, '0')}</div>
-          <div>
-            <time datetime={note.data.date.toISOString()}>
-              {note.data.date.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-                timeZone: 'UTC',
-              })}
-            </time>
-            <h2>
-              <a href={`/field-notes/${note.id}`}>{note.data.title}</a>
-            </h2>
-            <p>{note.data.description}</p>
-            <ForwardLink href={`/field-notes/${note.id}`} text="Read note" />
-          </div>
-        </article>
-      ))}
+    <section class="notes-catalog" aria-label="CADE field notes">
+      {notes.map((note) => <article class="note-card"><span class="note-index">{String(note.data.order).padStart(2, '0')}</span><div><time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</time><h2><a href={`/field-notes/${note.id}`}>{note.data.title}</a></h2><p>{note.data.description}</p></div><a class="note-action" href={`/field-notes/${note.id}`} aria-label={`Read ${note.data.title}`}>↗</a></article>)}
     </section>
+    <aside class="workbench-link"><div><p class="eyebrow">Different editorial lane</p><h2>Looking for AI methods and tooling?</h2></div><a href="/model-workbench">Open the AI Workbench <span>↗</span></a></aside>
   </main>
+  <style>
+    .shell { width: min(100% - 3rem, 1180px); margin-inline: auto; } .eyebrow { margin: 0; color: var(--color-accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+    .notes-hero { padding-block: clamp(4rem, 9vw, 8rem) 4rem; } .notes-hero h1 { max-width: 11ch; font-size: clamp(4rem, 9vw, 8rem); line-height: 0.9; letter-spacing: -0.065em; margin: 1.5rem 0 4rem; }
+    .hero-lower { display: grid; grid-template-columns: 1fr 0.7fr; gap: 4rem; border-top: 1px solid var(--color-border); padding-top: 2rem; } .hero-lower > p { max-width: 40rem; font-size: 1.15rem; } .hero-lower dl { display: grid; grid-template-columns: 1fr 1fr; margin: 0; } .hero-lower dl div { border-left: 1px solid var(--color-border); padding-left: 1rem; } .hero-lower dt { font-size: 1.4rem; font-weight: 700; } .hero-lower dd { color: var(--color-text-muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.35rem; }
+    .notes-catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 5rem; } .note-card { min-height: 310px; display: grid; grid-template-columns: 42px 1fr 28px; gap: 1rem; border: 1px solid var(--color-border); border-radius: 1.5rem; padding: 1.5rem; background: var(--color-bg-elevated); } .note-index, .note-card time { color: var(--color-text-muted); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; } .note-card h2 { font-size: clamp(1.3rem, 2.3vw, 1.8rem); line-height: 1.1; margin: 2.5rem 0 1rem; } .note-card h2 a, .note-action { color: var(--color-text); } .note-card p { font-size: 0.9rem; } .note-action { align-self: end; font-size: 1.3rem; } .note-card:hover { border-color: var(--color-text-muted); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .workbench-link { margin-bottom: 4rem; border-radius: 2rem; padding: clamp(2.5rem, 6vw, 5rem); background: #17211d; color: #f7f4eb; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: end; } .workbench-link .eyebrow { color: var(--color-highlight); } .workbench-link h2 { color: #f7f4eb; max-width: 12ch; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1; letter-spacing: -0.045em; margin-top: 1rem; } .workbench-link a { display: flex; gap: 3rem; border-radius: 999px; padding: 1rem 1.25rem; background: #f7f4eb; color: #17211d; font-size: 0.82rem; font-weight: 700; }
+    @media (prefers-reduced-motion: no-preference) { .note-card { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; } } @media (max-width: 760px) { .hero-lower, .workbench-link { grid-template-columns: 1fr; } .notes-catalog { grid-template-columns: 1fr; } } @media (max-width: 560px) { .shell { width: min(100% - 2rem, 1180px); } .notes-hero h1 { font-size: clamp(3.7rem, 19vw, 5.5rem); } .note-card { min-height: 270px; padding: 1.2rem; } .workbench-link { padding: 2rem; border-radius: 1.5rem; } }
+  </style>
 </BaseLayout>
-
-<style>
-  .field-notes {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-  }
-
-  .field-notes-header {
-    max-width: 760px;
-    padding-bottom: 2.5rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .eyebrow {
-    color: var(--color-accent);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .field-notes-header h1 {
-    font-size: clamp(2.4rem, 7vw, 4.75rem);
-    line-height: 1;
-    letter-spacing: -0.05em;
-    margin-bottom: 1.25rem;
-  }
-
-  .field-notes-header p {
-    color: var(--color-text-secondary);
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
-    line-height: 1.7;
-  }
-
-  .notes-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
-
-  .note-card {
-    display: grid;
-    grid-template-columns: 2.35rem minmax(0, 1fr);
-    gap: 0.8rem;
-    padding: 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    background: var(--color-bg-secondary);
-  }
-
-  .note-index {
-    color: var(--color-accent);
-    font-size: 0.82rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-  }
-
-  .note-card time {
-    display: block;
-    color: var(--color-text-secondary);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 0.55rem;
-  }
-
-  .note-card h2 {
-    font-size: 1.08rem;
-    line-height: 1.18;
-    letter-spacing: 0;
-    margin-bottom: 0.55rem;
-  }
-
-  .note-card h2 a {
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .note-card h2 a:hover {
-    color: var(--color-accent);
-  }
-
-  .note-card p {
-    color: var(--color-text-secondary);
-    font-size: 0.92rem;
-    line-height: 1.55;
-    margin-bottom: 0.85rem;
-  }
-
-  @media (max-width: 760px) {
-    .notes-list {
-      grid-template-columns: 1fr;
-    }
-
-    .note-card {
-      grid-template-columns: 2.15rem minmax(0, 1fr);
-    }
-  }
-</style>

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-NextGen Wargame is an Astro site that presents AI-assisted design work as usable product evidence. CADE, the Combined Arms Decision Exercise, remains the capstone proof point, while supporting projects, decision records, and methods pages show the repeatable operating model behind it.
+NextGen Wargame is the canonical public home for military decision-training systems, governed exercise-production workflows, and execution evidence. CADE remains the capstone proof point; Orders Production and Controller Package Generator show the supporting operating stack.
 
 ## Core Narrative
 
@@ -12,27 +12,27 @@ The main claim is not that AI independently designed a training product. The cla
 
 ## Primary Audience
 
-- AI and product readers evaluating practical AI workflow governance.
-- Military training and exercise-design readers evaluating CADE's fit and credibility.
-- Hiring or collaboration readers looking for evidence of AI integration, product judgment, and execution discipline.
+- Military trainers and exercise planners evaluating CADE's fit and credibility.
+- Wargame, simulation, and defense professionals evaluating the system stack.
+- Military AI collaborators and employers evaluating domain-specific product judgment and execution discipline.
 
 ## Site Structure
 
-- `/` introduces the repeatable product/design operating model and routes visitors toward CADE, projects, decisions, and methods.
+- `/` introduces decision training, execution evidence, the system stack, and the governed operating method.
 - `/projects/cade` is the flagship case study and the clearest explanation of the CADE system.
-- `/projects` lists CADE and supporting workflow projects using a repeatable Project Proof format.
-- `/decisions` archives AI governance and product architecture decisions.
-- `/methods` explains the repeatable operating model behind the work.
-- `/model-workbench` holds short field notes on AI, CADE, model behavior, and practical build lessons.
-- `/about` holds TJ's short personal introduction, background, and path into the work.
-- `/purpose` explains why the site exists and how the work fits TJ's training, simulation, and exercise-delivery background.
-- `/story` redirects to `/about` for backward compatibility.
+- `/projects` presents CADE, Orders Production, and Controller Package Generator as one operating stack.
+- `/projects/[slug]/decisions` holds the decision record for each system.
+- `/field-notes` holds CADE narrative, execution learning, and iteration.
+- `/model-workbench` holds AI-specific methods, models, verification, maintenance, translation, and tool-selection notes.
+- `/about` explains NextGen's purpose and only the founder credibility relevant to this domain; the full biography lives at `taijeronv.info`.
 
 ## Content Model
 
 - `src/content/projects/` contains project and case-study entries.
 - `src/content/decisions/` contains decision records tied to AI governance, product architecture, and workflow controls.
 - `src/content/research/` contains in-progress research and supporting topics.
+- `src/content/field-notes/` contains CADE narrative and execution-learning entries.
+- `src/content/workbench-notes/` contains AI-specific technical notes.
 - `docs/content-curation/` contains planning and source-curation material that informed the public CADE narrative.
 
 ### Project Proof Format
@@ -71,13 +71,9 @@ Supporting projects show the production stack around CADE: OPORD-grounded artifa
 
 Decision records explain why the site and CADE workflow prioritize source truth, deterministic adjudication, controller package architecture, controlled evolution, and plain-language delivery. They are the governance layer behind the project claims.
 
-### Methods
+### AI Workbench
 
-The methods page should keep explaining the operating pattern: frame the product, constrain the source layer, generate bounded outputs, review against acceptance criteria, and revise from execution evidence.
-
-### Model Workbench
-
-Model Workbench is the short-notes lane: "Notes from the field building with AI." Entries should be concise, practical soundbites about AI, CADE, AI-assisted development, model behavior, and how TJ works with models in real projects. Treat it as field notes, not a full blog.
+AI Workbench is the technical short-notes lane. Entries should remain concise and practical, covering model roles, workflow design, alignment, verification, assessment, maintenance, translation, and tool selection. CADE may appear as evidence, but CADE narrative belongs in Field Notes.
 
 ## Positioning Rules
 

@@ -1,0 +1,167 @@
+---
+title: "NextGen Wargame Redesign Status"
+subtitle: "Arcbes adaptation and site-separation implementation"
+date: 2026-07-11
+date-modified: 2026-07-12
+format: gfm
+status: active
+project: nextgenwargame
+---
+
+## Current Outcome
+
+NextGen Wargame now follows the approved site boundary:
+
+- `taijeronv.info` owns the person, complete biography, and general AI conversation.
+- `nextgenwargame.com` owns the military-training domain, systems, evidence, and publication layer.
+
+The redesign adapts the licensed Arcbes 1.0.1 template into the existing Astro application. Existing content collections, project URLs, decision records, and Field Notes were preserved rather than replacing the application with the template.
+
+## Approved Work
+
+The operator visually reviewed and approved:
+
+1. Homepage direction.
+2. Systems index direction.
+3. System case-study and decision-record direction.
+
+The following editorial slice is implemented and awaiting manual visual approval:
+
+1. Founder-focused About page.
+2. Redesigned CADE Field Notes index and article layout.
+3. Restored AI Workbench index and eight article routes.
+
+## Implemented Changes
+
+### Shared foundation
+
+- Replaced personal sidebar with responsive NextGen Wargame header.
+- Added Arcbes-derived Urbanist typography and operational light palette.
+- Updated footer, favicon declarations, site description, navigation, and shared layout.
+- Added `THIRD_PARTY_NOTICES.md` with Arcbes MIT attribution.
+- Changed SEO title ownership from TJ to `NextGen Wargame`.
+- Removed references to nonexistent default social images and search routes from SEO/schema output.
+
+### Homepage
+
+- Leads with `Decision training` and `Built for teams under pressure`.
+- Presents live-use evidence before personal biography.
+- Connects CADE, Orders Production, and Controller Package Generator.
+- Explains human design authority and governed AI production.
+- Includes Field Notes and military-training-problem calls to action.
+
+### Systems and case studies
+
+- `/projects/` now presents the three products as one operating stack.
+- All system overview pages use the approved wide editorial hierarchy.
+- All decision pages use a shared decision-record presentation.
+- Labels now use `Systems`, `System overview`, and `Decision record` where appropriate.
+
+### About and editorial sections
+
+- `/about/` contains only NextGen-relevant founder credibility.
+- Complete personal biography is handed off to `https://taijeronv.info`.
+- `/field-notes/` remains the CADE narrative and execution-learning lane.
+- `/model-workbench/` remains the AI-specific methods, models, tooling, verification, and maintenance lane.
+- Workbench is now directly discoverable through desktop and mobile navigation.
+
+## Current Routes
+
+Primary routes:
+
+- `/`
+- `/projects/`
+- `/projects/cade/`
+- `/projects/cade/decisions/`
+- `/projects/orders-production/`
+- `/projects/orders-production/decisions/`
+- `/projects/controller-package-generator/`
+- `/projects/controller-package-generator/decisions/`
+- `/field-notes/`
+- `/model-workbench/`
+- `/about/`
+
+The production build currently generates 22 pages, including two Field Note articles and eight Workbench articles.
+
+## Verification
+
+Last completed checks:
+
+- `npm run check`: 27 Astro files, zero errors, warnings, or hints.
+- `npm run build`: passed; 22 static pages generated.
+- `git diff --check`: passed.
+- Live local route checks returned HTTP `200` for About, Field Notes, Workbench, representative articles, Systems pages, and decision records.
+- Page-title checks confirm the suffix `NextGen Wargame`.
+- Desktop and mobile Workbench navigation links are present.
+- Every generated page has exactly one `<main>` landmark and one `<h1>`.
+- Every internal link in the generated site resolves to a built file.
+- Every page includes one title, meta description, and canonical link.
+- Every page includes a keyboard skip link.
+
+Automated browser screenshots were not available because the in-app browser runtime exposed no browser instance. Manual visual review remains required for the latest editorial slice and final responsive approval.
+
+## Working-Tree Warning
+
+The repository was already dirty before redesign work began. Preserve unrelated user files and changes.
+
+Known unrelated state includes:
+
+- Deleted `docs/content-creator/creator-brief-cade_v1.0_DFT.md`.
+- Untracked document exports and design/campaign folders.
+- `.DS_Store`, `.superpowers/`, and other preexisting untracked material.
+
+Do not use destructive reset or broad cleanup. When committing, stage redesign files explicitly rather than using `git add -A`.
+
+## Non-Image Remediation Completed — 2026-07-12
+
+Completed without requiring generated images:
+
+- Reworked the About page after structured red-team review: defined CADE above the fold, added the originating training problem and execution evidence, tied founder experience to design relevance, reduced the oversized hero, removed duplicated homepage principles, and added direct CADE/system actions.
+- Replaced invalid nested `<main>` elements with one page-owned main landmark.
+- Added a keyboard-visible `Skip to main content` link.
+- Corrected six broken decision links produced by `RelatedContent.astro`.
+- Added TJ's personal URL to author structured data while keeping NextGen as site owner.
+- Updated `README.md`, `context.md`, and `content.md` to match current routes and site ownership.
+- Updated the 404 page label from `Projects` to `Systems`.
+- Removed ten confirmed zero-consumer legacy files:
+  - `src/components/BaseCard.astro`
+  - `src/components/DecisionCard.astro`
+  - `src/components/PageStats.astro`
+  - `src/components/ProjectCard.astro`
+  - `src/components/Sidebar.astro`
+  - `src/components/TableOfContents.astro`
+  - `src/components/ThemeToggle.astro`
+  - `src/layouts/ArticleLayout.astro`
+  - `src/layouts/CaseStudyLayout.astro`
+  - `src/layouts/PageLayout.astro`
+
+The remaining components and layouts all have active runtime consumers.
+
+## Remaining Work
+
+1. Manually approve About, Field Notes, and AI Workbench layouts.
+2. Select sanitized real artifacts for the homepage and system pages.
+3. Add conceptual/generated imagery only where real artifacts cannot carry the section.
+4. Perform final desktop and mobile review of image crops, contrast, navigation, spacing, and text fit.
+5. Repeat the accessibility, internal-link, SEO, and production-build audit after image integration.
+6. Commit redesign files only, then push and merge after operator approval.
+
+## Restart Procedure
+
+```bash
+cd /Users/redleg/_repos/ai-workspaces/projects/nextgenwargame
+git status --short --branch
+npm run check
+npm run build
+npm run dev -- --host 127.0.0.1
+```
+
+Then review:
+
+- `http://127.0.0.1:4321/about/`
+- `http://127.0.0.1:4321/field-notes/`
+- `http://127.0.0.1:4321/model-workbench/`
+
+## Immediate Next Decision
+
+Approve or revise the About, Field Notes, and AI Workbench visual slice. All identified non-image remediation is complete. Image integration remains deferred until generated images or sanitized artifacts are available.

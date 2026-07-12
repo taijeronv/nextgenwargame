@@ -32,6 +32,7 @@ const { title, outcomeSummary, keyDecisions } = project.data;
 
   <main class="decisions-page">
     <header class="decisions-header">
+      <span class="decisions-eyebrow">Decision record</span>
       <h1>{title}</h1>
       <p class="decisions-subtitle">{outcomeSummary}</p>
     </header>
@@ -61,32 +62,36 @@ const { title, outcomeSummary, keyDecisions } = project.data;
       ))}
     </section>
 
-    <BackLink href={`/projects/${slug}/`} text="Back to overview" />
+    <BackLink href={`/projects/${slug}/`} text="Back to system overview" />
   </main>
 
   <style>
     .decisions-page {
-      max-width: 800px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: clamp(3rem, 7vw, 6rem) 1.5rem;
     }
 
     .decisions-header {
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 3rem;
       border-bottom: 1px solid var(--color-border);
     }
 
     .decisions-header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
+      max-width: 12ch;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 600;
+      letter-spacing: -0.065em;
+      line-height: 0.92;
+      margin: 1.25rem 0 1.5rem;
     }
 
+    .decisions-eyebrow { color: var(--color-accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+
     .decisions-subtitle {
-      font-size: 1.125rem;
+      max-width: 50rem;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
       line-height: 1.6;
       color: var(--color-text-secondary);
     }
@@ -106,19 +111,22 @@ const { title, outcomeSummary, keyDecisions } = project.data;
     .decisions-list {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      gap: 1rem;
+      margin-bottom: 4rem;
     }
 
     .decision-item {
-      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      padding: 2rem;
       border: 1px solid var(--color-border);
-      border-radius: 12px;
-      background: var(--color-bg-secondary);
+      border-radius: 1.5rem;
+      background: var(--color-bg-elevated);
     }
 
     .decision-title {
-      font-size: 1.125rem;
+      font-size: clamp(1.25rem, 2vw, 1.7rem);
       font-weight: 600;
       color: var(--color-text);
       margin-bottom: 1rem;
@@ -129,6 +137,9 @@ const { title, outcomeSummary, keyDecisions } = project.data;
     .decision-alternatives {
       margin-top: 0.75rem;
     }
+
+    .decision-reasoning { grid-column: 2; grid-row: 1; }
+    .decision-alternatives { grid-column: 2; }
 
     .decision-reasoning strong,
     .decision-alternatives strong {
@@ -167,6 +178,12 @@ const { title, outcomeSummary, keyDecisions } = project.data;
       left: 0;
       color: var(--color-accent);
       font-weight: 700;
+    }
+
+    @media (max-width: 720px) {
+      .decisions-page { padding-inline: 1rem; }
+      .decision-item { grid-template-columns: 1fr; padding: 1.25rem; }
+      .decision-reasoning, .decision-alternatives { grid-column: 1; grid-row: auto; }
     }
   </style>
 </BaseLayout>

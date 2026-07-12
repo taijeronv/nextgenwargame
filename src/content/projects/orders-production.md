@@ -1,5 +1,7 @@
 ---
 title: "Orders Production"
+heroImage: "../../assets/orders-production-header.png"
+heroImageAlt: "Soldier annotating an acetate map overlay at a field command post table, rugged laptop and radio under camouflage netting"
 role: "AI Systems Designer"
 year: 2026
 duration: "Active pipeline"

@@ -3,13 +3,15 @@ export const siteConfig = {
   language: 'en',
   title: 'NextGen Wargame',
   description:
-    'TJ Taijeron built CADE, a practical decision exercise that shows how teams think under pressure and how AI can help build useful training products.',
+    'Decision training systems for military teams under pressure: CADE, governed exercise workflows, controller products, and execution evidence.',
+  ogImage: '/og/social-share.jpg',
   author: {
     name: 'Vincent "TJ" Taijeron',
     title: 'AI Operator / AI Integrator',
     bio:
       'I use AI carefully to build practical training and planning products that people can actually run.',
     email: 'vincent.taijeron@gmail.com',
+    url: 'https://taijeronv.info',
     location: '',
   },
   social: {
@@ -20,8 +22,9 @@ export const siteConfig = {
     bluesky: '',
   },
   nav: [
-    { label: 'Projects', href: '/projects' },
+    { label: 'Systems', href: '/projects' },
     { label: 'Field Notes', href: '/field-notes' },
+    { label: 'Workbench', href: '/model-workbench' },
     { label: 'About', href: '/about' },
   ],
 } as const;

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SEO from '../../components/SEO.astro';
+import StructuredData from '../../components/StructuredData.astro';
 import BackLink from '../../components/BackLink.astro';
 import ForwardLink from '../../components/ForwardLink.astro';
 import { getCollection, getEntry, render } from 'astro:content';
@@ -42,6 +43,7 @@ const formattedDate = note.data.date.toLocaleDateString('en-US', {
     description={note.data.description}
     type="article"
   />
+  <StructuredData type="Article" data={{ title: note.data.title, description: note.data.description, publishDate: note.data.date, tags: note.data.tags }} />
 
   <main class="field-note">
     <aside class="series-nav" aria-label="In this series">
@@ -247,4 +249,15 @@ const formattedDate = note.data.date.toLocaleDateString('en-US', {
       border-color: var(--color-border);
     }
   }
+</style>
+
+<style>
+  .field-note { max-width: 1180px; padding: clamp(3rem, 7vw, 6rem) 1.5rem; grid-template-columns: minmax(210px, 0.36fr) minmax(0, 780px); gap: clamp(2.5rem, 7vw, 6rem); }
+  .series-nav { top: 7rem; }
+  .series-nav a { border-radius: 1rem; }
+  .note-header { margin-bottom: 3rem; padding-bottom: 2.5rem; }
+  .note-header h1 { font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.92; letter-spacing: -0.06em; }
+  .note-header > p:last-child { font-size: 1.2rem; }
+  .note-content :global(p:nth-child(4)), .note-content :global(p:nth-child(10)) { font-size: 1.3rem; line-height: 1.55; }
+  @media (max-width: 900px) { .field-note { max-width: 780px; padding-inline: 1rem; } .series-nav { border-radius: 1.25rem; } }
 </style>

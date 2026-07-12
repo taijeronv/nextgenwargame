@@ -1,66 +1,80 @@
 # NextGen Wargame
 
-## Purpose
-`nextgenwargame` is an Astro site for AI-assisted gaming and training design work. The public-facing position is:
+Astro site for military decision-training systems, governed exercise-production workflows, and execution evidence.
 
-- `CADE` is the capstone project.
-- Supporting projects show the workflow stack around it.
-- Decision records explain the governance model behind the outputs.
-- Methods explain how AI is being used as a production engine without handing over design authority.
+## Site Boundary
 
-## Site Structure
+- `nextgenwargame.com` owns CADE, Orders Production, Controller Package Generator, decision records, military-system Field Notes, and the technical AI Workbench.
+- `taijeronv.info` owns TJ's complete biography, career arc, general AI help, cross-domain experiments, and personal contact front door.
 
-Key folders:
+## Primary Routes
 
-```text
-/
-├── docs/content-curation/
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   │   ├── decisions/
-│   │   ├── projects/
-│   │   └── research/
-│   ├── layouts/
-│   └── pages/
-│       ├── decisions/
-│       ├── projects/
-│       ├── methods.astro
-│       └── index.astro
-├── package.json
-└── netlify.toml
-```
+| Route | Purpose |
+|---|---|
+| `/` | Product-led homepage and execution evidence |
+| `/projects/` | Systems index and operating-stack relationship |
+| `/projects/[slug]/` | System case study |
+| `/projects/[slug]/decisions/` | System decision record |
+| `/field-notes/` | CADE narrative, execution learning, and iteration |
+| `/field-notes/[slug]/` | Individual CADE Field Note |
+| `/model-workbench/` | AI methods, models, tooling, verification, and maintenance |
+| `/model-workbench/[slug]/` | Individual AI Workbench note |
+| `/about/` | NextGen purpose and relevant founder credibility |
 
-Important routes:
+## Content Collections
 
-- `/` — homepage framed as the NextGen Wargame showcase.
-- `/projects/cade` — CADE capstone case study.
-- `/projects` — project portfolio and supporting workflow stack.
-- `/decisions` — AI governance and product decision archive.
-- `/methods` — operating method behind the site’s governed AI workflows.
-- `/model-workbench` — short field notes on building with AI.
-- `/ai-skills` — legacy route redirected to `/methods`.
+Defined in `src/content.config.ts`:
 
-## Content Model
+- `src/content/projects/` — CADE, Orders Production, Controller Package Generator.
+- `src/content/decisions/` — decision records tied to system design and governance.
+- `src/content/field-notes/` — CADE narrative and execution-learning articles.
+- `src/content/workbench-notes/` — AI-specific technical notes.
+- `src/content/research/` — supporting research entries not directly routed.
 
-- `src/content/projects/` stores project and case-study entries.
-- `src/content/decisions/` stores decision records tied to projects and workflow choices.
-- `src/content/research/` stores in-progress research/supporting topics.
-- `docs/content-curation/` stores planning and curation material that supports the CADE showcase narrative.
+## Design Foundation
+
+The current visual system adapts the licensed Arcbes 1.0.1 Astro template while preserving this repository's content model and routes. Arcbes attribution is recorded in `THIRD_PARTY_NOTICES.md`.
+
+Generated images are conceptual covers only. Real sanitized artifacts should be used for evidence wherever possible. Image-generation prompts live in `docs/design/2026-07-11-nextgen-nano-banana-image-prompts.md`.
+
+## Technology
+
+- Astro 6 static site generation.
+- Astro Content Collections.
+- TypeScript.
+- Tailwind CSS Vite plugin plus component-scoped and global CSS.
+- Netlify deployment configuration.
+- Node `>=22.12.0`.
 
 ## Commands
 
-Run from the repo root:
+Run from the repository root:
 
 | Command | Action |
-| :-- | :-- |
+|---|---|
 | `npm install` | Install dependencies |
-| `npm run dev` | Start local dev server |
-| `npm run check` | Run Astro content and TypeScript checks |
-| `npm run build` | Build the production site into `dist/` |
-| `npm run preview` | Preview the production build locally |
+| `npm run dev -- --host 127.0.0.1` | Start local development server |
+| `npm run check` | Run Astro and TypeScript checks |
+| `npm run build` | Generate the production site in `dist/` |
+| `npm run preview` | Preview the production build |
+
+## Verification Baseline
+
+Current non-image redesign baseline:
+
+- 22 static pages.
+- `npm run check` passes with zero diagnostics.
+- `npm run build` passes.
+- Homepage, Systems, system case studies, and decision records visually approved.
+- About, Field Notes, and AI Workbench implemented; final responsive approval remains.
+
+See `log/2026-07-11-nextgen-redesign-status.qmd` for the restart-safe implementation status.
+
+## Repository Safety
+
+- `backups/` contains the pre-migration Hugo snapshot; treat it as read-only.
+- The worktree may contain unrelated user documents and exports. Stage redesign files explicitly; do not use broad cleanup or destructive reset commands.
 
 ## Migration Note
 
-This repo was migrated from an older Hugo-based `nextgenwargame` site into the current Astro implementation. The prior local site snapshot was preserved under `backups/` before replacement.
+This repository was migrated from an older Hugo site into the current Astro implementation. The prior local snapshot remains under `backups/`.

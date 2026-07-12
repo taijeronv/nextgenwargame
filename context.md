@@ -1,116 +1,160 @@
-# context.md — NextGen Wargame
+# NextGen Wargame Context
 
-Quick-reference brief for AI sessions. Read this first. For editorial/content decisions see `content.md`. For site setup see `README.md`.
+Quick orientation for future work. Read this file, `content.md`, and `log/2026-07-11-nextgen-redesign-status.qmd` before changing the site.
 
----
+## Product Boundary
 
-## Owner
+NextGen Wargame is the canonical public home for TJ Taijeron's military decision-training systems and professional body of work.
 
-**Vincent "TJ" Taijeron** (`taijeronv`) — AI Operator / AI Integrator, military training and exercise design background. Contact: vincent.taijeron@gmail.com, LinkedIn: taijeronv.
+- `nextgenwargame.com` = domain, systems, evidence, decision records, Field Notes, technical AI Workbench.
+- `taijeronv.info` = person, complete biography, career arc, general AI conversation, cross-domain experiments.
 
----
+Do not duplicate complete content between the sites. Summarize and cross-link.
 
-## What This Is
+## Core Promise
 
-Astro portfolio site at `https://www.nextgenwargame.com`. Public showcase of AI-assisted training design work. Deployed on Netlify via `netlify.toml`.
+> Decision training built for teams under pressure.
 
-Primary claim: disciplined AI operations — not autonomous AI — turn messy training problems into credible, repeatable products.
+The homepage and primary navigation lead with the training problem, product, method, and evidence. TJ remains visible as founder, designer, and author but is not the homepage's primary subject.
 
----
+## Audience
 
-## Tech Stack
+- Military trainers and exercise planners.
+- Wargame and simulation professionals.
+- Defense organizations and military AI collaborators.
+- Employers evaluating domain-specific systems work.
+
+## Operating Model
+
+AI is a production engine, not design authority.
+
+1. Govern operational source truth.
+2. Build bounded production workflows.
+3. Design products for controller use under pressure.
+4. Validate through live execution.
+5. Revise from evidence.
+
+## System Stack
+
+| Layer | System | Role |
+|---|---|---|
+| Source truth | Orders Production | Produces and validates OPORD-quality source material |
+| Decision engine | CADE | Turns context into choices, consequences, and learning |
+| Runtime delivery | Controller Package Generator | Produces coherent controller-facing execution packages |
+
+CADE is the capstone system. Orders Production and Controller Package Generator support its production and execution chain.
+
+## Editorial Ownership
+
+- Field Notes: CADE origin, development, execution evidence, mistakes, revisions, and lessons.
+- AI Workbench: models, workflow design, verification, maintenance, translation, and tool selection.
+- About: NextGen purpose and only the founder credibility relevant to this domain.
+- Full personal biography: `taijeronv.info`.
+
+## Current Routes
+
+```text
+/
+/projects/
+/projects/[slug]/
+/projects/[slug]/decisions/
+/field-notes/
+/field-notes/[slug]/
+/model-workbench/
+/model-workbench/[slug]/
+/about/
+```
+
+## Source Structure
+
+```text
+src/
+  components/       # Active shared UI, SEO, schema, navigation, related links
+  content/
+    projects/       # Three system entries
+    decisions/      # Six decision records
+    field-notes/    # Two CADE narrative entries
+    workbench-notes/# Eight AI-specific entries
+    research/       # Four supporting research entries
+  layouts/
+    BaseLayout.astro
+  pages/
+    index.astro
+    about.astro
+    projects/
+    field-notes/
+    model-workbench/
+    404.astro
+  styles/
+```
+
+## Key Files
+
+| File | Purpose |
+|---|---|
+| `src/config.ts` | Site metadata, author, social links, navigation |
+| `src/content.config.ts` | Content collection schemas |
+| `src/pages.config.ts` | Static page metadata |
+| `src/layouts/BaseLayout.astro` | Shared document shell and landmarks |
+| `src/components/Header.astro` | Responsive primary navigation |
+| `src/components/SEO.astro` | Canonical, Open Graph, and Twitter metadata |
+| `src/components/StructuredData.astro` | JSON-LD schema output |
+| `content.md` | Editorial policy and evidence rules |
+| `docs/design/2026-07-11-taijeronv-nextgen-site-separation-summary.md` | Approved site boundary |
+| `docs/design/2026-07-11-nextgen-nano-banana-image-prompts.md` | Deferred image-generation pack |
+| `log/2026-07-11-nextgen-redesign-status.qmd` | Restart-safe redesign status |
+
+## Public-Evidence Rules
+
+- Use sanitized real artifacts where possible.
+- Generated images serve as conceptual covers, never execution evidence.
+- Do not publish sensitive operational detail, real unit data, coordinates, or controlled documents.
+- Preserve measurable claims already supported by project content: three live CADE executions, about 19 participants per session, one week to first executable version, and four of four first-run validation criteria.
+- Keep boundaries explicit: CADE does not replace high-fidelity simulation, certify doctrinal competency, or automate design judgment.
+
+## Visual Direction
+
+- Arcbes-derived editorial layout.
+- Product and case-study led.
+- Operational, restrained, evidence-focused.
+- Warm paper, charcoal green, olive, stone, restrained lime accent.
+- Avoid robots, holograms, neon command centers, weapons glamour, and generic defense-marketing spectacle.
+
+## Technology
 
 | Layer | Tool |
 |---|---|
-| Framework | Astro 6.x (SSG) |
-| Styling | Tailwind CSS v4 (Vite plugin) |
-| Content | Astro Content Collections (MDX optional) |
-| Deploy | Netlify |
-| Node | >=22.12.0 (see `.nvmrc`) |
-| Lang | TypeScript |
-
-Key config files: `astro.config.mjs`, `src/config.ts`, `src/content.config.ts`, `src/pages.config.ts`.
-
----
-
-## Site Structure
-
-```
-src/
-  components/       # Astro components (BaseCard, ProjectCard, SEO, etc.)
-  content/
-    projects/       # CADE, orders-production, controller-package-generator
-    decisions/      # AI governance decision records (6 entries)
-    field-notes/    # Personal narrative pieces (2 entries)
-    research/       # In-progress research (4 entries)
-    workbench-notes/# Short AI field notes (8 entries)
-  layouts/          # BaseLayout, PageLayout, ArticleLayout, CaseStudyLayout
-  pages/            # index, about, projects/[slug], field-notes/[slug], 404
-  styles/           # global.css, typography.css, utilities.css
-  config.ts         # siteConfig (title, author, nav, social)
-```
-
-Public routes: `/` · `/projects` · `/projects/[slug]` · `/field-notes` · `/field-notes/[slug]` · `/about`
-
----
-
-## Projects (Content Entries)
-
-| Slug | Title | Status |
-|---|---|---|
-| `cade` | CADE — Combined Arms Decision Exercise | Capstone, active |
-| `orders-production` | Orders Production | Ongoing pipeline |
-| `controller-package-generator` | Controller Package Generator | Core pipeline |
-
-All projects use a **Project Proof Format**: Problem → Design Move → System Built → Supporting Tools → Proof → Transferable Skill. Fields map directly to frontmatter keys.
-
----
-
-## Content Collections Schema
-
-Defined in `src/content.config.ts`. Collections: `projects`, `decisions`, `fieldNotes`, `workbenchNotes`, `research`. Schema JSON in `.astro/collections/`.
-
----
+| Framework | Astro 6 static site generation |
+| Content | Astro Content Collections |
+| Language | TypeScript |
+| Styling | Tailwind CSS Vite plugin plus Astro/global CSS |
+| Deployment | Netlify |
+| Node | `>=22.12.0` |
 
 ## Commands
 
 ```bash
-npm run dev       # local dev server
-npm run build     # production build -> dist/
-npm run preview   # preview dist/
-npm run check     # Astro + TS type check
+npm run dev -- --host 127.0.0.1
+npm run check
+npm run build
+npm run preview
 ```
 
----
+## Current State
 
-## Key Constraints
+As of 2026-07-12:
 
-- AI is a **production engine, not design authority**. All site copy reflects this.
-- OPORD-quality source truth governs generated exercise artifacts.
-- No sensitive operational detail in public content — use generalized descriptions.
-- Controllers and trainers are primary end-users of CADE artifacts; site visitors are secondary.
-- `content.md` (root) is the editorial map — do not overwrite, it is maintained separately.
-- `backups/` holds the pre-migration Hugo snapshot — read-only, do not touch.
+- Homepage, Systems index, system case studies, and decision records are visually approved.
+- About, Field Notes, and AI Workbench are implemented.
+- Production build generates 22 routes.
+- Arcbes attribution and Urbanist fonts are present.
+- Invalid nested main landmarks and confirmed unused legacy components/layouts were removed.
+- Image integration remains deferred until approved images or sanitized artifacts exist.
+- Final responsive browser approval, link/SEO audit, and selective commit remain.
 
----
+## Safety
 
-## Current State (as of 2026-06-14)
-
-- Site is live and building cleanly.
-- Three projects published; decision records and field notes populated.
-- CADE has run three times (~19 participants/session); evidence claims are current.
-- Recent git work: home page badge labels fixed, About CTA added, project cards unified.
-- Untracked: `.DS_Store`, `.superpowers/`, `docs/linkedin-campaign/`, `log/`.
-
----
-
-## Files to Know
-
-| File | Purpose |
-|---|---|
-| `src/config.ts` | Site-wide metadata, nav, author info |
-| `src/content.config.ts` | Collection schemas |
-| `src/pages.config.ts` | Page-level config/metadata |
-| `content.md` | Editorial map — content narrative and positioning rules |
-| `README.md` | Setup, commands, migration note |
-| `netlify.toml` | Deploy config |
+- Preserve unrelated dirty-worktree files.
+- Treat `backups/` and historical plans as reference-only.
+- Do not use destructive reset or broad cleanup.
+- Stage only redesign files when committing.

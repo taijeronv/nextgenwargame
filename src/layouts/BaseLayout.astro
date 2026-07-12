@@ -9,10 +9,9 @@
  * Features:
  * - HTML document structure
  * - Favicon and manifest configuration
- * - Theme system with dark/light mode support
- * - Prevents flash of wrong theme on page load
  * - Astro View Transitions support with theme persistence
- * - Sticky navigation header
+ * - Sticky responsive navigation header
+ * - Keyboard skip link and valid landmark structure
  * - Global CSS imports (global, typography, utilities)
  * - Responsive layout structure
  * 
@@ -40,16 +39,17 @@
  */
 
 import { ClientRouter } from 'astro:transitions';
-import Sidebar from '../components/Sidebar.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { siteConfig } from '../config';
+import '../styles/fonts.css';
 import '../styles/global.css';
 import '../styles/typography.css';
 import '../styles/utilities.css';
 ---
 
 <!DOCTYPE html>
-<html lang={siteConfig.language} data-theme="dark">
+<html lang={siteConfig.language} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,30 +60,10 @@ import '../styles/utilities.css';
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="theme-color" content="#f2f0e9" />
     
     <ClientRouter />
-    
-    <!-- Prevent flash of wrong theme -->
-    <script is:inline>
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
-      })();
-    </script>
-    
-    <!-- Preserve theme during View Transitions -->
-    <script is:inline>
-      document.addEventListener('astro:before-swap', (e) => {
-        const theme = document.documentElement.getAttribute('data-theme');
-        e.newDocument.documentElement.setAttribute('data-theme', theme);
-      });
-    </script>
     
     <style>
       body {
@@ -91,23 +71,42 @@ import '../styles/utilities.css';
       }
 
       .page-body {
-        margin-left: 220px;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      main {
+      .site-main {
         flex: 1;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 1000;
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        background: var(--color-text);
+        color: var(--color-bg);
+        font-weight: 700;
+        transform: translateY(-200%);
+        transition: transform 150ms ease;
+      }
+
+      .skip-link:focus {
+        color: var(--color-bg);
+        transform: translateY(0);
       }
     </style>
   </head>
   <body>
-    <Sidebar />
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header />
     <div class="page-body">
-      <main>
+      <div class="site-main" id="main-content" tabindex="-1">
         <slot />
-      </main>
+      </div>
       <Footer />
     </div>
   </body>

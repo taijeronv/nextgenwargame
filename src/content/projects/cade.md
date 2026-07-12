@@ -1,5 +1,7 @@
 ---
 title: "CADE — Combined Arms Decision Exercise"
+heroImage: "../../assets/cade-header.png"
+heroImageAlt: "Military staff gathered around a map-covered table in an operations room, working laptops and radios beneath a large digital terrain display"
 role: "AI Operator / Design Authority"
 year: 2026
 duration: "Capstone development cycle"

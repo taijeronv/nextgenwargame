@@ -41,7 +41,10 @@ const socialLinks = Object.entries(siteConfig.social)
 
 <footer class="site-footer">
   <div class="footer-container">
-    <span class="copyright">© {currentYear} {siteConfig.author.name}</span>
+    <div>
+      <strong>NextGen Wargame</strong>
+      <span class="copyright">© {currentYear} {siteConfig.author.name}</span>
+    </div>
     
     {socialLinks.length > 0 && (
       <div class="footer-social">
@@ -61,18 +64,21 @@ const socialLinks = Object.entries(siteConfig.social)
 <style>
   .site-footer {
     border-top: 1px solid var(--color-border);
-    padding: 2rem 1.5rem;
+    padding: 3rem 1.5rem;
     margin-top: auto;
   }
 
   .footer-container {
-    max-width: 1100px;
+    max-width: 1320px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
   }
+
+  .footer-container > div:first-child { display: grid; gap: 0.35rem; }
+  .footer-container strong { font-size: 0.9rem; }
 
   .copyright {
     font-size: 0.8125rem;

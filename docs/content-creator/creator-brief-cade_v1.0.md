@@ -9,9 +9,9 @@ url: https://www.nextgenwargame.com/projects/cade
 
 # Creator Brief — CADE
 
-This document gives you everything you need to write about CADE accurately. The Source Brief covers facts and claims. The Interview Kit gives you pre-answered questions in TJ's own voice — quote directly or paraphrase.
+Everything here is what you need to write about CADE accurately. Part 1 covers facts and claims. Part 2 gives you pre-answered questions in TJ's own voice — quote directly or paraphrase.
 
-Do not invent details not present here. If something is unclear, contact TJ before publishing.
+Don't invent details not in this document. If something is unclear, contact TJ before publishing.
 
 ---
 
@@ -19,7 +19,7 @@ Do not invent details not present here. If something is unclear, contact TJ befo
 
 ### What It Is
 
-CADE (Combined Arms Decision Exercise) is a structured staff decision exercise built around a fixed turn rhythm. Each turn gives the staff enough context to act, forces a choice under time pressure, captures the reasoning, delivers consequences, and turns those consequences into a review point. It was designed to make staff thinking visible quickly, without heavy simulation equipment or long setup time.
+CADE (Combined Arms Decision Exercise) is a staff decision exercise built around a fixed turn rhythm. Each turn gives the staff enough context to act, forces a choice under time pressure, captures the reasoning, delivers consequences, and carries those consequences into the next cycle. The design goal was to make staff thinking visible quickly — without simulation equipment or long setup time.
 
 ### Who Built It
 
@@ -31,17 +31,17 @@ CADE (Combined Arms Decision Exercise) is a structured staff decision exercise b
 
 ### The Problem It Solves
 
-Leaders in training events typically see activity: meetings, briefings, products, discussion. What they cannot easily observe is the quality of thinking behind a recommendation. CADE was built to make staff reasoning visible without needing JCATS, DXTRS, or comparable simulation infrastructure — tools that are expensive, require specialist operators, and carry long setup lead times.
+Leaders in training events typically see activity: meetings, briefings, products, discussion. What they can't easily observe is the quality of thinking behind a recommendation. CADE was built to surface that reasoning without requiring JCATS, DXTRS, or comparable simulation infrastructure — tools that are expensive, need specialist operators, and carry long setup lead times.
 
 ### What Was Built
 
-A repeatable controller-facing exercise system consisting of:
+Five components make up the exercise system:
 
-- **Turn engine** — fixed decision rhythm with five phases per turn: Situation, Clarification, Deliberation, Decision, Brief to Commander, Adjudication.
-- **Source-governed scenario package** — OPORD-quality source material that constrains every downstream exercise artifact.
-- **Adjudication model** — observable staff behavior mapped to outcome bands so consequences are consistent without removing controller judgment.
-- **Controller Package** — five documents giving controllers the prompts, timing, role aids, adjudication triggers, and review structure needed to run the event independently.
-- **Learning capture layer** — structured AAR process tied to each turn, preserving reasoning and coordination gaps before the next cycle.
+- **Turn engine** — a fixed five-phase rhythm per turn: Situation, Clarification, Deliberation, Decision, Brief to Commander, Adjudication.
+- **Scenario package** — OPORD-quality source material that constrains every downstream artifact. Every prompt and trigger traces back to the same approved document.
+- **Adjudication model** — observable staff behaviors mapped to outcome bands. Consequences stay consistent without removing controller judgment.
+- **Controller Package** — five documents covering everything a controller needs to run the exercise independently: prompts, timing, role aids, adjudication triggers, and a review structure.
+- **AAR layer** — a structured after-action process tied to each turn, capturing reasoning and coordination gaps before the next cycle.
 
 ### Proof It Works
 
@@ -54,7 +54,7 @@ A repeatable controller-facing exercise system consisting of:
 | Controller Package documents               | 5      |
 | Simulation infrastructure required         | None   |
 
-**Validation criteria confirmed across all three executions:**
+**All four validation criteria held across all three executions:**
 
 - Staff operated inside the framework without designer support during turns.
 - Controllers executed with delivered artifacts.
@@ -71,22 +71,24 @@ A repeatable controller-facing exercise system consisting of:
 
 ### What This Is NOT
 
-- CADE is not a universal simulation replacement. It is designed for staff decision practice where the primary training objective is decision behavior under pressure, not platform integration or full-spectrum simulation.
-- CADE did not design itself. AI generated drafts inside constraints TJ set. The training problem, source truth, acceptance criteria, and evidence-based changes were all human decisions.
-- CADE is not a finished commercial product seeking adoption. It is a governed production proof-of-concept with active iteration.
+CADE is purpose-built for decision behavior under pressure — not a universal simulation replacement, and not a competitor to full-spectrum simulation. If the training objective is platform proficiency or full-spectrum integration, it's the wrong tool.
+
+AI didn't design CADE. It generated drafts inside constraints TJ set. The training problem, source truth, acceptance criteria, and every change made after execution were human decisions.
+
+CADE isn't a finished commercial product. It's a proof-of-concept with active iteration.
 
 ### Positioning Rules
 
 - AI is a production engine, not the designer. TJ held design authority throughout.
 - Tie all claims to execution evidence — don't overclaim from design intent alone.
 - Avoid sensitive operational detail; use generalized descriptions of scenario content.
-- CADE is a practical fit-for-purpose framework, not a universal model for all training contexts.
+- CADE is a fit-for-purpose framework, not a universal model for all training contexts.
 
 ---
 
 ## Part 2 — Interview Kit
 
-Questions follow a natural narrative arc: origin → build → evidence → AI role → lessons → next. Use answers as direct quotes with attribution, or paraphrase. Do not attribute claims not present here.
+These questions follow the story arc: origin → build → evidence → AI role → lessons → next. Use answers as direct quotes with attribution ("TJ Taijeron, creator of CADE") or paraphrase. Don't attribute claims beyond what's in Part 1.
 
 ---
 
@@ -98,13 +100,13 @@ Questions follow a natural narrative arc: origin → build → evidence → AI r
 
 **Q: Who is it for?**
 
-> Controllers and trainers running staff exercises where the objective is decision quality, not platform proficiency. If you need to see how a staff coordinates under time pressure, how they brief a commander, and how they absorb consequences from earlier decisions — CADE gives you a repeatable structure to observe and capture that. It's designed to work even when you don't have heavy simulation infrastructure or a lot of preparation time.
+> Controllers and trainers running staff exercises where the objective is decision quality, not platform proficiency. If you need to see how a staff coordinates under time pressure, how they brief a commander, and how they absorb consequences from earlier decisions — CADE gives you a repeatable structure to observe and capture that. It works even when you don't have heavy simulation infrastructure or a lot of preparation time.
 
 ---
 
 **Q: Walk me through how it actually works.**
 
-> Each turn follows five phases. The staff gets a situation update — operational context and a decision that needs to be made. They have a window to clarify essential uncertainty. Then deliberation: a time-boxed coordination period where cross-functional staff elements have to work through tradeoffs. At the end, they commit to a decision and brief it to the commander. The controller adjudicates based on observable behavior — not gut feel — and the consequences carry forward into the next turn. After each turn, there's a structured review to capture the reasoning before the staff moves on.
+> Each turn follows five phases. The staff gets a situation update — operational context and a decision that needs to be made. They have a window to clarify essential uncertainty. Then deliberation: a time-boxed coordination period where cross-functional staff elements work through tradeoffs. At the end, they commit to a decision and brief it to the commander. The controller adjudicates based on observable behavior — not gut feel — and the consequences carry forward into the next turn. After each turn, there's a structured review to capture the reasoning before the staff moves on.
 
 ---
 
@@ -154,6 +156,6 @@ Questions follow a natural narrative arc: origin → build → evidence → AI r
 
 - Part 1 is for factual reference — ground your piece here, not in secondary sources.
 - Part 2 answers are in TJ's voice — quote with attribution ("TJ Taijeron, creator of CADE") or paraphrase.
-- Do not attribute execution claims beyond what is listed in the Proof section.
+- Don't attribute execution claims beyond what's in the Proof section.
 - For follow-up questions or additional detail: vincent.taijeron@gmail.com
 - Site: https://www.nextgenwargame.com/projects/cade

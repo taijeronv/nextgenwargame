@@ -62,10 +62,10 @@ export const pagesConfig = {
    * Projects listing page (/projects)
    */
   projects: {
-    title: 'Projects',
-    description: 'AI gaming and AI-assisted training design projects, with CADE as the capstone case study.',
-    heading: 'Projects',
-    intro: 'CADE is the capstone project, but the portfolio also tracks the surrounding generators, controller aids, and production workflows that make the broader NextGen Wargame approach work.',
+    title: 'Systems',
+    description: 'CADE and its supporting production systems: governed source material, decision training, controller delivery, and execution evidence.',
+    heading: 'Systems',
+    intro: 'CADE is the capstone training system. Orders Production and the Controller Package Generator provide its governed source and runtime delivery layers.',
   },
   
   /**

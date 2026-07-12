@@ -24,6 +24,9 @@ interface Props {
   
   /** Array of decision slugs to display */
   relatedDecisions?: string[];
+
+  /** Current project slug used for its consolidated decision-record route */
+  currentProjectSlug?: string;
   
   /** Section title (default: "Related") */
   title?: string;
@@ -32,6 +35,7 @@ interface Props {
 const { 
   relatedProjects = [], 
   relatedDecisions = [],
+  currentProjectSlug,
   title = "Related"
 } = Astro.props;
 
@@ -100,7 +104,7 @@ function formatDate(date: Date): string {
           <ul class="related-list">
             {decisions.map((decision) => (
               <li>
-                <a href={`/decisions/${decision.id}`} class="related-item">
+                <a href={currentProjectSlug ? `/projects/${currentProjectSlug}/decisions` : '/projects'} class="related-item">
                   <span class="related-item-meta">{formatDate(decision.data.date)}</span>
                   <span class="related-item-title">{decision.data.title}</span>
                 </a>

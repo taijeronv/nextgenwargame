@@ -30,7 +30,7 @@
 import { siteConfig } from '../config';
 
 interface Props {
-  /** Page title (will be suffixed with author name unless noSuffix is true) */
+  /** Page title (will be suffixed with site name unless noSuffix is true) */
   title: string;
   
   /** Page description for meta tags */
@@ -59,7 +59,7 @@ const {
   title,
   description = siteConfig.description,
   type = 'website',
-  image,
+  image = siteConfig.ogImage,
   publishDate,
   updatedDate,
   canonicalURL,
@@ -67,7 +67,7 @@ const {
 } = Astro.props;
 
 // Generate full title with site name suffix (unless noSuffix is true)
-const fullTitle = noSuffix ? title : (title ? `${title} | ${siteConfig.author.name}` : siteConfig.title);
+const fullTitle = noSuffix ? title : (title ? `${title} | ${siteConfig.title}` : siteConfig.title);
 
 // Get the current URL from Astro
 const currentURL = canonicalURL || Astro.url.href;
@@ -75,12 +75,10 @@ const currentURL = canonicalURL || Astro.url.href;
 // Get site URL from config
 const siteURL = siteConfig.url.endsWith('/') ? siteConfig.url : `${siteConfig.url}/`;
 
-// Default image if none provided
-const defaultImage = `${siteURL}og-image.png`;
-const ogImage = image || defaultImage;
-
-// Ensure image is absolute URL
-const absoluteImageURL = ogImage.startsWith('http') ? ogImage : `${siteURL}${ogImage.replace(/^\//, '')}`;
+// Only emit social-image metadata when a verified image is provided.
+const absoluteImageURL = image
+  ? (image.startsWith('http') ? image : `${siteURL}${image.replace(/^\//, '')}`)
+  : undefined;
 
 // Get Twitter handle from config (extract username from URL)
 const twitterUrl = siteConfig.social.twitter as string;
@@ -106,7 +104,7 @@ const twitterHandle = twitterUrl
 <meta property="og:url" content={currentURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={absoluteImageURL} />
+{absoluteImageURL && <meta property="og:image" content={absoluteImageURL} />}
 <meta property="og:site_name" content={siteConfig.title} />
 
 <!-- Article-specific Open Graph tags -->
@@ -120,10 +118,10 @@ const twitterHandle = twitterUrl
 )}
 
 <!-- Twitter Card Tags -->
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={absoluteImageURL ? 'summary_large_image' : 'summary'} />
 <meta name="twitter:url" content={currentURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={absoluteImageURL} />
+{absoluteImageURL && <meta name="twitter:image" content={absoluteImageURL} />}
 {twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
 {twitterHandle && <meta name="twitter:creator" content={twitterHandle} />}

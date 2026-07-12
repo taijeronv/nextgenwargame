@@ -1,5 +1,7 @@
 ---
 title: "Controller Package Generator"
+heroImage: "../../assets/controller-package-header.png"
+heroImageAlt: "Controller package documents laid out in sequence on a folding table — timing sheet, role aids, prompt sheets, review worksheet, and playbook — with stopwatch and radio nearby"
 role: "AI Planning Workflow Designer"
 year: 2026
 duration: "Core production pipeline"

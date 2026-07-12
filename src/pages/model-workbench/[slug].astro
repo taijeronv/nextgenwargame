@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEO from '../../components/SEO.astro';
+import StructuredData from '../../components/StructuredData.astro';
+import BackLink from '../../components/BackLink.astro';
+import ForwardLink from '../../components/ForwardLink.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() { const notes = await getCollection('workbenchNotes'); return notes.map((note) => ({ params: { slug: note.id } })); }
+const { slug } = Astro.params;
+const note = await getEntry('workbenchNotes', slug!);
+if (!note) return Astro.redirect('/404');
+const { Content } = await render(note);
+const allNotes = (await getCollection('workbenchNotes')).sort((a, b) => a.data.order - b.data.order);
+const currentIndex = allNotes.findIndex((entry) => entry.id === note.id);
+const nextNote = allNotes[currentIndex + 1] ?? allNotes[0];
+---
+
+<BaseLayout>
+  <SEO slot="head" title={note.data.title} description={note.data.description} type="article" publishDate={note.data.date} />
+  <StructuredData type="Article" data={{ title: note.data.title, description: note.data.description, publishDate: note.data.date, tags: note.data.tags }} />
+  <main class="workbench-note">
+    <aside class="note-nav"><p>AI Workbench</p><ol>{allNotes.map((entry, index) => <li><a href={`/model-workbench/${entry.id}`} aria-current={entry.id === note.id ? 'page' : undefined}><span>{String(index + 1).padStart(2, '0')}</span>{entry.data.title}</a></li>)}</ol></aside>
+    <article><header class="note-header"><p class="eyebrow">AI Workbench</p><h1>{note.data.title}</h1><div class="tags">{note.data.tags?.map((tag) => <span>{tag}</span>)}</div><p class="description">{note.data.description}</p></header><div class="note-content"><Content /></div><footer class="note-footer"><ForwardLink href={`/model-workbench/${nextNote.id}`} text={`Next: ${nextNote.data.title}`} /><BackLink href="/model-workbench" text="All Workbench notes" /></footer></article>
+  </main>
+  <style>
+    .workbench-note { display: grid; grid-template-columns: minmax(220px, 0.38fr) minmax(0, 780px); gap: clamp(2.5rem, 7vw, 6rem); max-width: 1180px; margin: 0 auto; padding: clamp(3rem, 7vw, 6rem) 1.5rem; align-items: start; } .note-nav { position: sticky; top: 7rem; } .note-nav > p, .eyebrow { color: var(--color-accent); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; } .note-nav ol { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; } .note-nav li { margin: 0; } .note-nav a { display: grid; grid-template-columns: 32px 1fr; gap: 0.5rem; color: var(--color-text-secondary); padding: 0.7rem; border-bottom: 1px solid var(--color-border-subtle); font-size: 0.78rem; line-height: 1.35; } .note-nav a[aria-current='page'], .note-nav a:hover { color: var(--color-text); background: var(--color-bg-elevated); } .note-nav span { color: var(--color-text-muted); font-weight: 800; }
+    .note-header { padding-bottom: 2.5rem; margin-bottom: 3rem; border-bottom: 1px solid var(--color-border); } .note-header h1 { font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.92; letter-spacing: -0.06em; margin: 1rem 0 1.5rem; } .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; } .tags span { border: 1px solid var(--color-border); border-radius: 999px; padding: 0.25rem 0.6rem; color: var(--color-text-muted); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; } .description { font-size: 1.2rem; } .note-content { font-size: 1.08rem; line-height: 1.8; } .note-content :global(p) { margin-bottom: 1.2rem; } .note-content :global(h2) { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-top: 3rem; letter-spacing: -0.035em; } .note-content :global(blockquote) { border-left-color: var(--color-highlight); background: var(--color-bg-elevated); } .note-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); }
+    @media (max-width: 900px) { .workbench-note { display: block; max-width: 780px; padding-inline: 1rem; } .note-nav { position: static; margin-bottom: 2rem; max-height: 260px; overflow: auto; border: 1px solid var(--color-border); border-radius: 1.25rem; padding: 1rem; background: var(--color-bg-elevated); } }
+  </style>
+</BaseLayout>
