@@ -26,6 +26,7 @@ export const siteConfig = {
     { label: 'Field Notes', href: '/field-notes' },
     { label: 'Workbench', href: '/model-workbench' },
     { label: 'About', href: '/about' },
+    { label: 'CADE App', href: 'https://app.nextgenwargame.com' },
   ],
 } as const;
 

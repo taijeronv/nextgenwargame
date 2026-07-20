@@ -3,6 +3,7 @@ import { siteConfig } from '../config';
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+const isExternal = (href: string) => href.startsWith('https://') || href.startsWith('http://');
 ---
 
 <header class="site-header" id="top">
@@ -21,8 +22,11 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
           href={item.href}
           class:list={['nav-link', { 'nav-link--active': isActive(item.href) }]}
           aria-current={isActive(item.href) ? 'page' : undefined}
+          aria-label={isExternal(item.href) ? `${item.label} (opens in a new tab)` : undefined}
+          target={isExternal(item.href) ? '_blank' : undefined}
+          rel={isExternal(item.href) ? 'noopener noreferrer' : undefined}
         >
-          {item.label}
+          {item.label}{isExternal(item.href) && <span aria-hidden="true"> ↗</span>}
         </a>
       ))}
     </nav>
@@ -39,7 +43,15 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
     {siteConfig.nav.map((item) => (
-      <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+      <a
+        href={item.href}
+        aria-current={isActive(item.href) ? 'page' : undefined}
+        aria-label={isExternal(item.href) ? `${item.label} (opens in a new tab)` : undefined}
+        target={isExternal(item.href) ? '_blank' : undefined}
+        rel={isExternal(item.href) ? 'noopener noreferrer' : undefined}
+      >
+        {item.label}{isExternal(item.href) && <span aria-hidden="true"> ↗</span>}
+      </a>
     ))}
     <a href={`mailto:${siteConfig.author.email}?subject=Military training or exercise problem`}>Discuss a problem</a>
   </nav>
@@ -110,7 +122,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
   .brand-copy strong { font-size: 0.9rem; letter-spacing: -0.01em; }
   .brand-copy small { color: var(--color-text-muted); font-size: 0.68rem; letter-spacing: 0.04em; }
 
-  .desktop-nav { display: flex; align-items: center; gap: 2rem; }
+  .desktop-nav { display: flex; align-items: center; gap: clamp(1rem, 2vw, 2rem); }
   .nav-link { color: var(--color-text-secondary); font-size: 0.9rem; font-weight: 600; }
   .nav-link:hover, .nav-link--active { color: var(--color-text); }
   .nav-link--active { text-decoration: underline; text-decoration-color: var(--color-highlight); text-underline-offset: 0.5rem; }
