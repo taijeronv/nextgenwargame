@@ -10,7 +10,7 @@ export const siteConfig = {
     title: 'AI Operator / AI Integrator',
     bio:
       'I use AI carefully to build practical training and planning products that people can actually run.',
-    email: 'vincent.taijeron@gmail.com',
+    email: 'vincent.r.taijeron@gmail.com',
     url: 'https://taijeronv.info',
     location: '',
   },
