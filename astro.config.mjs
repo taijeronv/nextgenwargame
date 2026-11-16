@@ -39,7 +39,10 @@ const dropUnusedImageOriginals = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.nextgenwargame.com',
-  integrations: [mdx(), sitemap(), dropUnusedImageOriginals],
+  integrations: [mdx(), sitemap({
+      // Legal pages are noindex (they contain the operator's address), so keep them out of the sitemap.
+      filter: (page) => !/\/(impressum|datenschutz)\/?$/.test(page),
+    }), dropUnusedImageOriginals],
   vite: {
     plugins: [tailwindcss()],
     // Emit every script as a file instead of inlining it, so the

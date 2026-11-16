@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+import { Content } from '../legal/datenschutz.md';
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title="Datenschutzerklärung (Privacy Policy)"
+    description="Privacy policy (Datenschutzerklärung) for nextgenwargame.com: hosting, server logs, no cookies or tracking, email contact, and your GDPR rights."
+    type="website"
+  />
+  <meta slot="head" name="robots" content="noindex" />
+
+  <main class="legal-page container">
+    <article class="prose legal-text">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .legal-text :global(h2) {
+    margin-top: 2.5rem;
+  }
+
+  .legal-text :global(a) {
+    overflow-wrap: anywhere;
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+import { Content } from '../legal/impressum.md';
+---
+
+<BaseLayout>
+  <SEO
+    slot="head"
+    title="Impressum"
+    description="Legal notice (Impressum) for nextgenwargame.com: site operator, contact, and person responsible for content."
+    type="website"
+  />
+  <meta slot="head" name="robots" content="noindex" />
+
+  <main class="legal-page container">
+    <article class="prose legal-text">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .legal-text :global(h2) {
+    margin-top: 2.5rem;
+  }
+
+  .legal-text :global(a) {
+    overflow-wrap: anywhere;
+  }
+</style>
