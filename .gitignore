@@ -5,3 +5,7 @@ dist/
 .env.*
 .dashboard-notes.md
 taijeronv_info/
+
+# Local file exchange (see CLAUDE.md)
+incoming/
+outgoing/
