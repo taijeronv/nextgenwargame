@@ -107,13 +107,12 @@ const {
   status,
 } = project.data;
 
-function skillColor(name: string): string {
-  const colors: Record<string, string> = {
-    'opord-writer': '#3b82f6',
-    'red-team': '#ef4444',
-    'order-release': '#22c55e',
-  };
-  return colors[name] ?? 'var(--color-accent)';
+// Skill-card border colours live in CSS classes (see .skill-card--* below) so the page
+// needs no style attributes and the CSP can forbid inline styles. Unknown skills fall
+// back to the accent colour set on .skill-card.
+function skillClass(name: string): string {
+  const known = ['opord-writer', 'red-team', 'order-release'];
+  return known.includes(name) ? `skill-card--${name}` : '';
 }
 
 // Status display configuration
@@ -351,7 +350,7 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
 
           {pipelineSkills.map((skill, index) => (
             <>
-              <div class="skill-card" style={`border-left-color: ${skillColor(skill.name)}`}>
+              <div class:list={['skill-card', skillClass(skill.name)]}>
                 <div class="skill-card__left">
                   <span class="skill-stage">{skill.stage}</span>
                   <h3 class="skill-name">{skill.name}</h3>
@@ -1169,10 +1168,15 @@ const readingTime = formatReadingTime(calculateReadingTime(allText));
       padding: 1.5rem 1.5rem 1.5rem 1.75rem;
       border: 1px solid var(--color-border);
       border-left-width: 4px;
+      border-left-color: var(--color-accent);
       border-radius: 14px;
       background: var(--color-bg-secondary);
       align-items: start;
     }
+
+    .skill-card--opord-writer { border-left-color: #3b82f6; }
+    .skill-card--red-team { border-left-color: #ef4444; }
+    .skill-card--order-release { border-left-color: #22c55e; }
 
     .skill-stage {
       display: inline-block;
