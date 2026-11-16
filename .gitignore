@@ -9,3 +9,10 @@ taijeronv_info/
 # Local file exchange (see CLAUDE.md)
 incoming/
 outgoing/
+
+# OS and tool clutter
+.DS_Store
+.superpowers/
+
+# Local session recovery log (kept out of the public repo)
+QMD.md
